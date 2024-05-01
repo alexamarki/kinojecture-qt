@@ -16,3 +16,8 @@
 8. Once you open github, it will most likely ask you to create a pull request. From there, that PR can be linked to an issue from GitHub Projects and then that PR may be accepted.
 9. Once the PR is accepted, and every update is merged, you're good to go and work on another feature.
 10. Once the completed features in "development" are substantial enough for a release in "main", steps 6 and 7 may be repeated for main instead of development. This, however, requires the agreement of the whole team.
+
+##### FYI the branch structure in our case is:
+##### main ---------------------------------------
+##### ..........\\_development__________________________
+##### ................\\_feature1__...  \\___feature2___...
