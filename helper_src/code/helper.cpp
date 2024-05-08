@@ -221,4 +221,36 @@ int main() {
     gameData_db.sql_exec(populate_people, NULL, NULL);
     gameData_db.sql_exec(media_w_ratings, NULL, NULL);
     gameData_db.sql_exec(populate_movies, NULL, NULL);
+    std::string easy_profs_population = "INSERT INTO peopleToMovies (relationship, character,"
+                                        " tconst, nconst) SELECT category, characters, tconst, "
+                                        "nconst FROM og_db.profs;";
+    std::string name_population = "INSERT INTO peopleToMovies (relationship, character, tconst, nconst) "
+                                    "VALUES ('knownFor', NULL, (SELECT tconst, nconst "
+                                    "FROM og_db.name "
+                                    "CROSS JOIN ("
+                                        "SELECT SUBSTR(knownForTitles, start, end - start) AS tconst "
+                                        "FROM ("
+                                            "SELECT knownForTitles, start, INSTR(knownForTitles || ',', ',', start) AS end "
+                                            "FROM ("
+                                                "SELECT knownForTitles, 1 AS start "
+                                                "FROM og_db.name "
+                                                "WHERE knownForTitles IS NOT NULL "
+                                            ")"
+                                            "UNION ALL "
+                                            "SELECT knownForTitles, end + 1 AS start "
+                                            "FROM ("
+                                                "SELECT knownForTitles, INSTR(knownForTitles || ',', ',', start + 1) AS end "
+                                                "FROM og_db.name "
+                                                "JOIN ("
+                                                    "SELECT 1 AS start "
+                                                    "UNION ALL "
+                                                    "SELECT 2 AS start"
+                                                ")"
+                                            ") "
+                                            "WHERE end > 0"
+                                        ") "
+                                        "WHERE end > 0"
+                                    ")));";
+    gameData_db.sql_exec(easy_profs_population, NULL, NULL);
+    // gameData_db.sql_exec(name_population, NULL, NULL);
 }
