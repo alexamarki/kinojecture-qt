@@ -162,11 +162,63 @@ int main() {
     // inputFile6.close();
     // outputFile6.close();
     // Step 2: initiating DB
-    HelperDB helper_db;
-    helper_db.createTables();
-    helper_db.add_file_data("../helper_src/data/title.ratings_2.tsv", "ratings");
-    helper_db.add_file_data("../helper_src/data/name.basics_2.tsv", "name");
-    helper_db.add_file_data("../helper_src/data/title.basics_2.tsv", "media");
-    helper_db.add_file_data("../helper_src/data/title.principals_3.tsv", "profs");
-    helper_db.add_file_data("../helper_src/data/title.crew_2.tsv", "directors");
+    // HelperDB helper_db;
+    // helper_db.createTables();
+    // helper_db.add_file_data("../helper_src/data/title.ratings_2.tsv", "ratings");
+    // helper_db.add_file_data("../helper_src/data/name.basics_2.tsv", "name");
+    // helper_db.add_file_data("../helper_src/data/title.basics_2.tsv", "media");
+    // helper_db.add_file_data("../helper_src/data/title.principals_3.tsv", "profs");
+    // helper_db.add_file_data("../helper_src/data/title.crew_2.tsv", "directors");
+    HelperDB gameData_db("../data/other.db");
+    std::string create_people = "CREATE TABLE IF NOT EXISTS people("
+                                "nconst TEXT PRIMARY KEY,"
+                                "primaryName TEXT,"
+                                "birthYear INT,"
+                                "deathYear INT,"
+                                "job TEXT"
+                                ");";
+    std::string create_movies = "CREATE TABLE IF NOT EXISTS movies("
+                                "tconst TEXT PRIMARY KEY,"
+                                "titleType TEXT,"
+                                "primaryTitle TEXT,"
+                                "genres TEXT,"
+                                "startYear INT,"
+                                "endYear INT,"
+                                "runtimeMinutes INT,"
+                                "averageRating REAL,"
+                                "isAdult BOOL"
+                                ");";
+    std::string create_peopletomovies = "CREATE TABLE IF NOT EXISTS peopleToMovies("
+                                        "id INT PRIMARY KEY,"
+                                        "relationship TEXT,"
+                                        "character TEXT,"
+                                        "tconst TEXT,"
+                                        "nconst TEXT,"
+                                        "FOREIGN KEY(tconst) REFERENCES Movies(tconst),"
+                                        "FOREIGN KEY(nconst) REFERENCES People(nconst)"
+                                        ");";
+    gameData_db.sql_exec(create_people, NULL, NULL);
+    gameData_db.sql_exec(create_movies, NULL, NULL);
+    gameData_db.sql_exec(create_peopletomovies, NULL, NULL);
+    std::string connect_to_og = "ATTACH DATABASE '../data/im.db' AS og_db;";
+    gameData_db.sql_exec(connect_to_og, NULL, NULL);
+    std::string populate_people = "INSERT INTO people (nconst, primaryName,"
+                                    " birthYear, deathYear, job) SELECT nconst, "
+                                    "primaryName, birthYear, deathYear, "
+                                    "primaryProfession FROM og_db.name;";
+    std::string media_w_ratings = "CREATE TEMP TABLE temp_media AS SELECT "
+                                    "m.tconst, m.titleType, m.primaryTitle, "
+                                    "m.genres, m.startYear, m.endYear, "
+                                    "m.runtimeMinutes, r.averageRating, m.isAdult "
+                                    "FROM og_db.media m "
+                                    "JOIN og_db.ratings r ON m.tconst = r.tconst;";
+    std::string populate_movies = "INSERT INTO movies (tconst, titleType, "
+                                    "primaryTitle, genres, startYear, endYear, "
+                                    "runtimeMinutes, averageRating, isAdult) "
+                                    "SELECT tconst, titleType, primaryTitle, genres, "
+                                    "startYear, endYear, runtimeMinutes, averageRating, "
+                                    "isAdult FROM temp_media;";
+    gameData_db.sql_exec(populate_people, NULL, NULL);
+    gameData_db.sql_exec(media_w_ratings, NULL, NULL);
+    gameData_db.sql_exec(populate_movies, NULL, NULL);
 }

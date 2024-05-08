@@ -13,6 +13,7 @@ classDiagram
         +String tconst
         +String titleType
         +String primaryTitle
+        +String genres
         +int startYear
         +int endYear
         +int runtimeMinutes
@@ -22,6 +23,7 @@ classDiagram
     class PeopleToMovies {
         +int id
         +String relationship (i.e. directors or knownFor)
+        +String character (if they're an actor)
         +String tconst
         +String nconst
     }
@@ -31,6 +33,5 @@ classDiagram
         +int birthYear
         +int deathYear
         +String job
-        +String characters
     }
 ```
