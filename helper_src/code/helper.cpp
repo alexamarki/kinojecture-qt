@@ -169,13 +169,14 @@ int main() {
     // helper_db.add_file_data("../helper_src/data/title.basics_2.tsv", "media");
     // helper_db.add_file_data("../helper_src/data/title.principals_3.tsv", "profs");
     // helper_db.add_file_data("../helper_src/data/title.crew_2.tsv", "directors");
-    HelperDB gameData_db("../data/other.db");
+    HelperDB gameData_db("../data/game.db");
     std::string create_people = "CREATE TABLE IF NOT EXISTS people("
                                 "nconst TEXT PRIMARY KEY,"
                                 "primaryName TEXT,"
                                 "birthYear INT,"
                                 "deathYear INT,"
-                                "job TEXT"
+                                "job TEXT,"
+                                "knownFor TEXT"
                                 ");";
     std::string create_movies = "CREATE TABLE IF NOT EXISTS movies("
                                 "tconst TEXT PRIMARY KEY,"
@@ -203,9 +204,9 @@ int main() {
     std::string connect_to_og = "ATTACH DATABASE '../data/im.db' AS og_db;";
     gameData_db.sql_exec(connect_to_og, NULL, NULL);
     std::string populate_people = "INSERT INTO people (nconst, primaryName,"
-                                    " birthYear, deathYear, job) SELECT nconst, "
+                                    " birthYear, deathYear, job, knownFor) SELECT nconst, "
                                     "primaryName, birthYear, deathYear, "
-                                    "primaryProfession FROM og_db.name;";
+                                    "primaryProfession, knownForTitles FROM og_db.name;";
     std::string media_w_ratings = "CREATE TEMP TABLE temp_media AS SELECT "
                                     "m.tconst, m.titleType, m.primaryTitle, "
                                     "m.genres, m.startYear, m.endYear, "
@@ -224,33 +225,5 @@ int main() {
     std::string easy_profs_population = "INSERT INTO peopleToMovies (relationship, character,"
                                         " tconst, nconst) SELECT category, characters, tconst, "
                                         "nconst FROM og_db.profs;";
-    std::string name_population = "INSERT INTO peopleToMovies (relationship, character, tconst, nconst) "
-                                    "VALUES ('knownFor', NULL, (SELECT tconst, nconst "
-                                    "FROM og_db.name "
-                                    "CROSS JOIN ("
-                                        "SELECT SUBSTR(knownForTitles, start, end - start) AS tconst "
-                                        "FROM ("
-                                            "SELECT knownForTitles, start, INSTR(knownForTitles || ',', ',', start) AS end "
-                                            "FROM ("
-                                                "SELECT knownForTitles, 1 AS start "
-                                                "FROM og_db.name "
-                                                "WHERE knownForTitles IS NOT NULL "
-                                            ")"
-                                            "UNION ALL "
-                                            "SELECT knownForTitles, end + 1 AS start "
-                                            "FROM ("
-                                                "SELECT knownForTitles, INSTR(knownForTitles || ',', ',', start + 1) AS end "
-                                                "FROM og_db.name "
-                                                "JOIN ("
-                                                    "SELECT 1 AS start "
-                                                    "UNION ALL "
-                                                    "SELECT 2 AS start"
-                                                ")"
-                                            ") "
-                                            "WHERE end > 0"
-                                        ") "
-                                        "WHERE end > 0"
-                                    ")));";
     gameData_db.sql_exec(easy_profs_population, NULL, NULL);
-    // gameData_db.sql_exec(name_population, NULL, NULL);
 }
