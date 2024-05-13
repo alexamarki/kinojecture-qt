@@ -186,8 +186,7 @@ int main() {
                                 "startYear INT,"
                                 "endYear INT,"
                                 "runtimeMinutes INT,"
-                                "averageRating REAL,"
-                                "isAdult BOOL"
+                                "averageRating REAL"
                                 ");";
     std::string create_peopletomovies = "CREATE TABLE IF NOT EXISTS peopleToMovies("
                                         "id INT PRIMARY KEY,"
@@ -210,20 +209,20 @@ int main() {
     std::string media_w_ratings = "CREATE TEMP TABLE temp_media AS SELECT "
                                     "m.tconst, m.titleType, m.primaryTitle, "
                                     "m.genres, m.startYear, m.endYear, "
-                                    "m.runtimeMinutes, r.averageRating, m.isAdult "
+                                    "m.runtimeMinutes, r.averageRating "
                                     "FROM og_db.media m "
                                     "JOIN og_db.ratings r ON m.tconst = r.tconst;";
     std::string populate_movies = "INSERT INTO movies (tconst, titleType, "
                                     "primaryTitle, genres, startYear, endYear, "
-                                    "runtimeMinutes, averageRating, isAdult) "
+                                    "runtimeMinutes, averageRating) "
                                     "SELECT tconst, titleType, primaryTitle, genres, "
-                                    "startYear, endYear, runtimeMinutes, averageRating, "
-                                    "isAdult FROM temp_media;";
+                                    "startYear, endYear, runtimeMinutes, averageRating "
+                                    "FROM temp_media;";
     gameData_db.sql_exec(populate_people, NULL, NULL);
     gameData_db.sql_exec(media_w_ratings, NULL, NULL);
     gameData_db.sql_exec(populate_movies, NULL, NULL);
-    std::string easy_profs_population = "INSERT INTO peopleToMovies (relationship, character,"
-                                        " tconst, nconst) SELECT category, characters, tconst, "
+    std::string easy_profs_population = "INSERT INTO peopleToMovies (relationship, character, "
+                                        "tconst, nconst) SELECT category, characters, tconst, "
                                         "nconst FROM og_db.profs;";
     gameData_db.sql_exec(easy_profs_population, NULL, NULL);
 }
