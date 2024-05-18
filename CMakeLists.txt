@@ -16,8 +16,10 @@ target_include_directories(sqlite3 PUBLIC ${SQLITE})
 
 add_executable(main main.cpp)
 add_executable(helper helper_src/code/helper.cpp helper_src/code/helper.h)
+add_executable(leaderboard db_code/leaderboard.cpp db_code/leaderboard.h)
 
 target_link_libraries(helper PRIVATE sqlite3)
+target_link_libraries(leaderboard PRIVATE sqlite3)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
