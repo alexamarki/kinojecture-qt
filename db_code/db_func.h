@@ -51,22 +51,11 @@ public:
     {
         sqlite3_close(db);
     }
-
     void createTables(std::vector<std::string> creation_queries) 
     {
         char* creationError;
         for (auto query : creation_queries)
             exit = sqlite3_exec(this->db, query.c_str(), NULL, NULL, &creationError);
-    }
-
-    void sortTables() 
-    {
-        // TODO: implement sorting by a function passed as a variable (?)
-    }
-
-    void filterTables()
-    {
-        // TODO: implement filtering by a function passed as a variable (?)
     }
 protected:
     sqlite3* db;
@@ -75,8 +64,10 @@ protected:
 
 class CinemaDB : BasicDB
 {
-    // TODO: implement various sorting functions
-    // TODO: implement various filtering functions
+    std::string query_builder_base(std::vector<std::string> ) 
+    {
+
+    }
 };
 
 class LeaderboardDB : BasicDB
