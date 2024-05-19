@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>824</width>
+    <height>640</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QStackedWidget" name="stackedWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>70</y>
+     <width>781</width>
+     <height>551</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>4</number>
+   </property>
+   <widget class="QWidget" name="Kinojecture">
+    <widget class="QPushButton" name="start_button">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>50</y>
+       <width>111</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Start a game</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="connect_button">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>80</y>
+       <width>111</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Connect to a game</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="leaderboard_button">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>110</y>
+       <width>111</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Leaderboard</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="settings_button">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>140</y>
+       <width>111</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Settings</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="credits_button">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>170</y>
+       <width>111</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Credits</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="NewGame">
+    <widget class="QTextEdit" name="choose_text">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>20</y>
+       <width>201</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="html">
+      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Choose a gamemode&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="movie_mode_button">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>90</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Movies</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="directors_mode_button">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>130</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Directors</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="actors_mode_button">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>170</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Actors</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="composers_mode_button">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>210</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Composers</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="Movies">
+    <widget class="QComboBox" name="choose_genre">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>30</y>
+       <width>121</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>Some genre</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Other genre</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QPushButton" name="show_table_button">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>80</y>
+       <width>121</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Show the table</string>
+     </property>
+    </widget>
+    <widget class="QTableWidget" name="movies_table">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>141</y>
+       <width>781</width>
+       <height>401</height>
+      </rect>
+     </property>
+     <row>
+      <property name="text">
+       <string>New Row</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>3</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>4</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>6</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>7</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>8</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>9</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>10</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>12</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>13</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>12</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>15</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>New Row</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>16</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>18</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>18</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>19</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>21</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>New Row</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>22</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>23</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>25</string>
+      </property>
+     </row>
+     <column>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>3</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>4</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>6</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>7</string>
+      </property>
+     </column>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="Leaderboard">
+    <widget class="QTextEdit" name="leaderboard_h">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>0</y>
+       <width>561</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="html">
+      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;Leaderboard&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="Settings">
+    <widget class="QTextEdit" name="settings_h">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>0</y>
+       <width>561</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="html">
+      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;Settings&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QTextBrowser" name="heading">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>10</y>
+     <width>561</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="html">
+    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;Kinojecture&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="main_button">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>10</y>
+     <width>561</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: transparent;
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
