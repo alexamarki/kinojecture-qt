@@ -1,66 +1,33 @@
 #include "leaderboard.h"
 
+#include <iostream>
+#include <sqlite3.h>
+#include <vector>
+#include <sstream>
+#include <string>
+
+
 int main() {
-    LeaderboardDB leaderboard("../data/leaderboard.db");
-    leaderboard.createTable();
+    LeaderboardDB db;
+    db.createTable();
 
-    // Adding initial data
-    leaderboard.add_player("player1", 1500); // Games default to 1
-    leaderboard.add_player("player2", 1600, 20);
-    leaderboard.add_player("player3", 1700, 30);
-    leaderboard.add_player("player1", 1500); // Duplicate player for testing
+    // Fixed UUIDs for players
+    std::string uuid1 = "123e4567-e89b-12d3-a456-426614174000";
+    std::string uuid2 = "123e4567-e89b-12d3-a456-426614174001";
 
-    // Displaying initial data
-    std::cout << "Initial data:" << std::endl;
-    for (const auto& row : leaderboard.sort_by_name()) {
-        std::cout << row << std::endl;
+    // Adding new players
+    db.add_player(uuid1, "PlayerOne", 1500, 10);
+    db.add_player(uuid2, "PlayerTwo", 1200, 5);
+
+    // Adding the same player (to update rating and games played)
+    db.add_player(uuid1, "PlayerOneUpdated", 1600, 12);
+
+    // Fetch and print the leaderboard sorted by name
+    std::vector<std::string> leaderboard = db.sort_by_name();
+    for (const auto& entry : leaderboard) {
+        std::cout << entry << std::endl;
     }
-
-    // Creating temporary database for replacement
-    LeaderboardDB temp_replace_db("../data/temp_replace.db");
-    temp_replace_db.createTable();
-    temp_replace_db.add_player("player4", 1800);
-    temp_replace_db.add_player("player5", 1900, 50);
-
-    // Replacing old data with new data
-    leaderboard.replace_player_data("../data/temp_replace.db");
-
-    // Displaying data after replacement
-    std::cout << "\nData after replace:" << std::endl;
-    for (const auto& row : leaderboard.sort_by_name()) {
-        std::cout << row << std::endl;
-    }
-
-    // Creating temporary database for merging
-    LeaderboardDB temp_merge_db("../data/temp_merge.db");
-    temp_merge_db.createTable();
-    temp_merge_db.add_player("player1", 200, 5); // Duplicate player for testing merge
-    temp_merge_db.add_player("player6", 2000, 60);
-
-    // Merging data
-    leaderboard.merge_player_data("../data/temp_merge.db");
-
-    // Displaying data after merging
-    std::cout << "\nData after merge:" << std::endl;
-    for (const auto& row : leaderboard.sort_by_name()) {
-         std::cout << row << std::endl;
-    }
-
-    // Sorting and displaying data
-    std::cout << "\nSorted by name:" << std::endl;
-    for (const auto& row : leaderboard.sort_by_name()) {
-        std::cout << row << std::endl;
-    }
-
-    std::cout << "\nSorted by games played:" << std::endl;
-    for (const auto& row : leaderboard.sort_by_games_played()) {
-        std::cout << row << std::endl;
-    }
-
-    std::cout << "\nSorted by rating:" << std::endl;
-    for (const auto& row : leaderboard.sort_by_rating()) {
-        std::cout << row << std::endl;
-    }
-
+    // Save the database to a specified path
+    db.save_database("C:/Users/shubs/Downloads/leaderboard_backup.db");
     return 0;
 }

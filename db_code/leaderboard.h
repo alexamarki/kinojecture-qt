@@ -18,12 +18,13 @@ public:
     std::vector<std::string> filter_by_prefix(const std::string& prefix);
     std::vector<std::string> filter_by_rating_greater(int min_rating);
     std::vector<std::string> filter_by_rating_less(int max_rating);
-    bool is_player_in_leaderboard(const std::string& nickname);
-    void add_player(const std::string& nickname, int rating = 0, int games_played = 1);
-    void update_player_rating(const std::string& nickname, int rating_points);
+    bool is_player_in_leaderboard(const std::string& uuid);
+    void add_player(const std::string& uuid, const std::string& nickname, int rating = 0, int games_played = 1);
+    void update_player_rating(const std::string& uuid, const std::string& nickname, int rating_points);
     std::vector<std::string> sort_by_name();
     std::vector<std::string> sort_by_games_played();
     std::vector<std::string> sort_by_rating();
+    void save_database(const std::string& filepath);
 
 private:
     sqlite3* db;
@@ -44,7 +45,8 @@ LeaderboardDB::~LeaderboardDB() {
 
 void LeaderboardDB::createTable() {
     std::string create_table_query = "CREATE TABLE IF NOT EXISTS leaderboard("
-                                     "nickname TEXT PRIMARY KEY,"
+                                     "uuid TEXT PRIMARY KEY,"
+                                     "nickname TEXT,"
                                      "rating INT,"
                                      "games_played INT);";
     sql_exec(create_table_query);
@@ -70,7 +72,7 @@ void LeaderboardDB::replace_player_data(const std::string& db_filepath) {
         return;
     }
 
-    std::string query = "SELECT nickname, rating, games_played FROM leaderboard;";
+    std::string query = "SELECT uuid, nickname, rating, games_played FROM leaderboard;";
     sqlite3_stmt* stmt;
     exit = sqlite3_prepare_v2(source_db, query.c_str(), -1, &stmt, nullptr);
     if (exit != SQLITE_OK) {
@@ -80,10 +82,11 @@ void LeaderboardDB::replace_player_data(const std::string& db_filepath) {
     }
 
     while (sqlite3_step(stmt) == SQLITE_ROW) {
-        std::string nickname = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
-        int rating = sqlite3_column_int(stmt, 1);
-        int games_played = sqlite3_column_int(stmt, 2);
-        add_player(nickname, rating, games_played);
+        std::string uuid = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+        std::string nickname = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+        int rating = sqlite3_column_int(stmt, 2);
+        int games_played = sqlite3_column_int(stmt, 3);
+        add_player(uuid, nickname, rating, games_played);
     }
 
     sqlite3_finalize(stmt);
@@ -98,7 +101,7 @@ void LeaderboardDB::merge_player_data(const std::string& db_filepath) {
         return;
     }
 
-    std::string query = "SELECT nickname, rating, games_played FROM leaderboard;";
+    std::string query = "SELECT uuid, nickname, rating, games_played FROM leaderboard;";
     sqlite3_stmt* stmt;
     exit = sqlite3_prepare_v2(source_db, query.c_str(), -1, &stmt, nullptr);
     if (exit != SQLITE_OK) {
@@ -108,17 +111,18 @@ void LeaderboardDB::merge_player_data(const std::string& db_filepath) {
     }
 
     while (sqlite3_step(stmt) == SQLITE_ROW) {
-        std::string nickname = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
-        int rating = sqlite3_column_int(stmt, 1);
-        int games_played = sqlite3_column_int(stmt, 2);
+        std::string uuid = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+        std::string nickname = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+        int rating = sqlite3_column_int(stmt, 2);
+        int games_played = sqlite3_column_int(stmt, 3);
 
-        if (is_player_in_leaderboard(nickname)) {
+        if (is_player_in_leaderboard(uuid)) {
             std::string update_query = "UPDATE leaderboard SET rating = rating + " + std::to_string(rating) + 
                                        ", games_played = games_played + " + std::to_string(games_played) +
-                                       " WHERE nickname = '" + nickname + "';";
+                                       " WHERE uuid = '" + uuid + "';";
             sql_exec(update_query);
         } else {
-            add_player(nickname, rating, games_played);
+            add_player(uuid, nickname, rating, games_played);
         }
     }
 
@@ -126,8 +130,8 @@ void LeaderboardDB::merge_player_data(const std::string& db_filepath) {
     sqlite3_close(source_db);
 }
 
-bool LeaderboardDB::is_player_in_leaderboard(const std::string& nickname) {
-    std::string query = "SELECT COUNT(*) FROM leaderboard WHERE nickname = '" + nickname + "';";
+bool LeaderboardDB::is_player_in_leaderboard(const std::string& uuid) {
+    std::string query = "SELECT COUNT(*) FROM leaderboard WHERE uuid = '" + uuid + "';";
     sqlite3_stmt* stmt;
     exit = sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr);
     if (exit != SQLITE_OK) {
@@ -142,22 +146,25 @@ bool LeaderboardDB::is_player_in_leaderboard(const std::string& nickname) {
     return count > 0;
 }
 
-void LeaderboardDB::add_player(const std::string& nickname, int rating, int games_played) {
-    if (is_player_in_leaderboard(nickname)) {
+void LeaderboardDB::add_player(const std::string& uuid, const std::string& nickname, int rating, int games_played) {
+    if (is_player_in_leaderboard(uuid)) {
         std::string update_query = "UPDATE leaderboard SET rating = rating + " + std::to_string(rating) + 
                                    ", games_played = games_played + " + std::to_string(games_played) +
-                                   " WHERE nickname = '" + nickname + "';";
+                                   ", nickname = '" + nickname + "'" +
+                                   " WHERE uuid = '" + uuid + "';";
         sql_exec(update_query);
     } else {
-        std::string insert_query = "INSERT INTO leaderboard (nickname, rating, games_played) VALUES ('" 
-                                    + nickname + "', " + std::to_string(rating) + ", " + std::to_string(games_played) + ");";
+        std::string insert_query = "INSERT INTO leaderboard (uuid, nickname, rating, games_played) VALUES ('" 
+                                    + uuid + "', '" + nickname + "', " + std::to_string(rating) + ", " + std::to_string(games_played) + ");";
         sql_exec(insert_query);
     }
 }
 
-void LeaderboardDB::update_player_rating(const std::string& nickname, int rating_points) {
+void LeaderboardDB::update_player_rating(const std::string& uuid, const std::string& nickname, int rating_points) {
     std::string update_query = "UPDATE leaderboard SET rating = rating + " + std::to_string(rating_points) + 
-                               ", games_played = games_played + 1 WHERE nickname = '" + nickname + "';";
+                               ", games_played = games_played + 1" +
+                               ", nickname = '" + nickname + "'" +
+                               " WHERE uuid = '" + uuid + "';";
     sql_exec(update_query);
 }
 
@@ -211,4 +218,20 @@ std::vector<std::string> LeaderboardDB::filter_by_rating_less(int max_rating) {
     std::vector<std::string> results;
     sql_exec(query, callback, &results);
     return results;
+}
+
+void LeaderboardDB::save_database(const std::string& filepath) {
+    sqlite3* backup_db;
+    exit = sqlite3_open(filepath.c_str(), &backup_db);
+    if (exit != SQLITE_OK) {
+        std::cerr << "Cannot open backup database: " << sqlite3_errmsg(backup_db) << std::endl;
+        return;
+    }
+
+    sqlite3_backup* backup = sqlite3_backup_init(backup_db, "main", db, "main");
+    if (backup) {
+        sqlite3_backup_step(backup, -1);
+        sqlite3_backup_finish(backup);
+    }
+    sqlite3_close(backup_db);
 }
