@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QRandomGenerator>
 #include <QTime>
+#include <QSqlDatabase>
+#include <QSqlQuery>
 
 class Model : public QObject 
 {
@@ -33,6 +35,11 @@ private:
     const float INCORRECT_OTHER_WEIGHT = 0.6; // the fraction of points awarded to the player who wins because of the otehr player's incorrect guess
     const int MAX_GAME_POINTS = 5000;
 };
+
+void Model::loadData(const std::vector<std::pair<std::string, std::string>>& data)
+{
+    dataList = data;
+}
 
 void Model::initGame() 
 {
@@ -74,8 +81,16 @@ void Model::awardScores(bool isCorrect, bool isPrimaryPlayer)
     }
 }
 
-void Model::saveScores(bool includeSecondPlayer)
+void Model::saveScores(bool includeSecondPlayer) // TODO: COMPLETE THIS
 {
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("../data/leaderboard.db");
+    if (!db.open()) {
+        qDebug() << "Error: Unable to connect to database";
+        return;
+    }
+    QSqlQuery query;
+    query.prepare("INSERT INTO leaderboard (uuid, username, score, games) VALUES (:value1, :value2, :value3, :value4)");
     if (localGame)
     {
 
