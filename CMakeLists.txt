@@ -26,8 +26,18 @@ add_executable(myApp
     qt/base_window.ui
     #build/ui_base_window.h
 )
+add_executable(controller 
+    controller/controller.h 
+    controller/controller.cpp 
+)
+add_executable(model 
+    game_logic/model.h 
+    game_logic/model.cpp 
+)
 
 target_link_libraries(myApp Qt6::Widgets Qt6::Core)
+target_link_libraries(controller Qt6::Core)
+target_link_libraries(model Qt6::Core)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
