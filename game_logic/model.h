@@ -2,8 +2,6 @@
 #define GAME_MODEL_H
 
 #include <QObject>
-#include <QJsonObject>
-#include <QJsonArray>
 #include <QRandomGenerator>
 #include <QTime>
 
