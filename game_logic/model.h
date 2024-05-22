@@ -16,6 +16,7 @@ public:
     void initGame();
     void loadData(const std::vector<std::pair<std::string, std::string>>& data);
     bool checkGuess(int cardNum, bool isPrimaryPlayer);
+    bool checkSkippable(std::vector<std::string> lowering, bool isPrimaryPlayer);
     void updateTurnNum(bool isPrimaryPlayer);
     void awardScores(bool isCorrect, bool isPrimaryPlayer);
     void saveScores(bool includeSecondPlayer);
@@ -29,6 +30,7 @@ private:
     std::pair<int, int> ids;
     std::pair<int, int> turns;
     std::pair<int, int> scores;
+    std::pair<int, int> lowered;
     bool localGame = true;
     const float INCORRECT_PRIMARY_WEIGHT = 0.6; // the fraction of points deducted from the score of a player who loses because of their incorrect guess
     const float CORRECT_OTHER_WEIGHT = 0.4; // the fraction of points deducted from the score of a player who loses because of the other player's correct guess
@@ -57,6 +59,14 @@ bool Model::checkGuess(int cardNum, bool isPrimaryPlayer)
     awardScores(correctGuess, isPrimaryPlayer);
     return correctGuess;
 } 
+
+bool checkSkippable(std::vector<std::string> lowering, bool isPrimaryPlayer)
+{
+    if (dataList.size() - lowering.size() - (isPrimaryPlayer ? lowered.first.size() : lowered.second.size()) <= 1)
+        return true;
+    else
+        return false;
+}
 
 void Model::updateTurnNum(bool isPrimaryPlayer) 
 {
