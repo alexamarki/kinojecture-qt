@@ -18,7 +18,7 @@ public:
     void initGame();
     void loadData(const std::vector<std::pair<std::string, std::string>>& data);
     void checkGuess(int cardNum, bool isPrimaryPlayer);
-    bool checkSkippable(std::vector<int> lowering, bool isPrimaryPlayer);
+    void checkSkippable(std::vector<int> lowering, bool isPrimaryPlayer);
     void updateTurnNum(bool isPrimaryPlayer);
     void awardScores(bool isCorrect, bool isPrimaryPlayer);
     void saveScores(bool includeSecondPlayer);
@@ -65,7 +65,7 @@ void Model::checkGuess(int cardNum, bool isPrimaryPlayer)
     emit endEvent();
 } 
 
-bool Model::checkSkippable(std::vector<int> lowering, bool isPrimaryPlayer)
+void Model::checkSkippable(std::vector<int> lowering, bool isPrimaryPlayer)
 {
     int cardsLeft = dataList.size() - lowering.size() - (isPrimaryPlayer ? loweredPrimary.size() : loweredSecondary.size());
     if (cardsLeft > 1)
