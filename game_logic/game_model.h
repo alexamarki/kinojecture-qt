@@ -6,6 +6,8 @@
 #include <QTime>
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <vector>
+#include <unordered_set>
 
 class Model : public QObject 
 {
@@ -15,7 +17,7 @@ public:
 
     void initGame();
     void loadData(const std::vector<std::pair<std::string, std::string>>& data);
-    bool checkGuess(int cardNum, bool isPrimaryPlayer);
+    void checkGuess(int cardNum, bool isPrimaryPlayer);
     bool checkSkippable(std::vector<std::string> lowering, bool isPrimaryPlayer);
     void updateTurnNum(bool isPrimaryPlayer);
     void awardScores(bool isCorrect, bool isPrimaryPlayer);
@@ -24,13 +26,16 @@ public:
 
 signals:
     void updateEvent();
+    void endEvent();
+    void lowerFail();
 
 private:
     std::vector<std::pair<std::string, std::string>> dataList;
     std::pair<int, int> ids;
     std::pair<int, int> turns;
     std::pair<int, int> scores;
-    std::pair<int, int> lowered;
+    std::unordered_set<int> loweredPrimary;
+    std::unordered_set<int> loweredSecondary;
     bool localGame = true;
     const float INCORRECT_PRIMARY_WEIGHT = 0.6; // the fraction of points deducted from the score of a player who loses because of their incorrect guess
     const float CORRECT_OTHER_WEIGHT = 0.4; // the fraction of points deducted from the score of a player who loses because of the other player's correct guess
@@ -40,7 +45,7 @@ private:
 
 void Model::loadData(const std::vector<std::pair<std::string, std::string>>& data)
 {
-    dataList = data;
+    this->dataList = data;
 }
 
 void Model::initGame() 
@@ -51,21 +56,34 @@ void Model::initGame()
     emit updateEvent();
 }
 
-bool Model::checkGuess(int cardNum, bool isPrimaryPlayer) 
+void Model::checkGuess(int cardNum, bool isPrimaryPlayer) 
 {
     int checkNum = isPrimaryPlayer ? ids.first : ids.second;
     bool correctGuess = (cardNum == checkNum);
     updateTurnNum(isPrimaryPlayer);
     awardScores(correctGuess, isPrimaryPlayer);
-    return correctGuess;
+    emit endEvent();
 } 
 
-bool checkSkippable(std::vector<std::string> lowering, bool isPrimaryPlayer)
+bool Model::checkSkippable(std::vector<std::string> lowering, bool isPrimaryPlayer)
 {
-    if (dataList.size() - lowering.size() - (isPrimaryPlayer ? lowered.first.size() : lowered.second.size()) <= 1)
-        return true;
+    int cardsLeft = dataList.size() - lowering.size() - (isPrimaryPlayer ? loweredPrimary.size() : loweredSecondary.size());
+    if (cardsLeft > 1)
+    {
+        (isPrimaryPlayer ? loweredPrimary : loweredSecondary).insert(lowering.begin(), lowering.end());
+        emit updateEvent();
+    }
+    else if (cardsLeft == 1)
+    {
+        for (int num = 0; num < dataList.size(); num++) {
+            if ((isPrimaryPlayer ? loweredPrimary : loweredSecondary).find(num) == (isPrimaryPlayer ? loweredPrimary : loweredSecondary).end()) {
+                this->checkGuess(num, isPrimaryPlayer);
+                break;
+            }
+        }
+    }
     else
-        return false;
+        emit lowerFail();
 }
 
 void Model::updateTurnNum(bool isPrimaryPlayer) 
@@ -113,7 +131,7 @@ void Model::saveScores(bool includeSecondPlayer) // TODO: COMPLETE THIS
 
 int Model::getPlayerCardId(bool isPrimaryPlayer)
 {
-    return isPrimaryPlayer ? ids.first: ids.second;
+    return isPrimaryPlayer ? ids.first : ids.second;
 }
 
 #endif
