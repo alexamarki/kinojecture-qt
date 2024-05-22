@@ -1,50 +1,57 @@
-#include <sqlite3.h>
-#include <string>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QString>
+#include <QVariant>
 #include <vector>
 #include <unordered_map>
 #include <fstream>
 #include <sstream>
 #include <iostream>
 
-class LeaderboardDB {
+class LeaderboardDB 
+{
 public:
-    LeaderboardDB(const std::string& db_path = "../data/leaderboard.db");
+    LeaderboardDB(const QString& db_path = "../data/leaderboard.db");
     ~LeaderboardDB();
 
     void createTable();
-    void sql_exec(const std::string& query, sqlite3_callback callback = nullptr, void* pArg = nullptr);
-    void replace_player_data(const std::string& filepath);
-    void merge_player_data(const std::string& filepath);
-    std::vector<std::string> filter_by_prefix(const std::string& prefix);
-    std::vector<std::string> filter_by_rating_greater(int min_rating);
-    std::vector<std::string> filter_by_rating_less(int max_rating);
-    bool is_player_in_leaderboard(const std::string& uuid);
-    void add_player(const std::string& uuid, const std::string& nickname, int rating = 0, int games_played = 1);
-    void update_player_rating(const std::string& uuid, const std::string& nickname, int rating_points);
-    std::vector<std::string> sort_by_name();
-    std::vector<std::string> sort_by_games_played();
-    std::vector<std::string> sort_by_rating();
-    void save_database(const std::string& filepath);
+    void sql_exec(const QString& query);
+    void replace_player_data(const QString& filepath);
+    void merge_player_data(const QString& filepath);
+    std::vector<QString> filter_by_prefix(const QString& prefix);
+    std::vector<QString> filter_by_rating_greater(int min_rating);
+    std::vector<QString> filter_by_rating_less(int max_rating);
+    bool is_player_in_leaderboard(const QString& uuid);
+    void add_player(const QString& uuid, const QString& nickname, int rating = 0, int games_played = 1);
+    void update_player_rating(const QString& uuid, const QString& nickname, int rating_points);
+    std::vector<QString> sort_by_name();
+    std::vector<QString> sort_by_games_played();
+    std::vector<QString> sort_by_rating();
+    void save_database(const QString& filepath);
 
 private:
-    sqlite3* db;
-    int exit;
-    static int callback(void* data, int argc, char** argv, char** azColName);
+    QSqlDatabase db;
+    static std::vector<QString> query_to_vector(QSqlQuery& query);
 };
 
-LeaderboardDB::LeaderboardDB(const std::string& db_path) {
-    exit = sqlite3_open(db_path.c_str(), &db);
-    if (exit) {
-        std::cerr << "Cannot open database: " << sqlite3_errmsg(db) << std::endl;
+LeaderboardDB::LeaderboardDB(const QString& db_path) 
+{
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(db_path);
+    if (!db.open()) {
+        std::cerr << "Cannot open database: " << db.lastError().text().toStdString() << std::endl;
     }
 }
 
-LeaderboardDB::~LeaderboardDB() {
-    sqlite3_close(db);
+LeaderboardDB::~LeaderboardDB() 
+{
+    db.close();
 }
 
-void LeaderboardDB::createTable() {
-    std::string create_table_query = "CREATE TABLE IF NOT EXISTS leaderboard("
+void LeaderboardDB::createTable() 
+{
+    QString create_table_query = "CREATE TABLE IF NOT EXISTS leaderboard("
                                      "uuid TEXT PRIMARY KEY,"
                                      "nickname TEXT,"
                                      "rating INT,"
@@ -52,186 +59,156 @@ void LeaderboardDB::createTable() {
     sql_exec(create_table_query);
 }
 
-void LeaderboardDB::sql_exec(const std::string& query, sqlite3_callback callback, void* pArg) {
-    char* queryError;
-    exit = sqlite3_exec(db, query.c_str(), callback, pArg, &queryError);
-    if (exit != SQLITE_OK) {
-        std::cerr << "SQL error: " << queryError << std::endl;
-        sqlite3_free(queryError);
+void LeaderboardDB::sql_exec(const QString& query) 
+{
+    QSqlQuery q;
+    if (!q.exec(query)) 
+    {
+        std::cerr << "SQL error: " << q.lastError().text().toStdString() << std::endl;
     }
 }
 
-void LeaderboardDB::replace_player_data(const std::string& db_filepath) {
-    std::string clear_table_query = "DELETE FROM leaderboard;";
-    sql_exec(clear_table_query);
+void LeaderboardDB::replace_player_data(const QString& db_filepath) 
+{
+    sql_exec("DELETE FROM leaderboard;");
 
-    sqlite3* source_db;
-    exit = sqlite3_open(db_filepath.c_str(), &source_db);
-    if (exit) {
-        std::cerr << "Cannot open source database: " << sqlite3_errmsg(source_db) << std::endl;
+    QSqlDatabase source_db = QSqlDatabase::addDatabase("QSQLITE", "source_connection");
+    source_db.setDatabaseName(db_filepath);
+    if (!source_db.open()) 
+    {
+        std::cerr << "Cannot open source database: " << source_db.lastError().text().toStdString() << std::endl;
         return;
     }
 
-    std::string query = "SELECT uuid, nickname, rating, games_played FROM leaderboard;";
-    sqlite3_stmt* stmt;
-    exit = sqlite3_prepare_v2(source_db, query.c_str(), -1, &stmt, nullptr);
-    if (exit != SQLITE_OK) {
-        std::cerr << "Failed to execute statement: " << sqlite3_errmsg(source_db) << std::endl;
-        sqlite3_close(source_db);
+    QSqlQuery query(source_db);
+    if (!query.exec("SELECT uuid, nickname, rating, games_played FROM leaderboard;")) 
+    {
+        std::cerr << "Failed to execute statement: " << query.lastError().text().toStdString() << std::endl;
+        source_db.close();
         return;
     }
 
-    while (sqlite3_step(stmt) == SQLITE_ROW) {
-        std::string uuid = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
-        std::string nickname = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
-        int rating = sqlite3_column_int(stmt, 2);
-        int games_played = sqlite3_column_int(stmt, 3);
+    while (query.next()) 
+    {
+        QString uuid = query.value(0).toString();
+        QString nickname = query.value(1).toString();
+        int rating = query.value(2).toInt();
+        int games_played = query.value(3).toInt();
         add_player(uuid, nickname, rating, games_played);
     }
 
-    sqlite3_finalize(stmt);
-    sqlite3_close(source_db);
+    source_db.close();
 }
 
-void LeaderboardDB::merge_player_data(const std::string& db_filepath) {
-    sqlite3* source_db;
-    exit = sqlite3_open(db_filepath.c_str(), &source_db);
-    if (exit) {
-        std::cerr << "Cannot open source database: " << sqlite3_errmsg(source_db) << std::endl;
+void LeaderboardDB::merge_player_data(const QString& db_filepath) 
+{
+    QSqlDatabase source_db = QSqlDatabase::addDatabase("QSQLITE", "source_connection");
+    source_db.setDatabaseName(db_filepath);
+    if (!source_db.open()) 
+    {
+        std::cerr << "Cannot open source database: " << source_db.lastError().text().toStdString() << std::endl;
         return;
     }
 
-    std::string query = "SELECT uuid, nickname, rating, games_played FROM leaderboard;";
-    sqlite3_stmt* stmt;
-    exit = sqlite3_prepare_v2(source_db, query.c_str(), -1, &stmt, nullptr);
-    if (exit != SQLITE_OK) {
-        std::cerr << "Failed to execute statement: " << sqlite3_errmsg(source_db) << std::endl;
-        sqlite3_close(source_db);
+    QSqlQuery query(source_db);
+    if (!query.exec("SELECT uuid, nickname, rating, games_played FROM leaderboard;")) 
+    {
+        std::cerr << "Failed to execute statement: " << query.lastError().text().toStdString() << std::endl;
+        source_db.close();
         return;
     }
 
-    while (sqlite3_step(stmt) == SQLITE_ROW) {
-        std::string uuid = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
-        std::string nickname = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
-        int rating = sqlite3_column_int(stmt, 2);
-        int games_played = sqlite3_column_int(stmt, 3);
+    while (query.next()) 
+    {
+        QString uuid = query.value(0).toString();
+        QString nickname = query.value(1).toString();
+        int rating = query.value(2).toInt();
+        int games_played = query.value(3).toInt();
 
-        if (is_player_in_leaderboard(uuid)) {
-            std::string update_query = "UPDATE leaderboard SET rating = rating + " + std::to_string(rating) + 
-                                       ", games_played = games_played + " + std::to_string(games_played) +
-                                       " WHERE uuid = '" + uuid + "';";
+        if (is_player_in_leaderboard(uuid)) 
+        {
+            QString update_query = QString("UPDATE leaderboard SET rating = rating + %1, games_played = games_played + %2 WHERE uuid = '%3';")
+                                   .arg(rating).arg(games_played).arg(uuid);
             sql_exec(update_query);
-        } else {
+        } 
+        else 
+        {
             add_player(uuid, nickname, rating, games_played);
         }
     }
 
-    sqlite3_finalize(stmt);
-    sqlite3_close(source_db);
+    source_db.close();
 }
 
-bool LeaderboardDB::is_player_in_leaderboard(const std::string& uuid) {
-    std::string query = "SELECT COUNT(*) FROM leaderboard WHERE uuid = '" + uuid + "';";
-    sqlite3_stmt* stmt;
-    exit = sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr);
-    if (exit != SQLITE_OK) {
-        std::cerr << "Failed to execute statement: " << sqlite3_errmsg(db) << std::endl;
+bool LeaderboardDB::is_player_in_leaderboard(const QString& uuid)
+{
+    QSqlQuery query;
+    query.prepare("SELECT COUNT(*) FROM leaderboard WHERE uuid = :uuid;");
+    query.bindValue(":uuid", uuid);
+    if (!query.exec() || !query.next()) 
+    {
+        std::cerr << "Failed to execute statement: " << query.lastError().text().toStdString() << std::endl;
         return false;
     }
-    int count = 0;
-    if (sqlite3_step(stmt) == SQLITE_ROW) {
-        count = sqlite3_column_int(stmt, 0);
-    }
-    sqlite3_finalize(stmt);
-    return count > 0;
+    return query.value(0).toInt() > 0;
 }
 
-void LeaderboardDB::add_player(const std::string& uuid, const std::string& nickname, int rating, int games_played) {
-    if (is_player_in_leaderboard(uuid)) {
-        std::string update_query = "UPDATE leaderboard SET rating = rating + " + std::to_string(rating) + 
-                                   ", games_played = games_played + " + std::to_string(games_played) +
-                                   ", nickname = '" + nickname + "'" +
-                                   " WHERE uuid = '" + uuid + "';";
+void LeaderboardDB::add_player(const QString& uuid, const QString& nickname, int rating, int games_played) 
+{
+    if (is_player_in_leaderboard(uuid)) 
+    {
+        QString update_query = QString("UPDATE leaderboard SET rating = rating + %1, games_played = games_played + %2, nickname = '%3' WHERE uuid = '%4';")
+                               .arg(rating).arg(games_played).arg(nickname).arg(uuid);
         sql_exec(update_query);
-    } else {
-        std::string insert_query = "INSERT INTO leaderboard (uuid, nickname, rating, games_played) VALUES ('" 
-                                    + uuid + "', '" + nickname + "', " + std::to_string(rating) + ", " + std::to_string(games_played) + ");";
-        sql_exec(insert_query);
+    } 
+    else 
+    {
+        QSqlQuery query;
+        query.prepare("INSERT INTO leaderboard (uuid, nickname, rating, games_played) VALUES (:uuid, :nickname, :rating, :games_played);");
+        query.bindValue(":uuid", uuid);
+        query.bindValue(":nickname", nickname);
+        query.bindValue(":rating", rating);
+        query.bindValue(":games_played", games_played);
+        if (!query.exec())
+            std::cerr << "Failed to execute statement: " << query.lastError().text().toStdString() << std::endl;
     }
 }
 
-void LeaderboardDB::update_player_rating(const std::string& uuid, const std::string& nickname, int rating_points) {
-    std::string update_query = "UPDATE leaderboard SET rating = rating + " + std::to_string(rating_points) + 
-                               ", games_played = games_played + 1" +
-                               ", nickname = '" + nickname + "'" +
-                               " WHERE uuid = '" + uuid + "';";
+void LeaderboardDB::update_player_rating(const QString& uuid, const QString& nickname, int rating_points) 
+{
+    QString update_query = QString("UPDATE leaderboard SET rating = rating + %1, games_played = games_played + 1, nickname = '%2' WHERE uuid = '%3';")
+                           .arg(rating_points).arg(nickname).arg(uuid);
     sql_exec(update_query);
 }
 
-int LeaderboardDB::callback(void* data, int argc, char** argv, char** azColName) {
-    auto* results = static_cast<std::vector<std::string>*>(data);
-    std::ostringstream oss;
-    for (int i = 0; i < argc; i++) {
-        oss << (argv[i] ? argv[i] : "NULL") << (i < argc - 1 ? ", " : "");
+void LeaderboardDB::save_database(const QString& filepath) 
+{
+    QSqlDatabase backup_db = QSqlDatabase::addDatabase("QSQLITE", "backup_connection");
+    backup_db.setDatabaseName(filepath);
+    if (!backup_db.open()) 
+    {
+        std::cerr << "Cannot open backup database: " << backup_db.lastError().text().toStdString() << std::endl;
+        return;
     }
-    results->push_back(oss.str());
-    return 0;
-}
+    if (!db.transaction() || !backup_db.transaction()) 
+    {
+        std::cerr << "Failed to start transaction: " << db.lastError().text().toStdString() << std::endl;
+        return;
+    }
+    QString backup_query = "ATTACH DATABASE '" + filepath + "' AS backup_db; "
+                           "BEGIN; "
+                           "DELETE FROM backup_db.leaderboard; "
+                           "INSERT INTO backup_db.leaderboard SELECT * FROM main.leaderboard; "
+                           "COMMIT; "
+                           "DETACH DATABASE backup_db;";
+    sql_exec(backup_query);
 
-std::vector<std::string> LeaderboardDB::sort_by_name() {
-    std::string query = "SELECT * FROM leaderboard ORDER BY nickname ASC;";
-    std::vector<std::string> results;
-    sql_exec(query, callback, &results);
-    return results;
-}
-
-std::vector<std::string> LeaderboardDB::sort_by_games_played() {
-    std::string query = "SELECT * FROM leaderboard ORDER BY games_played DESC;";
-    std::vector<std::string> results;
-    sql_exec(query, callback, &results);
-    return results;
-}
-
-std::vector<std::string> LeaderboardDB::sort_by_rating() {
-    std::string query = "SELECT * FROM leaderboard ORDER BY rating DESC;";
-    std::vector<std::string> results;
-    sql_exec(query, callback, &results);
-    return results;
-}
-
-std::vector<std::string> LeaderboardDB::filter_by_prefix(const std::string& prefix) {
-    std::string query = "SELECT * FROM leaderboard WHERE nickname LIKE '" + prefix + "%';";
-    std::vector<std::string> results;
-    sql_exec(query, callback, &results);
-    return results;
-}
-
-std::vector<std::string> LeaderboardDB::filter_by_rating_greater(int min_rating) {
-    std::string query = "SELECT * FROM leaderboard WHERE rating >= " + std::to_string(min_rating) + ";";
-    std::vector<std::string> results;
-    sql_exec(query, callback, &results);
-    return results;
-}
-
-std::vector<std::string> LeaderboardDB::filter_by_rating_less(int max_rating) {
-    std::string query = "SELECT * FROM leaderboard WHERE rating <= " + std::to_string(max_rating) + ";";
-    std::vector<std::string> results;
-    sql_exec(query, callback, &results);
-    return results;
-}
-
-void LeaderboardDB::save_database(const std::string& filepath) {
-    sqlite3* backup_db;
-    exit = sqlite3_open(filepath.c_str(), &backup_db);
-    if (exit != SQLITE_OK) {
-        std::cerr << "Cannot open backup database: " << sqlite3_errmsg(backup_db) << std::endl;
+    if (!db.commit() || !backup_db.commit()) 
+    {
+        std::cerr << "Failed to commit transaction: " << db.lastError().text().toStdString() << std::endl;
         return;
     }
 
-    sqlite3_backup* backup = sqlite3_backup_init(backup_db, "main", db, "main");
-    if (backup) {
-        sqlite3_backup_step(backup, -1);
-        sqlite3_backup_finish(backup);
-    }
-    sqlite3_close(backup_db);
+    backup_db.close();
 }
+
