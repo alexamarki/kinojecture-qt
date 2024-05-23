@@ -1,6 +1,7 @@
 #ifndef GAME_MODEL_H
 #define GAME_MODEL_H
 
+#include "../db_code/leaderboard.h"
 #include <QObject>
 #include <QRandomGenerator>
 #include <QTime>
@@ -117,16 +118,18 @@ void Model::saveScores(bool includeSecondPlayer) // TODO: COMPLETE THIS
         qDebug() << "Error: Unable to connect to database";
         return;
     }
+    std::string uuid; // add some code getting the user's id from local json
     QSqlQuery query;
-    query.prepare("INSERT INTO leaderboard (uuid, username, score, games) VALUES (:value1, :value2, :value3, :value4)");
-    if (localGame)
+    query.prepare("INSERT INTO leaderboard (uuid, nickname, rating, games_played) VALUES (:value1, :value2, :value3, :value4)");
+    query.bind(":value1", uuid)
+    if (includeSecondPlayer)
     {
-
-        if (includeSecondPlayer)
+        if (localGame)
         {
-
-        }
+            
+        } 
     }
+
 }
 
 int Model::getPlayerCardId(bool isPrimaryPlayer)
