@@ -10,6 +10,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
+#include <QUuid>
 #include <vector>
 #include <unordered_set>
 
@@ -29,6 +30,8 @@ public:
     int getPlayerCardId(bool isPrimaryPlayer);
     QJsonObject readJSON(const QString& filePath);
     QJsonObject updateJSON(int points);
+    void updateUUID(QString UUID);
+    void updateUsername(QString username);
 
 signals:
     void updateEvent();
@@ -125,13 +128,37 @@ QJsonObject Model::readJSON(const QString &filePath)
     return jsonObj;
 }
 
-QJsonObject Model::updateJSON(const QString &filePath, int points) 
+QJsonObject Model::updateJSON(const QString &filePath, QString uuid="", QString username="", int points=0) 
 {
     QJsonObject jsonObj = readJSON(filePath);
-    int currentScore = jsonObj["personal_score"].toInt();
-    jsonObj["personal_score"] = currentScore + points;
+    if (points != 0)
+    {
+        int currentScore = jsonObj["personal_score"].toInt();
+        jsonObj["personal_score"] = currentScore + points;
+    }
+    if (uuid != "")
+        jsonObj["uuid"] = uuid;
+    if (username != "")
+        jsonObj["username"] = username;
     QJsonDocument updatedFile(jsonObj);
     return QString::fromUtf8(updatedFile.toJson());
+}
+
+void Model::updateUUID() 
+{
+    QJsonObject jsonObj = readJSON(PATH_JSON_PLAYER);
+    if (jsonObj["uuid"] == 0)
+    {
+        QUuid quuid = QUuid::createUuid();
+        QString quuidString = quuid.toString();
+    }
+    writeJsonFile(PATH_JSON_PLAYER, updateJSON(PATH_JSON_PLAYER, uuid=quuidString));
+}
+
+void Model::updateUsername(QString username) 
+{
+    QJsonObject jsonObj = readJSON(PATH_JSON_PLAYER);
+    writeJsonFile(PATH_JSON_PLAYER, updateJSON(PATH_JSON_PLAYER, username=username));
 }
 
 void Model::saveScores(bool includeSecondPlayer, QString snd_name="")
@@ -146,7 +173,7 @@ void Model::saveScores(bool includeSecondPlayer, QString snd_name="")
         db.update_player_rating(quuid, scores.first);
     else 
         db.add_player(quuid, qnick, scores.first);
-    QJsonObject to_replace = updateJSON(PATH_JSON_PLAYER, scores.first);
+    QJsonObject to_replace = updateJSON(PATH_JSON_PLAYER, points=scores.first);
     writeJsonFile(PATH_JSON_PLAYER, to_replace)
     if (includeSecondPlayer)
     {
