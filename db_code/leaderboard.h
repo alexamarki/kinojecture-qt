@@ -27,7 +27,7 @@ public:
     std::vector<QString> filter_by_rating_less(int max_rating);
     bool is_player_in_leaderboard(const QString& uuid);
     void add_player(const QString& uuid, const QString& nickname, int rating = 0, int games_played = 1);
-    void update_player_rating(const QString& uuid, const QString& nickname, int rating_points);
+    void update_player_rating(const QString& uuid, int rating_points);
     std::vector<QString> sort_by_name();
     std::vector<QString> sort_by_games_played();
     std::vector<QString> sort_by_rating();
@@ -177,10 +177,10 @@ void LeaderboardDB::add_player(const QString& uuid, const QString& nickname, int
     }
 }
 
-void LeaderboardDB::update_player_rating(const QString& uuid, const QString& nickname, int rating_points) 
+void LeaderboardDB::update_player_rating(const QString& uuid, int rating_points) 
 {
-    QString update_query = QString("UPDATE leaderboard SET rating = rating + %1, games_played = games_played + 1, nickname = '%2' WHERE uuid = '%3';")
-                           .arg(rating_points).arg(nickname).arg(uuid);
+    QString update_query = QString("UPDATE leaderboard SET rating = rating + %1, games_played = games_played + 1 WHERE uuid = '%3';")
+                           .arg(rating_points).arg(uuid);
     sql_exec(update_query);
 }
 

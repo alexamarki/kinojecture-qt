@@ -7,6 +7,9 @@
 #include <QTime>
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
 #include <vector>
 #include <unordered_set>
 
@@ -24,6 +27,8 @@ public:
     void awardScores(bool isCorrect, bool isPrimaryPlayer);
     void saveScores(bool includeSecondPlayer);
     int getPlayerCardId(bool isPrimaryPlayer);
+    QJsonObject readJSON(const QString& filePath);
+    QJsonObject updateJSON(int points);
 
 signals:
     void updateEvent();
@@ -33,7 +38,7 @@ signals:
 private:
     std::vector<std::pair<std::string, std::string>> dataList;
     std::pair<int, int> ids;
-    std::pair<int, int> turns;
+    std::pair<int, int> turns = {0, 0};
     std::pair<int, int> scores;
     std::unordered_set<int> loweredPrimary;
     std::unordered_set<int> loweredSecondary;
@@ -42,6 +47,7 @@ private:
     const float CORRECT_OTHER_WEIGHT = 0.4; // the fraction of points deducted from the score of a player who loses because of the other player's correct guess
     const float INCORRECT_OTHER_WEIGHT = 0.6; // the fraction of points awarded to the player who wins because of the otehr player's incorrect guess
     const int MAX_GAME_POINTS = 5000;
+    const QString PATH_JSON_PLAYER = "../data/parameters/player_data.json";
 };
 
 void Model::loadData(const std::vector<std::pair<std::string, std::string>>& data)
@@ -110,26 +116,52 @@ void Model::awardScores(bool isCorrect, bool isPrimaryPlayer)
     }
 }
 
-void Model::saveScores(bool includeSecondPlayer) // TODO: COMPLETE THIS
+QJsonObject Model::readJSON(const QString &filePath) 
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("../data/leaderboard.db");
-    if (!db.open()) {
-        qDebug() << "Error: Unable to connect to database";
-        return;
-    }
-    std::string uuid; // add some code getting the user's id from local json
-    QSqlQuery query;
-    query.prepare("INSERT INTO leaderboard (uuid, nickname, rating, games_played) VALUES (:value1, :value2, :value3, :value4)");
-    query.bind(":value1", uuid)
+    QFile file(filePath);
+    QTextStream stream(&file);
+    QJsonDocument doc = QJsonDocument::fromJson(stream.readAll().toUtf8());
+    QJsonObject jsonObj = doc.object();
+    return jsonObj;
+}
+
+QJsonObject Model::updateJSON(const QString &filePath, int points) 
+{
+    QJsonObject jsonObj = readJSON(filePath);
+    int currentScore = jsonObj["personal_score"].toInt();
+    jsonObj["personal_score"] = currentScore + points;
+    QJsonDocument updatedFile(jsonObj);
+    return QString::fromUtf8(updatedFile.toJson());
+}
+
+void Model::saveScores(bool includeSecondPlayer, QString snd_name="")
+{
+    std::string uuid = readJSON(PATH_JSON_PLAYER)["uuid"].toString();
+    std::string nick = readJSON(PATH_JSON_PLAYER)["username"].toString();;  
+    LeaderboardDB db;
+    db.createTable();
+    QString quuid = QString::fromStdString(uuid);
+    QString qnick = QString::fromStdString(nick);
+    if (db.is_player_in_leaderboard(quuid))
+        db.update_player_rating(quuid, scores.first);
+    else 
+        db.add_player(quuid, qnick, scores.first);
+    QJsonObject to_replace = updateJSON(PATH_JSON_PLAYER, scores.first);
+    writeJsonFile(PATH_JSON_PLAYER, to_replace)
     if (includeSecondPlayer)
     {
         if (localGame)
         {
-            
+            int postfix = 1;
+            while (true) 
+            {
+                if (db.is_player_in_leaderboard(QString::fromStdString(uuid + std::to_string(postfix))))
+                    postfix++;
+            }
+            QString quuid_secondary = QString::fromStdString(uuid + std::to_string(postfix));
+            db.add_player(quuid_secondary, snd_name, scores.second);
         } 
     }
-
 }
 
 int Model::getPlayerCardId(bool isPrimaryPlayer)
