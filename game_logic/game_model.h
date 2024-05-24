@@ -43,6 +43,7 @@ private:
     std::pair<int, int> ids;
     std::pair<int, int> turns = {0, 0};
     std::pair<int, int> scores;
+    std::unordered_set<int> _tempSelectedCards;
     std::unordered_set<int> loweredPrimary;
     std::unordered_set<int> loweredSecondary;
     bool localGame = true;
