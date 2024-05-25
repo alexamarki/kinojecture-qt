@@ -20,21 +20,30 @@ class Model : public QObject
 public:
     Model(QObject *parent = nullptr);
 
+    // game model functions
     void initGame();
     void loadData(const std::vector<std::pair<std::string, std::string>>& data);
-    void checkGuess(int cardNum, bool isPrimaryPlayer);
-    void checkSkippable(std::vector<int> lowering, bool isPrimaryPlayer);
     void updateTurnNum(bool isPrimaryPlayer);
+    // GMF - cards
+    void addCardToSelection(int cardNum);
+    void removeCardFromSelection(int cardNum);
+    void lowerCards(bool isPrimaryPlayer);
+    void checkGuess(int cardNum, bool isPrimaryPlayer);
+    int getPlayerCardId(bool isPrimaryPlayer);
+    std::pair<std::string, std::string> getData(int cardNum);
+    // GMF - scoring
     void awardScores(bool isCorrect, bool isPrimaryPlayer);
     void saveScores(bool includeSecondPlayer);
-    int getPlayerCardId(bool isPrimaryPlayer);
-    QJsonObject readJSON(const QString& filePath);
-    QJsonObject updateJSON(int points);
+    // local data modification
     void updateUUID(QString UUID);
     void updateUsername(QString username);
+    // JSON functions
+    QJsonObject readJSON(const QString& filePath);
+    QJsonObject updateJSON(int points);
+    
 
 signals:
-    void updateEvent();
+    void turnOverEvent();
     void endEvent();
     void lowerFail();
 
@@ -59,6 +68,11 @@ void Model::loadData(const std::vector<std::pair<std::string, std::string>>& dat
     this->dataList = data;
 }
 
+std::pair<std::string, std::string> Model::getData(int cardNum)
+{
+    return dataList;
+}
+
 void Model::initGame() 
 {
     QRandomGenerator generator = QRandomGenerator(static_cast<uint>(QTime::currentTime().msec()));
@@ -76,12 +90,12 @@ void Model::checkGuess(int cardNum, bool isPrimaryPlayer)
     emit endEvent();
 } 
 
-void Model::checkSkippable(std::vector<int> lowering, bool isPrimaryPlayer)
+void Model::lowerCards(bool isPrimaryPlayer)
 {
-    int cardsLeft = dataList.size() - lowering.size() - (isPrimaryPlayer ? loweredPrimary.size() : loweredSecondary.size());
+    int cardsLeft = dataList.size() - _tempSelectedCards.size() - (isPrimaryPlayer ? loweredPrimary.size() : loweredSecondary.size());
     if (cardsLeft > 1)
     {
-        (isPrimaryPlayer ? loweredPrimary : loweredSecondary).insert(lowering.begin(), lowering.end());
+        (isPrimaryPlayer ? loweredPrimary : loweredSecondary).insert(_tempSelectedCards.begin(), _tempSelectedCards.end());
         emit updateEvent();
     }
     else if (cardsLeft == 1)
@@ -197,4 +211,13 @@ int Model::getPlayerCardId(bool isPrimaryPlayer)
     return isPrimaryPlayer ? ids.first : ids.second;
 }
 
+void Model::addCardToSelection(int cardNum)
+{
+    _tempSelectedCards.insert(cardNum);
+}
+
+void Model::removeCardFromSelection(int cardNum)
+{
+    _tempSelectedCards.erase(cardNum);
+}
 #endif
