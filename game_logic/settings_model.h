@@ -15,7 +15,7 @@ public:
 
     // settings model functions
     QJsonObject readJSON(const QString& filePath);
-    QJsonObject updateJSON(const QString &filePath, int sfxVolume=-1, int colourScheme=-1, QString username="");
+    void updateJSON(int sfxVolume, int colourScheme, QString username);
     QString getUsername();
     int getSFXVolume();
     int getColourScheme(); //pass for now

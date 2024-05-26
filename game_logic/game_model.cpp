@@ -83,7 +83,7 @@ QJsonObject Model::readJSON(const QString &filePath)
     return jsonObj;
 }
 
-QJsonObject Model::updateJSON(const QString &filePath, QString uuid="", QString username="", int points=0) 
+QJsonObject Model::updateJSON(const QString &filePath, QString uuid="", QString username="", int points=0) // need to separate into a different file, as this function is practically cloned in settings_model
 {
     QJsonObject jsonObj = readJSON(filePath);
     if (points != 0)
@@ -113,7 +113,7 @@ void Model::updateUUID()
 void Model::updateUsername(QString username) 
 {
     QJsonObject jsonObj = readJSON(PATH_JSON_PLAYER);
-    writeJsonFile(PATH_JSON_PLAYER, updateJSON(PATH_JSON_PLAYER, username=username));
+    writeJsonFile(PATH_JSON_PLAYER, updateJSON(PATH_JSON_PLAYER, username=username)); // need to make this update the DB as well, also separate into a different file, as this function is practically cloned in settings_model
 }
 
 void Model::saveScores(bool includeSecondPlayer, QString snd_name="")
