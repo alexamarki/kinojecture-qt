@@ -153,4 +153,3 @@ void LeaderboardDB::save_database(const std::string& filepath)
 {
     std::filesystem::copy("../data/leaderboard.db", filepath);
 }
-
