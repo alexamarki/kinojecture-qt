@@ -21,7 +21,7 @@ public:
     Model(QObject *parent = nullptr);
 
     // game model functions
-    void initGame();
+    void initGame(const std::vector<std::pair<std::string, std::string>>& data);
     void loadData(const std::vector<std::pair<std::string, std::string>>& data);
     void updateTurnNum(bool isPrimaryPlayer);
     // GMF - cards

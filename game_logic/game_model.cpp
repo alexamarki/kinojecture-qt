@@ -12,9 +12,10 @@ std::pair<std::string, std::string> Model::getData(int cardNum)
     return dataList;
 }
 
-void Model::initGame() 
+void Model::initGame(const std::vector<std::pair<std::string, std::string>>& data) 
 {
     QRandomGenerator generator = QRandomGenerator(static_cast<uint>(QTime::currentTime().msec()));
+    loadData(data);
     ids.first = generator.generate() % dataList.size();
     ids.second = generator.generate() % dataList.size();
 }
