@@ -57,14 +57,14 @@ MovieDB::~MovieDB()
 std::vector<QString> MovieDB::sort_by_rating() 
 {
     QSqlQuery query(db);
-    query.exec("SELECT title FROM movies ORDER BY rating DESC;");
+    query.exec("SELECT tconst FROM movies ORDER BY averageRating DESC;");
     return query_to_vector(query);
 }
 
 std::vector<QString> MovieDB::filter_by_genre(const QString& genre) 
 {
     QSqlQuery query(db);
-    query.prepare("SELECT title FROM movies WHERE genres LIKE :genre;");
+    query.prepare("SELECT tconst FROM movies WHERE genres LIKE :genre;");
     query.bindValue(":genre", "%" + genre + "%");
     query.exec();
     return query_to_vector(query);
@@ -110,14 +110,14 @@ PeopleDB::~PeopleDB()
 std::vector<QString> PeopleDB::sort_by_birthYear() 
 {
     QSqlQuery query(db);
-    query.exec("SELECT name FROM people ORDER BY birthYear ASC;");
+    query.exec("SELECT nconst FROM people ORDER BY birthYear ASC;");
     return query_to_vector(query);
 }
 
 std::vector<QString> PeopleDB::filter_by_job(const QString& job) 
 {
     QSqlQuery query(db);
-    query.prepare("SELECT name FROM people WHERE jobs LIKE :job;");
+    query.prepare("SELECT nconst FROM people WHERE job LIKE :job;");
     query.bindValue(":job", "%" + job + "%");
     query.exec();
     return query_to_vector(query);
