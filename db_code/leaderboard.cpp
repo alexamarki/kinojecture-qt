@@ -1,8 +1,5 @@
 #include "leaderboard.h"
 
-// THIS WILL UNDOUBTEDLY BACKFIRE BECAUSE @IcySergio's UNIT TESTS ARE SUPPOSEDLY NOW IN THIS EXACT FILE. 
-// basically a conflict will emerge and I'll have to fix it, yay
-
 LeaderboardDB::LeaderboardDB(const QString& db_path) 
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
