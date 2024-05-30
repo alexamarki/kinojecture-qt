@@ -32,6 +32,8 @@ public:
     void setFilter(int column, const QString& filterString);
     void clearFilter(int column);
     void setSortOrder(int column, Qt::SortOrder order);
+    QStringList getSelectionData();
+    bool checkCount(QStringList data, int limit);
 
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;

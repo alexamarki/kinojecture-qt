@@ -19,13 +19,15 @@ class SelectionModel : public QItemSelectionModel
     Q_OBJECT
 
 public:
-    SelectionModel(QObject* parent = nullptr) : QItemSelectionModel(parent) {}
+    SelectionModel(QObject* parent = nullptr) : QItemSelectionModel(parent);
 
-signals:
-    void cellSelected(int row, int column, const QString& cellData); // define a class to check that enough cells are selected, write code for it and for returning the data as a vector of strings
+    QStringList getSelectionData();
 
 public slots:
     void handleSelectionChanged(const QItemSelection& selected);
+
+private:
+    QStringList selectionData;
 }
 
 #endif

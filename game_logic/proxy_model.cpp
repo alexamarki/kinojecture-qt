@@ -37,3 +37,15 @@ bool ProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent
     }
     return true;
 }
+
+QStringList ProxyModel::getSelectionData()
+{
+    return selectionModel->getSelectionData();
+}
+
+bool checkCount(QStringList data, int limit)
+{
+    if (data.size() != limit)
+        return false;
+    return true;
+}
