@@ -68,6 +68,7 @@ public slots:
     }
     void NewGame() {
         ui.stackedWidget->setCurrentWidget(ui.GameField);
+        //ui.stackedWidget->setCurrentWidget(ui.NewGame);
     }
     void Leaderboard() {
         ui.stackedWidget->setCurrentWidget(ui.Leaderboard);
