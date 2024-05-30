@@ -21,6 +21,6 @@ int main() {
     //     std::cout << entry << std::endl;
     // }
     // Save the database to a specified path
-    db.save_database("../downloads/leaderboard_backup.db");
+    db.save_database("../leaderboard_backup.db");
     return 0;
 }

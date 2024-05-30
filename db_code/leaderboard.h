@@ -3,6 +3,9 @@
 #include <QSqlError>
 #include <QString>
 #include <QVariant>
+#include <QFile>
+#include <QIODevice>
+#include <filesystem>
 #include <vector>
 #include <unordered_map>
 #include <fstream>
@@ -28,7 +31,7 @@ public:
     std::vector<QString> sort_by_name();
     std::vector<QString> sort_by_games_played();
     std::vector<QString> sort_by_rating();
-    void save_database(const QString& filepath);
+    void save_database(const std::string& filepath);
 
 private:
     QSqlDatabase db;
@@ -38,7 +41,7 @@ private:
 LeaderboardDB::LeaderboardDB(const QString& db_path) 
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(db_path);
+    db.setDatabaseName("leaderboard");
     if (!db.open()) {
         std::cerr << "Cannot open database: " << db.lastError().text().toStdString() << std::endl;
     }
@@ -181,34 +184,8 @@ void LeaderboardDB::update_player_rating(const QString& uuid, const QString& nic
     sql_exec(update_query);
 }
 
-void LeaderboardDB::save_database(const QString& filepath) 
+void LeaderboardDB::save_database(const std::string& filepath) 
 {
-    QSqlDatabase backup_db = QSqlDatabase::addDatabase("QSQLITE", "backup_connection");
-    backup_db.setDatabaseName(filepath);
-    if (!backup_db.open()) 
-    {
-        std::cerr << "Cannot open backup database: " << backup_db.lastError().text().toStdString() << std::endl;
-        return;
-    }
-    if (!db.transaction() || !backup_db.transaction()) 
-    {
-        std::cerr << "Failed to start transaction: " << db.lastError().text().toStdString() << std::endl;
-        return;
-    }
-    QString backup_query = "ATTACH DATABASE '" + filepath + "' AS backup_db; "
-                           "BEGIN; "
-                           "DELETE FROM backup_db.leaderboard; "
-                           "INSERT INTO backup_db.leaderboard SELECT * FROM main.leaderboard; "
-                           "COMMIT; "
-                           "DETACH DATABASE backup_db;";
-    sql_exec(backup_query);
-
-    if (!db.commit() || !backup_db.commit()) 
-    {
-        std::cerr << "Failed to commit transaction: " << db.lastError().text().toStdString() << std::endl;
-        return;
-    }
-
-    backup_db.close();
+    std::filesystem::copy("../data/leaderboard.db", filepath);
 }
 

@@ -1,6 +1,7 @@
 #ifndef GAME_MODEL_H
 #define GAME_MODEL_H
 
+#include "../db_code/leaderboard.h"
 #include <QObject>
 #include <QRandomGenerator>
 #include <QTime>
@@ -18,7 +19,7 @@ public:
     void initGame();
     void loadData(const std::vector<std::pair<std::string, std::string>>& data);
     void checkGuess(int cardNum, bool isPrimaryPlayer);
-    bool checkSkippable(std::vector<int> lowering, bool isPrimaryPlayer);
+    void checkSkippable(std::vector<int> lowering, bool isPrimaryPlayer);
     void updateTurnNum(bool isPrimaryPlayer);
     void awardScores(bool isCorrect, bool isPrimaryPlayer);
     void saveScores(bool includeSecondPlayer);
@@ -65,7 +66,7 @@ void Model::checkGuess(int cardNum, bool isPrimaryPlayer)
     emit endEvent();
 } 
 
-bool Model::checkSkippable(std::vector<int> lowering, bool isPrimaryPlayer)
+void Model::checkSkippable(std::vector<int> lowering, bool isPrimaryPlayer)
 {
     int cardsLeft = dataList.size() - lowering.size() - (isPrimaryPlayer ? loweredPrimary.size() : loweredSecondary.size());
     if (cardsLeft > 1)
@@ -117,16 +118,18 @@ void Model::saveScores(bool includeSecondPlayer) // TODO: COMPLETE THIS
         qDebug() << "Error: Unable to connect to database";
         return;
     }
+    std::string uuid; // add some code getting the user's id from local json
     QSqlQuery query;
-    query.prepare("INSERT INTO leaderboard (uuid, username, score, games) VALUES (:value1, :value2, :value3, :value4)");
-    if (localGame)
+    query.prepare("INSERT INTO leaderboard (uuid, nickname, rating, games_played) VALUES (:value1, :value2, :value3, :value4)");
+    query.bind(":value1", uuid)
+    if (includeSecondPlayer)
     {
-
-        if (includeSecondPlayer)
+        if (localGame)
         {
-
-        }
+            
+        } 
     }
+
 }
 
 int Model::getPlayerCardId(bool isPrimaryPlayer)
