@@ -28,14 +28,14 @@ add_executable(myApp
 #     game_logic/game_model.h 
 #     game_logic/game_model.cpp 
 # )
-add_executable(leaderboard 
-    db_code/leaderboard.h 
-    db_code/leaderboard.cpp)
+#add_executable(leaderboard 
+#    db_code/leaderboard.h 
+#    db_code/leaderboard.cpp)
 
 target_link_libraries(myApp Qt6::Widgets Qt6::Core)
 # target_link_libraries(controller Qt6::Core Qt6::Sql)
 # target_link_libraries(gameModel Qt6::Core Qt6::Sql)
-target_link_libraries(leaderboard Qt6::Core Qt6::Sql)
+#target_link_libraries(leaderboard Qt6::Core Qt6::Sql)
 target_include_directories(myApp PRIVATE ${CMAKE_SOURCE_DIR}/qt)
 
 
