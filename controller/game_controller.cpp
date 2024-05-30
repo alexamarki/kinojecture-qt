@@ -62,6 +62,12 @@ bool Controller::getPlayerTurn()
 {
     return isPrimaryPlayer;
 }
+
+std::unordered_set<int> getLowered(bool isPrimaryPlayer)
+{
+    return model->getLowered(isPrimaryPlayer);
+}
+
 void Controller::invertPlayerTurn() 
 {
     isPrimaryPlayer = !isPrimaryPlayer;

@@ -30,6 +30,7 @@ public:
     void lowerCards(bool isPrimaryPlayer);
     void checkGuess(int cardNum, bool isPrimaryPlayer);
     int getPlayerCardId(bool isPrimaryPlayer);
+    std::unordered_set<int> getLowered(bool isPrimaryPlayer);
     std::pair<std::string, std::string> getData(int cardNum);
     // GMF - scoring
     void awardScores(bool isCorrect, bool isPrimaryPlayer);

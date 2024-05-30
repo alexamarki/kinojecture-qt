@@ -163,3 +163,8 @@ void Model::removeCardFromSelection(int cardNum)
 {
     _tempSelectedCards.erase(cardNum);
 }
+
+std::unordered_set<int> getLowered(bool isPrimaryPlayer)
+{
+    return isPrimaryPlayer ? loweredPrimary : loweredSecondary;
+}

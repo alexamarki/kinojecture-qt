@@ -17,6 +17,7 @@ public:
     void onCardHovered(int cardIndex);
     void onCardsLowered();
     std::pair<int, int> getRandomisedCards();
+    std::unordered_set<int> getLowered(bool isPrimaryPlayer);
     void onMakeGuess(int cardIndex);
     void onExitToMainMenu(bool includeSecondaryPlayer, QString sndUsername="");
     void addToLeaderboard(bool includeSecondaryPlayer, QString sndUsername="");
