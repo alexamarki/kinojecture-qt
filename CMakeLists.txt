@@ -4,37 +4,30 @@ project(kinojecture VERSION 0.1.0 LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lsqlite3")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
-
 include(FetchContent)
-FetchContent_Declare(
-    sqlite3
-    URL https://www.sqlite.org/2024/sqlite-amalgamation-3450300.zip
-)
+FetchContent_Declare(sqlite3 URL https://www.sqlite.org/2024/sqlite-amalgamation-3450300.zip)
 FetchContent_MakeAvailable(sqlite3)
 
 set(SQLITE "${CMAKE_SOURCE_DIR}/build/_deps/sqlite3-src")
+add_library(sqlite3 STATIC ${SQLITE}/sqlite3.c)
+target_include_directories(sqlite3 PUBLIC ${SQLITE})
 
-include_directories(${SQLITE})
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
-FetchContent_Declare(
-    googletest
-    URL https://github.com/google/googletest/archive/release-1.12.1.zip
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
+#qt6_wrap_ui(UI_HEADERS ${CMAKE_SOURCE_DIR}/qt/base_window.ui)
+
+add_executable(myApp 
+    qt/base_window.h 
+    qt/base_window.cpp 
+    qt/base_window.ui
+    #build/ui_base_window.h
 )
-FetchContent_MakeAvailable(googletest)
 
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
-
-add_executable(main main.cpp)
-
-enable_testing()
-
-add_executable(leaderboard_tests db_code/leaderboard_unit.cpp)
-
-target_link_libraries(leaderboard_tests PRIVATE sqlite3 gtest gtest_main)
-
-add_test(NAME leaderboard_tests COMMAND leaderboard_tests)
+target_link_libraries(myApp Qt6::Widgets Qt6::Core)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
