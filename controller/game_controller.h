@@ -11,7 +11,7 @@ public:
     Controller(Model *model, QObject *parent = nullptr);
 
     // gameloop controllers
-    void startGame();
+    void startGame(const std::vector<std::pair<std::string, std::string>>& data);
     void onCardSelected(int cardIndex);
     void onCardDeselected(int cardIndex);
     void onCardHovered(int cardIndex);
@@ -23,7 +23,6 @@ public:
     bool getPlayerTurn();
     void invertPlayerTurn();
     void onTurnOverEnd();
-    // TODO: include functions for the leaderboard, settings and game creation pages
 
 public slots:
     // gameloop controller slots

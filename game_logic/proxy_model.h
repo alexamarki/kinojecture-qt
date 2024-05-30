@@ -22,9 +22,10 @@ class ProxyModel : public QSortFilterProxyModel
     Q_OBJECT
 
 public:
-    ProxyModel(QObject* parent = nullptr) : QSortFilterProxyModel(parent)
+    ProxyModel(QSqlTableModel* sourceModel, QObject* parent = nullptr) : QSortFilterProxyModel(parent)
     {
         selectionModel = new SelectionModel(this);
+        setSourceModel(sourceModel);
         setSelectionModel(selectionModel);
         connect(selectionModel, &SelectionModel::cellSelected, this, &ProxyModel::handleCellSelected);
     }

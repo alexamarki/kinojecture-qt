@@ -1,54 +1,25 @@
-#include <string>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QString>
+#include <QVariant>
+#include <QFile>
+#include <QIODevice>
+#include <filesystem>
 #include <vector>
-#include <sqlite3.h>
-#include <format>
+#include <unordered_map>
+#include <fstream>
+#include <sstream>
+#include <iostream>
 
-struct Movies 
-{
-    std::string tconst;
-    std::string titleType;
-    std::string primaryTitle;
-    int startYear;
-    int endYear;
-    int runtimeMinutes;
-    float averageRating;
-    bool isAdult;
-};
-
-struct PeopleToMovies 
-{
-    int id;
-    std::string relationship;
-    std::string tconst;
-    std::string nconst;
-};
-
-struct People 
-{
-    std::string nconst;
-    std::string primaryName;
-    int birthYear;
-    int deathYear;
-    std::string job;
-    std::string characters;
-};
-
-class CinemaDB
+class CinemaDB 
 {
 public:
-    CinemaDB(const std::string& db_path = "../../data/cinema.db")
-    {
-        exit = sqlite3_open(db_path.c_str, &DB);
-    }
-    ~CinemaDB() 
-    {
-        sqlite3_close(DB);
-    }
+    CinemaDB(const QString& db_path = "../data/game.db");
+    ~CinemaDB();
 
-    void createTables() 
-    {
-        //TODO:
-    }
+    void createTable();
+
 private:
-
-}
+    QSqlDatabase db;
+};

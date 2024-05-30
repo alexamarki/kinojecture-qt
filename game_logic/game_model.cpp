@@ -105,7 +105,7 @@ QJsonObject Model::updateJSON(const QString &filePath, QString uuid="", QString 
 void Model::updateUUID() 
 {
     QJsonObject jsonObj = readJSON(PATH_JSON_PLAYER);
-    if (jsonObj["uuid"] == 0)
+    if (jsonObj["uuid"] == "")
     {
         QUuid quuid = QUuid::createUuid();
         QString quuidString = quuid.toString();

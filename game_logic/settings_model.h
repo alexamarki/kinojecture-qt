@@ -17,7 +17,7 @@ public:
     QJsonObject readJSON(const QString& filePath);
     void updateJSON(int sfxVolume, int colourScheme, QString username);
     QString getUsername();
-    int getSFXVolume();
+    int getSFXVolume(); // pass for now
     int getColourScheme(); //pass for now
 
 signals:

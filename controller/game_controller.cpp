@@ -3,9 +3,9 @@
 Controller::Controller(QObject *parent) : QObject(parent) {}
 
 // controller - gameloop - functions
-void Controller::startGame() 
+void Controller::startGame(const std::vector<std::pair<std::string, std::string>>& data) 
 {
-    model->initGame();
+    model->initGame(data);
     emit showRulesScreen();
 }
 
