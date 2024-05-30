@@ -18,12 +18,12 @@
     <rect>
      <x>20</x>
      <y>70</y>
-     <width>781</width>
+     <width>791</width>
      <height>551</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>5</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="Kinojecture">
     <widget class="QPushButton" name="start_button">
@@ -92,8 +92,396 @@
      </property>
     </widget>
    </widget>
+   <widget class="QWidget" name="GameField">
+    <widget class="QWidget" name="gridLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>19</y>
+       <width>591</width>
+       <height>471</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="3" column="4">
+       <widget class="HoverPushButton" name="cardButton20">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3">
+       <widget class="HoverPushButton" name="cardButton19">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="HoverPushButton" name="cardButton18">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="HoverPushButton" name="cardButton14">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="4">
+       <widget class="HoverPushButton" name="cardButton15">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="HoverPushButton" name="cardButton16">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="HoverPushButton" name="cardButton17">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="HoverPushButton" name="cardButton11">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="HoverPushButton" name="cardButton2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="HoverPushButton" name="cardButton3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="HoverPushButton" name="cardButton5">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="HoverPushButton" name="cardButton4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="HoverPushButton" name="cardButton6">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="HoverPushButton" name="cardButton7">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="HoverPushButton" name="cardButton12">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="HoverPushButton" name="cardButton1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="HoverPushButton" name="cardButton9">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="HoverPushButton" name="cardButton8">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4">
+       <widget class="HoverPushButton" name="cardButton10">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="HoverPushButton" name="cardButton13">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="HoverPushButton" name="cardButton21">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="HoverPushButton" name="cardButton22">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="HoverPushButton" name="cardButton23">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="3">
+       <widget class="HoverPushButton" name="cardButton24">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="4">
+       <widget class="HoverPushButton" name="cardButton25">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QPushButton" name="guessButton">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>520</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Guess</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="cardButton10_2">
+     <property name="geometry">
+      <rect>
+       <x>650</x>
+       <y>120</y>
+       <width>113</width>
+       <height>89</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QTextBrowser" name="textBrowser">
+     <property name="geometry">
+      <rect>
+       <x>650</x>
+       <y>70</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="html">
+      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Your card&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </widget>
    <widget class="QWidget" name="NewGame">
-    <widget class="QTextEdit" name="choose_text">
+    <widget class="QTextBrowser" name="choose_text">
      <property name="geometry">
       <rect>
        <x>290</x>
@@ -167,8 +555,8 @@ p, li { white-space: pre-wrap; }
     <widget class="QComboBox" name="choose_genre">
      <property name="geometry">
       <rect>
-       <x>330</x>
-       <y>30</y>
+       <x>150</x>
+       <y>10</y>
        <width>121</width>
        <height>22</height>
       </rect>
@@ -184,192 +572,1175 @@ p, li { white-space: pre-wrap; }
       </property>
      </item>
     </widget>
-    <widget class="QPushButton" name="show_table_button">
+    <widget class="QComboBox" name="choose_year">
      <property name="geometry">
       <rect>
-       <x>330</x>
-       <y>80</y>
+       <x>150</x>
+       <y>40</y>
        <width>121</width>
-       <height>23</height>
+       <height>22</height>
       </rect>
      </property>
-     <property name="text">
-      <string>Show the table</string>
-     </property>
+     <item>
+      <property name="text">
+       <string>Release year</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Year1</string>
+      </property>
+     </item>
     </widget>
-    <widget class="QTableWidget" name="movies_table">
+    <widget class="QComboBox" name="choose_actors">
      <property name="geometry">
       <rect>
-       <x>5</x>
-       <y>141</y>
-       <width>781</width>
-       <height>401</height>
+       <x>310</x>
+       <y>10</y>
+       <width>121</width>
+       <height>22</height>
       </rect>
      </property>
-     <row>
+     <item>
       <property name="text">
-       <string>New Row</string>
+       <string>Choose actors</string>
       </property>
-     </row>
-     <row>
+     </item>
+     <item>
       <property name="text">
-       <string>1</string>
+       <string>actor1</string>
       </property>
-     </row>
-     <row>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="choose_directors">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>40</y>
+       <width>121</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
       <property name="text">
-       <string>2</string>
+       <string>Choose directors</string>
       </property>
-     </row>
-     <row>
+     </item>
+     <item>
       <property name="text">
-       <string>3</string>
+       <string>director1</string>
       </property>
-     </row>
-     <row>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="choose_composers">
+     <property name="geometry">
+      <rect>
+       <x>470</x>
+       <y>10</y>
+       <width>121</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
       <property name="text">
-       <string>4</string>
+       <string>Choose composers</string>
       </property>
-     </row>
-     <row>
+     </item>
+     <item>
       <property name="text">
-       <string>5</string>
+       <string>composer1</string>
       </property>
-     </row>
-     <row>
+     </item>
+    </widget>
+    <widget class="QStackedWidget" name="tableMovies">
+     <property name="geometry">
+      <rect>
+       <x>-1</x>
+       <y>79</y>
+       <width>781</width>
+       <height>471</height>
+      </rect>
+     </property>
+     <widget class="QWidget" name="no_table">
+      <widget class="QPushButton" name="show_table_movies_button">
+       <property name="geometry">
+        <rect>
+         <x>330</x>
+         <y>10</y>
+         <width>121</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Show the table</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="table_show">
+      <widget class="QTableWidget" name="movies_table">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>50</y>
+         <width>781</width>
+         <height>411</height>
+        </rect>
+       </property>
+       <row>
+        <property name="text">
+         <string>New Row</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>1</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>2</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>3</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>4</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>5</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>6</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>7</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>8</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>9</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>10</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>12</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>13</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>12</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>15</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>New Row</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>16</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>18</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>18</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>19</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>21</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>New Row</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>22</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>23</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>25</string>
+        </property>
+       </row>
+       <column>
+        <property name="text">
+         <string>1</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>2</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>3</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>4</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>5</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>6</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>7</string>
+        </property>
+       </column>
+      </widget>
+      <widget class="QPushButton" name="update_movies_button">
+       <property name="geometry">
+        <rect>
+         <x>330</x>
+         <y>10</y>
+         <width>121</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Update the table</string>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="Directors">
+    <widget class="QStackedWidget" name="tableDirectors">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>80</y>
+       <width>781</width>
+       <height>471</height>
+      </rect>
+     </property>
+     <widget class="QWidget" name="no_table_d">
+      <widget class="QPushButton" name="show_table_directors_button">
+       <property name="geometry">
+        <rect>
+         <x>330</x>
+         <y>10</y>
+         <width>121</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Show the table</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="table_show_d">
+      <widget class="QTableWidget" name="directors_table">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>50</y>
+         <width>781</width>
+         <height>411</height>
+        </rect>
+       </property>
+       <row>
+        <property name="text">
+         <string>New Row</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>1</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>2</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>3</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>4</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>5</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>6</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>7</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>8</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>9</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>10</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>12</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>13</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>12</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>15</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>New Row</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>16</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>18</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>18</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>19</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>21</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>New Row</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>22</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>23</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>25</string>
+        </property>
+       </row>
+       <column>
+        <property name="text">
+         <string>1</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>2</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>3</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>4</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>5</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>6</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>7</string>
+        </property>
+       </column>
+      </widget>
+      <widget class="QPushButton" name="update_directors_button">
+       <property name="geometry">
+        <rect>
+         <x>330</x>
+         <y>10</y>
+         <width>121</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Update the table</string>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QComboBox" name="choose_byear_d">
+     <property name="geometry">
+      <rect>
+       <x>151</x>
+       <y>41</y>
+       <width>121</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
       <property name="text">
-       <string>6</string>
+       <string>Year of birth (from)</string>
       </property>
-     </row>
-     <row>
+     </item>
+     <item>
       <property name="text">
-       <string>7</string>
+       <string>Year1</string>
       </property>
-     </row>
-     <row>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="choose_movies_d">
+     <property name="geometry">
+      <rect>
+       <x>311</x>
+       <y>11</y>
+       <width>121</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
       <property name="text">
-       <string>8</string>
+       <string>Choose movies</string>
       </property>
-     </row>
-     <row>
+     </item>
+     <item>
       <property name="text">
-       <string>9</string>
+       <string>actor1</string>
       </property>
-     </row>
-     <row>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="choose_genre_d">
+     <property name="geometry">
+      <rect>
+       <x>151</x>
+       <y>11</y>
+       <width>121</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
       <property name="text">
-       <string>10</string>
+       <string>Some genre</string>
       </property>
-     </row>
-     <row>
+     </item>
+     <item>
       <property name="text">
-       <string>12</string>
+       <string>Other genre</string>
       </property>
-     </row>
-     <row>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="choose_dyear_d">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>40</y>
+       <width>121</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
       <property name="text">
-       <string>13</string>
+       <string>Year of death (to)</string>
       </property>
-     </row>
-     <row>
+     </item>
+     <item>
       <property name="text">
-       <string>12</string>
+       <string>Year1</string>
       </property>
-     </row>
-     <row>
+     </item>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="Composers">
+    <widget class="QComboBox" name="choose_byear_c">
+     <property name="geometry">
+      <rect>
+       <x>151</x>
+       <y>41</y>
+       <width>121</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
       <property name="text">
-       <string>15</string>
+       <string>Year of birth (from)</string>
       </property>
-     </row>
-     <row>
+     </item>
+     <item>
       <property name="text">
-       <string>New Row</string>
+       <string>Year1</string>
       </property>
-     </row>
-     <row>
+     </item>
+    </widget>
+    <widget class="QStackedWidget" name="tableComposers">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>80</y>
+       <width>781</width>
+       <height>471</height>
+      </rect>
+     </property>
+     <widget class="QWidget" name="no_table_c">
+      <widget class="QPushButton" name="show_table_composers_button">
+       <property name="geometry">
+        <rect>
+         <x>330</x>
+         <y>10</y>
+         <width>121</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Show the table</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="table_show_c">
+      <widget class="QTableWidget" name="composers_table">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>50</y>
+         <width>781</width>
+         <height>411</height>
+        </rect>
+       </property>
+       <row>
+        <property name="text">
+         <string>New Row</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>1</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>2</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>3</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>4</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>5</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>6</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>7</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>8</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>9</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>10</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>12</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>13</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>12</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>15</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>New Row</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>16</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>18</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>18</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>19</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>21</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>New Row</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>22</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>23</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>25</string>
+        </property>
+       </row>
+       <column>
+        <property name="text">
+         <string>1</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>2</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>3</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>4</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>5</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>6</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>7</string>
+        </property>
+       </column>
+      </widget>
+      <widget class="QPushButton" name="update_composers_button">
+       <property name="geometry">
+        <rect>
+         <x>330</x>
+         <y>10</y>
+         <width>121</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Update the table</string>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QComboBox" name="choose_movies_c">
+     <property name="geometry">
+      <rect>
+       <x>311</x>
+       <y>11</y>
+       <width>121</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
       <property name="text">
-       <string>16</string>
+       <string>Choose movies</string>
       </property>
-     </row>
-     <row>
+     </item>
+     <item>
       <property name="text">
-       <string>18</string>
+       <string>actor1</string>
       </property>
-     </row>
-     <row>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="choose_genre_c">
+     <property name="geometry">
+      <rect>
+       <x>151</x>
+       <y>11</y>
+       <width>121</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
       <property name="text">
-       <string>18</string>
+       <string>Some genre</string>
       </property>
-     </row>
-     <row>
+     </item>
+     <item>
       <property name="text">
-       <string>19</string>
+       <string>Other genre</string>
       </property>
-     </row>
-     <row>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="choose_dyear_c">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>40</y>
+       <width>121</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
       <property name="text">
-       <string>21</string>
+       <string>Year of death (to)</string>
       </property>
-     </row>
-     <row>
+     </item>
+     <item>
       <property name="text">
-       <string>New Row</string>
+       <string>Year1</string>
       </property>
-     </row>
-     <row>
+     </item>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="Actors">
+    <widget class="QComboBox" name="choose_movies_a">
+     <property name="geometry">
+      <rect>
+       <x>311</x>
+       <y>11</y>
+       <width>121</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
       <property name="text">
-       <string>22</string>
+       <string>Choose movies</string>
       </property>
-     </row>
-     <row>
+     </item>
+     <item>
       <property name="text">
-       <string>23</string>
+       <string>actor1</string>
       </property>
-     </row>
-     <row>
+     </item>
+    </widget>
+    <widget class="QStackedWidget" name="tableActors">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>80</y>
+       <width>781</width>
+       <height>471</height>
+      </rect>
+     </property>
+     <widget class="QWidget" name="no_table_a">
+      <widget class="QPushButton" name="show_table_actors_button">
+       <property name="geometry">
+        <rect>
+         <x>330</x>
+         <y>10</y>
+         <width>121</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Show the table</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="table_show_a">
+      <widget class="QTableWidget" name="actors_table">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>50</y>
+         <width>781</width>
+         <height>411</height>
+        </rect>
+       </property>
+       <row>
+        <property name="text">
+         <string>New Row</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>1</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>2</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>3</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>4</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>5</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>6</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>7</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>8</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>9</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>10</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>12</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>13</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>12</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>15</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>New Row</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>16</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>18</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>18</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>19</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>21</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>New Row</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>22</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>23</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>25</string>
+        </property>
+       </row>
+       <column>
+        <property name="text">
+         <string>1</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>2</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>3</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>4</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>5</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>6</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>7</string>
+        </property>
+       </column>
+      </widget>
+      <widget class="QPushButton" name="update_actors_button">
+       <property name="geometry">
+        <rect>
+         <x>330</x>
+         <y>10</y>
+         <width>121</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Update the table</string>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QComboBox" name="choose_byear_a">
+     <property name="geometry">
+      <rect>
+       <x>151</x>
+       <y>41</y>
+       <width>121</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
       <property name="text">
-       <string>25</string>
+       <string>Year of birth (from)</string>
       </property>
-     </row>
-     <column>
+     </item>
+     <item>
       <property name="text">
-       <string>1</string>
+       <string>Year1</string>
       </property>
-     </column>
-     <column>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="choose_genre_a">
+     <property name="geometry">
+      <rect>
+       <x>151</x>
+       <y>11</y>
+       <width>121</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
       <property name="text">
-       <string>2</string>
+       <string>Some genre</string>
       </property>
-     </column>
-     <column>
+     </item>
+     <item>
       <property name="text">
-       <string>3</string>
+       <string>Other genre</string>
       </property>
-     </column>
-     <column>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="choose_dyear_a">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>40</y>
+       <width>121</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
       <property name="text">
-       <string>4</string>
+       <string>Year of death (to)</string>
       </property>
-     </column>
-     <column>
+     </item>
+     <item>
       <property name="text">
-       <string>5</string>
+       <string>Year1</string>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>6</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>7</string>
-      </property>
-     </column>
+     </item>
     </widget>
    </widget>
    <widget class="QWidget" name="Leaderboard">
-    <widget class="QTextEdit" name="leaderboard_h">
+    <widget class="QTextBrowser" name="leaderboard_h">
      <property name="geometry">
       <rect>
        <x>110</x>
@@ -442,6 +1813,13 @@ p, li { white-space: pre-wrap; }
    </property>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>HoverPushButton</class>
+   <extends>QPushButton</extends>
+   <header location="global">C:\Users\sotov\kinojecture-qt\qt\hoverpushbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
