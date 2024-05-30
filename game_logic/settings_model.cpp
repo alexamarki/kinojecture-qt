@@ -1,4 +1,5 @@
 #include "settings_model.h"
+#include "../db_code/leaderboard.h"
 
 SettingsModel::SettingsModel(QObject *parent) : QObject(parent) {}
 
@@ -20,7 +21,9 @@ void SettingsModel::updateJSON(int sfxVolume=-1, int colourScheme=-1, QString us
     if (colourScheme != -1)
         jsonObj_settings["colour_scheme"] = colourScheme;
     if (username != "")
-        jsonObj_player["username"] = username; // need to make this update the DB as well
+        jsonObj_player["username"] = username; 
+    LeaderboardDB leaderDB;
+    leaderDB.rename_player(jsonObj_player["uuid"].toString(), username);
     QJsonDocument updatedFile_player(jsonObj_player);
     writeJsonFile(PATH_JSON_PLAYER, QString::fromUtf8(updatedFile_player.toJson()));
     QJsonDocument updatedFile_settings(jsonObj_settings);

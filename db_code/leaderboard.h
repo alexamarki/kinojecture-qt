@@ -26,6 +26,7 @@ public:
     void add_player(const QString& uuid, const QString& nickname, int rating = 0, int games_played = 1);
     void update_player_rating(const QString& uuid, int rating_points);
     void save_database(const std::string& filepath);
+    void rename_player(const QString& uuid, const QString& new_nickname);
 
 private:
     QSqlDatabase db;

@@ -84,7 +84,7 @@ QJsonObject Model::readJSON(const QString &filePath)
     return jsonObj;
 }
 
-QJsonObject Model::updateJSON(const QString &filePath, QString uuid="", QString username="", int points=0) // need to separate into a different file, as this function is practically cloned in settings_model
+QJsonObject Model::updateJSON(const QString &filePath, QString uuid="", QString username="", int points=0) 
 {
     QJsonObject jsonObj = readJSON(filePath);
     if (points != 0)
@@ -96,6 +96,8 @@ QJsonObject Model::updateJSON(const QString &filePath, QString uuid="", QString 
         jsonObj["uuid"] = uuid;
     if (username != "")
         jsonObj["username"] = username;
+    LeaderboardDB leaderDB;
+    leaderDB.rename_player(jsonObj_player["uuid"].toString(), username);
     QJsonDocument updatedFile(jsonObj);
     return QString::fromUtf8(updatedFile.toJson());
 }

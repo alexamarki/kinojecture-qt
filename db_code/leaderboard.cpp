@@ -150,3 +150,10 @@ void LeaderboardDB::save_database(const std::string& filepath)
 {
     std::filesystem::copy("../data/leaderboard.db", filepath);
 }
+
+void LeaderboardDB::rename_player(const QString& uuid, const QString& new_nickname) 
+{
+    QString update_query = QString("UPDATE leaderboard SET nickname = '%1' WHERE uuid = '%2';")
+                          .arg(new_nickname).arg(uuid);
+    sql_exec(update_query);
+}
