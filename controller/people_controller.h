@@ -10,19 +10,27 @@ class PeopleController : public QObject {
     Q_OBJECT
 
 public:
-    PeopleController(ProxyModel *model, QObject *parent = nullptr) {}
+    PeopleController(QObject *parent = nullptr)
+    {
+        CinemaDB *database = new CinemaDB();
+        QSqlTableModel *tableModel = new QSqlTableModel(nullptr, database->getDB());
+        tableModel->setTable("people");
+        ProxyModel *proxyModel = new ProxyModel(tableModel);
+        this->model = proxyModel;
+    }
     
-    void submitFilters(const QString& primaryName, int birthYear, int deathYear, const QString& job);
+    void submitFilters(const QString& primary_job_filter, const QString& primaryName, int birthYear, int deathYear, const QString& job);
     void filterByPrimaryName(const QString& primaryName);
     void filterByBirthYear(int birthYear, bool exceeding);
     void filterByDeathYear(int deathYear, bool exceeding);
     void filterByJob(const QString& job);
+    ProxyModel* getModelDirect();
 
 public slots:
     void checkGameData();
 
 signals: // to connect to View SLOTS, which are yet to be implemented
-    void sufficientGameData();
+    void sufficientGameData(QStringList selectionData);
     void insufficientGameData();
 
 private:
