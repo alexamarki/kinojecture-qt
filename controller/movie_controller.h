@@ -28,10 +28,11 @@ public:
     void filterByYearRange(int year, bool exceeding);
     void filterByRuntime(int runtime, bool exceeding);
     void filterByAverageRating(double averageRating, bool exceeding);
-    ProxyModel getModelDirect();
+    ProxyModel* getModelDirect();
 
 public slots:
     void checkGameData();
+    void printHI();
 
 signals: // to connect to View SLOTS, which are yet to be implemented
     void sufficientGameData(QStringList selectionData);

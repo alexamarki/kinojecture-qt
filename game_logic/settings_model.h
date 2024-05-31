@@ -5,17 +5,21 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
+#include <QIODevice>
+#include <QFile>
+#include <QTextStream>
 #include <vector>
 
 class SettingsModel : public QObject 
 {
     Q_OBJECT
 public:
-    SettingsModel(QObject *parent = nullptr);
+    SettingsModel(QObject *parent = nullptr) : QObject(parent) {}
 
     // settings model functions
     QJsonObject readJSON(const QString& filePath);
     void updateJSON(int sfxVolume, int colourScheme, QString username);
+    void writeJSON(const QString &filePath, const QString &jsonData);
     QString getUsername();
     int getSFXVolume(); // pass for now
     int getColourScheme(); // pass for now

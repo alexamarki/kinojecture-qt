@@ -11,8 +11,8 @@
 #include <QJsonValue>
 #include <QUuid>
 #include <QSortFilterProxyModel>
-#include <QRegExp>
 #include <QModelIndex>
+#include <QSqlTableModel>
 #include <vector>
 #include <unordered_set>
 #include "selection_model.h"
@@ -25,8 +25,7 @@ public:
     ProxyModel(QSqlTableModel* sourceModel, QObject* parent = nullptr) : QSortFilterProxyModel(parent)
     {
         selectionModel = new SelectionModel(this);
-        setSourceModel(sourceModel);
-        setSelectionModel(selectionModel);
+        this->setSourceModel(sourceModel);
         // connect(selectionModel, &SelectionModel::cellSelected, this, &ProxyModel::handleCellSelected);
     }
 

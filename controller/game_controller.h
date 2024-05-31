@@ -8,19 +8,19 @@ class Controller : public QObject {
     Q_OBJECT
 
 public:
-    Controller(Model *model, QObject *parent = nullptr);
+    Controller(Model *model, QObject *parent = nullptr) : QObject(parent) {}
 
     // gameloop controllers
     void startGame(const std::vector<std::pair<std::string, std::string>>& data);
     void onCardSelected(int cardIndex);
     void onCardDeselected(int cardIndex);
-    void onCardHovered(int cardIndex);
+    std::pair<std::string, std::string> onCardHovered(int cardIndex);
     void onCardsLowered();
     std::pair<int, int> getRandomisedCards();
     std::unordered_set<int> getLowered(bool isPrimaryPlayer);
     void onMakeGuess(int cardIndex);
-    void onExitToMainMenu(bool includeSecondaryPlayer, QString sndUsername="");
-    void addToLeaderboard(bool includeSecondaryPlayer, QString sndUsername="");
+    void onExitToMainMenu(bool includeSecondaryPlayer, QString sndUsername);
+    void addToLeaderboard(bool includeSecondaryPlayer, QString sndUsername);
     bool getPlayerTurn();
     void invertPlayerTurn();
     void onTurnOverEnd();

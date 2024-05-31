@@ -1,7 +1,5 @@
 #include "game_controller.h"
 
-Controller::Controller(QObject *parent) : QObject(parent) {}
-
 // controller - gameloop - functions
 void Controller::startGame(const std::vector<std::pair<std::string, std::string>>& data) 
 {
@@ -30,13 +28,13 @@ std::pair<int, int> Controller::getRandomisedCards()
     return {model->getPlayerCardId(true), model->getPlayerCardId(false)};
 }
 
-void Controller::onMakeGuess(int cardIndex);
+void Controller::onMakeGuess(int cardIndex)
 {
     model->updateTurnNum(isPrimaryPlayer);
     model->checkGuess(cardIndex, isPrimaryPlayer);
 }
 
-void Controller::onExitToMainMenu(bool includeSecondaryPlayer=false, QString sndUsername="");
+void Controller::onExitToMainMenu(bool includeSecondaryPlayer=false, QString sndUsername="")
 {   
     addToLeaderboard(includeSecondaryPlayer, sndUsername);
     emit exitToMainMenu();
@@ -63,9 +61,9 @@ bool Controller::getPlayerTurn()
     return isPrimaryPlayer;
 }
 
-std::unordered_set<int> getLowered(bool isPrimaryPlayer)
+std::unordered_set<int> Controller::getLowered(bool isPrimaryPlayer)
 {
-    return model->getLowered(isPrimaryPlayer);
+    return this->model->getLowered(isPrimaryPlayer);
 }
 
 void Controller::invertPlayerTurn() 

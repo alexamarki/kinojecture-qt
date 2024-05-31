@@ -1,7 +1,5 @@
 #include "game_model.h"
 
-Model::Model(QObject *parent) : QObject(parent) {}
-
 void Model::loadData(const std::vector<std::pair<std::string, std::string>>& data)
 {
     this->dataList = data;
@@ -9,7 +7,7 @@ void Model::loadData(const std::vector<std::pair<std::string, std::string>>& dat
 
 std::pair<std::string, std::string> Model::getData(int cardNum)
 {
-    return dataList;
+    return dataList[cardNum];
 }
 
 void Model::initGame(const std::vector<std::pair<std::string, std::string>>& data) 
@@ -84,7 +82,7 @@ QJsonObject Model::readJSON(const QString &filePath)
     return jsonObj;
 }
 
-QJsonObject Model::updateJSON(const QString &filePath, QString uuid="", QString username="", int points=0) 
+QString Model::updateJSON(const QString &filePath, QString uuid="", QString username="", int points=0) 
 {
     QJsonObject jsonObj = readJSON(filePath);
     if (points != 0)
@@ -97,9 +95,9 @@ QJsonObject Model::updateJSON(const QString &filePath, QString uuid="", QString 
     if (username != "")
         jsonObj["username"] = username;
     LeaderboardDB leaderDB;
-    leaderDB.rename_player(jsonObj_player["uuid"].toString(), username);
+    leaderDB.rename_player(jsonObj["uuid"].toString(), username);
     QJsonDocument updatedFile(jsonObj);
-    return QString::fromUtf8(updatedFile.toJson());
+    return updatedFile.toJson();
 }
 
 void Model::updateUUID() 
@@ -109,30 +107,28 @@ void Model::updateUUID()
     {
         QUuid quuid = QUuid::createUuid();
         QString quuidString = quuid.toString();
+        this->writeJSON(PATH_JSON_PLAYER, updateJSON(PATH_JSON_PLAYER, quuidString, "", 0));
     }
-    writeJsonFile(PATH_JSON_PLAYER, updateJSON(PATH_JSON_PLAYER, uuid=quuidString));
 }
 
 void Model::updateUsername(QString username) 
 {
     QJsonObject jsonObj = readJSON(PATH_JSON_PLAYER);
-    writeJsonFile(PATH_JSON_PLAYER, updateJSON(PATH_JSON_PLAYER, username=username)); // need to make this update the DB as well, also separate into a different file, as this function is practically cloned in settings_model
+    this->writeJSON(PATH_JSON_PLAYER, updateJSON(PATH_JSON_PLAYER, "", username, 0)); // need to make this update the DB as well, also separate into a different file, as this function is practically cloned in settings_model
 }
 
 void Model::saveScores(bool includeSecondPlayer, QString snd_name="")
 {
-    std::string uuid = readJSON(PATH_JSON_PLAYER)["uuid"].toString();
-    std::string nick = readJSON(PATH_JSON_PLAYER)["username"].toString();;  
+    QString quuid = readJSON(PATH_JSON_PLAYER)["uuid"].toString();
+    QString qnick = readJSON(PATH_JSON_PLAYER)["username"].toString(); 
     LeaderboardDB db;
     db.createTable();
-    QString quuid = QString::fromStdString(uuid);
-    QString qnick = QString::fromStdString(nick);
     if (db.is_player_in_leaderboard(quuid))
         db.update_player_rating(quuid, scores.first);
     else 
         db.add_player(quuid, qnick, scores.first);
-    QJsonObject to_replace = updateJSON(PATH_JSON_PLAYER, points=scores.first);
-    writeJsonFile(PATH_JSON_PLAYER, to_replace)
+    QString to_replace = updateJSON(PATH_JSON_PLAYER, "", "", scores.first);
+    writeJSON(PATH_JSON_PLAYER, to_replace);
     if (includeSecondPlayer)
     {
         if (localGame)
@@ -140,10 +136,10 @@ void Model::saveScores(bool includeSecondPlayer, QString snd_name="")
             int postfix = 1;
             while (true) 
             {
-                if (db.is_player_in_leaderboard(QString::fromStdString(uuid + std::to_string(postfix))))
+                if (db.is_player_in_leaderboard(quuid + QString::fromStdString(std::to_string(postfix))))
                     postfix++;
             }
-            QString quuid_secondary = QString::fromStdString(uuid + std::to_string(postfix));
+            QString quuid_secondary = quuid + QString::fromStdString(std::to_string(postfix));
             db.add_player(quuid_secondary, snd_name, scores.second);
         } 
     }
@@ -164,7 +160,17 @@ void Model::removeCardFromSelection(int cardNum)
     _tempSelectedCards.erase(cardNum);
 }
 
-std::unordered_set<int> getLowered(bool isPrimaryPlayer)
+std::unordered_set<int> Model::getLowered(bool isPrimaryPlayer)
 {
-    return isPrimaryPlayer ? loweredPrimary : loweredSecondary;
+    return isPrimaryPlayer ? this->loweredPrimary : this->loweredSecondary;
+}
+
+void Model::writeJSON(const QString &filePath, const QString &jsonData) 
+{
+    QFile file(filePath);
+    if (file.open(QIODevice::WriteOnly)) {
+        QTextStream stream(&file);
+        stream << jsonData;
+        file.close();
+    }
 }

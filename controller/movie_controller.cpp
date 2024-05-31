@@ -37,23 +37,23 @@ void MovieController::submitFilters(const QString& titleType, const QString& pri
                         int yearLow, int yearUpper, int runtimeLow, int runtimeUpper, double averageRatingLow, double averageRatingUpper)
 {
     model->clearAllFilters();
-    if (titleType != NULL)
+    if (titleType != "")
         this->filterByTitleType(titleType);
-    if (primaryTitle != NULL)
+    if (primaryTitle != "")
         this->filterByPrimaryTitle(primaryTitle);
-    if (genres != NULL)
+    if (genres != "")
         this->filterByGenres(genres);
-    if (yearLow != NULL)
+    if (yearLow != -1)
         this->filterByYearRange(yearLow, false);
-    if (yearUpper != NULL)
+    if (yearUpper != -1)
         this->filterByYearRange(yearUpper, true);
-    if (runtimeLow != NULL)
+    if (runtimeLow != -1)
         this->filterByRuntime(runtimeLow, false);
-    if (runtimeUpper != NULL)
+    if (runtimeUpper != -1)
         this->filterByRuntime(runtimeUpper, true);
-    if (averageRatingLow != NULL)
+    if (averageRatingLow != -1)
         this->filterByAverageRating(averageRatingLow, false);
-    if (averageRatingUpper != NULL)
+    if (averageRatingUpper != -1)
         this->filterByAverageRating(averageRatingUpper, true);
 }
 
@@ -65,7 +65,12 @@ void MovieController::checkGameData()
         emit insufficientGameData();
 }
 
-ProxyModel MovieController::getModelDirect()
+ProxyModel* MovieController::getModelDirect()
 {
-    return model;
+    return this->model;
+}
+
+void MovieController::printHI()
+{
+    std::cout << "HI" << std::endl;
 }

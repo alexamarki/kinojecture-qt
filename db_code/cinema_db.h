@@ -1,3 +1,6 @@
+#ifndef CINEMA_DB_H
+#define CINEMA_DB_H
+
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
@@ -22,3 +25,5 @@ public:
 private:
     QSqlDatabase db;
 };
+
+#endif

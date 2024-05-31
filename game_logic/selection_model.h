@@ -11,6 +11,8 @@
 #include <QJsonValue>
 #include <QUuid>
 #include <QItemSelectionModel>
+#include <QAbstractProxyModel>
+#include <QAbstractItemModel>
 #include <vector>
 #include <unordered_set>
 
@@ -19,7 +21,7 @@ class SelectionModel : public QItemSelectionModel
     Q_OBJECT
 
 public:
-    SelectionModel(QObject* parent = nullptr) : QItemSelectionModel(parent);
+    SelectionModel(QAbstractProxyModel* model, QObject* parent = nullptr) : QItemSelectionModel(model, parent) {}
 
     QStringList getSelectionData();
 

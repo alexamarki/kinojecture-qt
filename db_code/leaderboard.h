@@ -1,3 +1,6 @@
+#ifndef LEADERBOARD_H
+#define LEADERBOARD_H
+
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
@@ -32,3 +35,5 @@ private:
     QSqlDatabase db;
     static std::vector<QString> query_to_vector(QSqlQuery& query);
 };
+
+#endif

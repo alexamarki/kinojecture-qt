@@ -11,6 +11,8 @@
 #include <QJsonObject>
 #include <QJsonValue>
 #include <QUuid>
+#include <QFile>
+#include <QIODevice>
 #include <vector>
 #include <unordered_set>
 
@@ -18,7 +20,7 @@ class Model : public QObject
 {
     Q_OBJECT
 public:
-    Model(QObject *parent = nullptr);
+    Model(QObject *parent = nullptr) : QObject(parent) {}
 
     // game model functions
     void initGame(const std::vector<std::pair<std::string, std::string>>& data);
@@ -34,13 +36,14 @@ public:
     std::pair<std::string, std::string> getData(int cardNum);
     // GMF - scoring
     void awardScores(bool isCorrect, bool isPrimaryPlayer);
-    void saveScores(bool includeSecondPlayer);
+    void saveScores(bool includeSecondPlayer, QString sndusername);
     // local data modification
-    void updateUUID(QString UUID);
+    void updateUUID();
     void updateUsername(QString username);
     // JSON functions
     QJsonObject readJSON(const QString& filePath);
-    QJsonObject updateJSON(const QString &filePath, QString uuid, QString username, int points);
+    QString updateJSON(const QString &filePath, QString uuid, QString username, int points);
+    void writeJSON(const QString &filePath, const QString &jsonData);
     
 
 signals:

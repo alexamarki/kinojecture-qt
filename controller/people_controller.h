@@ -10,7 +10,7 @@ class PeopleController : public QObject {
     Q_OBJECT
 
 public:
-    PeopleController(ProxyModel *model, QObject *parent = nullptr);
+    PeopleController(ProxyModel *model, QObject *parent = nullptr) {}
     
     void submitFilters(const QString& primaryName, int birthYear, int deathYear, const QString& job);
     void filterByPrimaryName(const QString& primaryName);

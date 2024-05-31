@@ -1,8 +1,6 @@
 #include "settings_model.h"
 #include "../db_code/leaderboard.h"
 
-SettingsModel::SettingsModel(QObject *parent) : QObject(parent) {}
-
 QJsonObject SettingsModel::readJSON(const QString &filePath) 
 {
     QFile file(filePath);
@@ -25,10 +23,20 @@ void SettingsModel::updateJSON(int sfxVolume=-1, int colourScheme=-1, QString us
     LeaderboardDB leaderDB;
     leaderDB.rename_player(jsonObj_player["uuid"].toString(), username);
     QJsonDocument updatedFile_player(jsonObj_player);
-    writeJsonFile(PATH_JSON_PLAYER, QString::fromUtf8(updatedFile_player.toJson()));
+    this->writeJSON(PATH_JSON_PLAYER, QString::fromUtf8(updatedFile_player.toJson()));
     QJsonDocument updatedFile_settings(jsonObj_settings);
-    writeJsonFile(PATH_JSON_PARAMS, QString::fromUtf8(updatedFile_settings.toJson()));
+    this->writeJSON(PATH_JSON_PARAMS, QString::fromUtf8(updatedFile_settings.toJson()));
     emit updateSettings();
+}
+
+void SettingsModel::writeJSON(const QString &filePath, const QString &jsonData) 
+{
+    QFile file(filePath);
+    if (file.open(QIODevice::WriteOnly)) {
+        QTextStream stream(&file);
+        stream << jsonData;
+        file.close();
+    }
 }
 
 QString SettingsModel::getUsername()

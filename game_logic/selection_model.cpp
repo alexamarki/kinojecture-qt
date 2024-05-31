@@ -11,14 +11,14 @@ void SelectionModel::handleSelectionChanged(const QItemSelection& selected)
         QStringList rowData;
         for (int column = 0; column < columnCount; ++column) {
             QModelIndex cellIndex = index.sibling(row, column);
-            QString cellData = data(cellIndex, Qt::DisplayRole).toString();
+            QString cellData = cellIndex.data(Qt::DisplayRole).toString();
             rowData.append(cellData);
         }
         this->selectionData = rowData;
-        if (selectionModel->isSelected(index))
-            selectionModel->select(index.parent(), QItemSelectionModel::Deselect);
+        if (this->isSelected(index))
+            this->select(index.parent(), QItemSelectionModel::Deselect);
         else
-            selectionModel->select(index.parent(), QItemSelectionModel::Select | QItemSelectionModel::Rows);
+            this->select(index.parent(), QItemSelectionModel::Select | QItemSelectionModel::Rows);
     }
 }
 
