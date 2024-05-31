@@ -21,12 +21,13 @@ public:
     {
         ui.setupUi(this);
         selectedCards.resize(25, false);
+        this->movieController = new MovieController(this);
         
         // Main buttons
         connect(ui.main_button, &QPushButton::clicked, this, &MainWindow::MainPage);
         connect(ui.start_button, &QPushButton::clicked, this, &MainWindow::NewGame);
-        connect(ui.leaderboard_button, &QPushButton::clicked, this, &MainWindow::Leaderboard);
-        // connect(ui.leaderboard_button, &QPushButton::clicked, this, &MovieController::printHI());
+        // connect(ui.leaderboard_button, &QPushButton::clicked, this, &MainWindow::Leaderboard);
+        connect(ui.leaderboard_button, &QPushButton::clicked, movieController, &MovieController::printHI);
         connect(ui.settings_button, &QPushButton::clicked, this, &MainWindow::Settings);
         
         // Table show buttons
@@ -62,6 +63,7 @@ public:
 
 private:
     Ui::Form ui;
+    MovieController *movieController;
     std::vector<bool> selectedCards;
 
 public slots:
