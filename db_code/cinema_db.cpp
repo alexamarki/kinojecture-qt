@@ -13,3 +13,8 @@ CinemaDB::~CinemaDB()
 {
     db.close();
 }
+
+QSqlDatabase CinemaDB::getDB() 
+{
+    return db;
+}

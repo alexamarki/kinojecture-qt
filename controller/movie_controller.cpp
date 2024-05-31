@@ -60,7 +60,12 @@ void MovieController::submitFilters(const QString& titleType, const QString& pri
 void MovieController::checkGameData()
 {
     if (model->checkCount(model->getSelectionData(), 25))
-        emit sufficientGameData();
+        emit sufficientGameData(model->getSelectionData());
     else
         emit insufficientGameData();
+}
+
+ProxyModel MovieController::getModelDirect()
+{
+    return model;
 }
