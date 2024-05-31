@@ -27,7 +27,7 @@ public:
         selectionModel = new SelectionModel(this);
         setSourceModel(sourceModel);
         setSelectionModel(selectionModel);
-        connect(selectionModel, &SelectionModel::cellSelected, this, &ProxyModel::handleCellSelected);
+        // connect(selectionModel, &SelectionModel::cellSelected, this, &ProxyModel::handleCellSelected);
     }
 
     void setFilter(int column, const QString& filterString, const int filterType);
@@ -45,8 +45,8 @@ private:
     QVector<QString> columnFilters;
     QVector<int> columnFiltersType;
 
-private slots:
-    void handleCellSelected(int row, int column, const QString& cellData);
+// private slots:
+//     void handleCellSelected(int row, int column, const QString& cellData);
 }
 
 #endif
