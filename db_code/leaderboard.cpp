@@ -157,3 +157,8 @@ void LeaderboardDB::rename_player(const QString& uuid, const QString& new_nickna
                           .arg(new_nickname).arg(uuid);
     sql_exec(update_query);
 }
+
+QSqlDatabase LeaderboardDB::getDB() 
+{
+    return db;
+}
