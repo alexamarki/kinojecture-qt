@@ -1,7 +1,7 @@
-#include "settings_model.h"
+#include "params_model.h"
 #include "../db_code/leaderboard.h"
 
-QJsonObject SettingsModel::readJSON(const QString &filePath) 
+QJsonObject ParamsModel::readJSON(const QString &filePath) 
 {
     QFile file(filePath);
     QTextStream stream(&file);
@@ -10,7 +10,7 @@ QJsonObject SettingsModel::readJSON(const QString &filePath)
     return jsonObj;
 }
 
-void SettingsModel::updateJSON(int sfxVolume=-1, int colourScheme=-1, QString username="") 
+void ParamsModel::updateJSON(int sfxVolume=-1, int colourScheme=-1, QString username="") 
 {
     QJsonObject jsonObj_player = readJSON(PATH_JSON_PLAYER);
     QJsonObject jsonObj_settings = readJSON(PATH_JSON_PARAMS);
@@ -29,7 +29,7 @@ void SettingsModel::updateJSON(int sfxVolume=-1, int colourScheme=-1, QString us
     emit updateSettings();
 }
 
-void SettingsModel::writeJSON(const QString &filePath, const QString &jsonData) 
+void ParamsModel::writeJSON(const QString &filePath, const QString &jsonData) 
 {
     QFile file(filePath);
     if (file.open(QIODevice::WriteOnly)) {
@@ -39,17 +39,17 @@ void SettingsModel::writeJSON(const QString &filePath, const QString &jsonData)
     }
 }
 
-QString SettingsModel::getUsername()
+QString ParamsModel::getUsername()
 {
     QJsonObject jsonObj_player = readJSON(PATH_JSON_PLAYER);
     return jsonObj_player["username"].toString();
 }
-int SettingsModel::getSFXVolume()
+int ParamsModel::getSFXVolume()
 {
     QJsonObject jsonObj_settings = readJSON(PATH_JSON_PARAMS);
     return jsonObj_settings["sfx_volume"].toInt();
 }
-int SettingsModel::getColourScheme()
+int ParamsModel::getColourScheme()
 {
     QJsonObject jsonObj_settings = readJSON(PATH_JSON_PARAMS);
     return jsonObj_settings["colour_scheme"].toInt();

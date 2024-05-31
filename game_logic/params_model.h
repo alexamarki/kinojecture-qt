@@ -1,5 +1,5 @@
-#ifndef GAME_MODEL_H
-#define GAME_MODEL_H
+#ifndef PARAMS_MODEL_H
+#define PARAMS_MODEL_H
 
 #include <QObject>
 #include <QJsonDocument>
@@ -10,11 +10,11 @@
 #include <QTextStream>
 #include <vector>
 
-class SettingsModel : public QObject 
+class ParamsModel : public QObject 
 {
     Q_OBJECT
 public:
-    SettingsModel(QObject *parent = nullptr) : QObject(parent) {}
+    ParamsModel(QObject *parent = nullptr) : QObject(parent) {}
 
     // settings model functions
     QJsonObject readJSON(const QString& filePath);

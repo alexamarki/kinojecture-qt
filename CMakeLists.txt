@@ -10,34 +10,31 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-# qt6_wrap_ui(UI_HEADERS ${CMAKE_SOURCE_DIR}/qt/base_window.ui)
+file(GLOB UI_FILES qt/*.ui)
+file(GLOB HEADER_FILES qt/*.h game_logic/*.h db_code/*.h controller/*.h)
+file(GLOB SOURCE_FILES qt/*.cpp game_logic/*.cpp db_code/*.cpp controller/*.cpp)
 
-add_executable(myApp 
-    #qt/base_window.h 
-    qt/base_window.cpp 
-    qt/base_window.ui
-    #qt/hoverpushbutton.h
-    qt/hoverpushbutton.cpp
-    #build/ui_base_window.hx
+qt6_wrap_ui(UI_HEADERS ${UI_FILES})
+
+add_executable(myApp
+    ${HEADER_FILES}
+    ${SOURCE_FILES}
+    ${UI_HEADERS}
 )
-# add_executable(controller 
-#     controller/controller.h 
-#     controller/controller.cpp 
-# )
-# add_executable(gameModel 
-#     game_logic/game_model.h 
-#     game_logic/game_model.cpp 
-# )
-#add_executable(leaderboard 
-#    db_code/leaderboard.h 
-#    db_code/leaderboard.cpp)
 
-target_link_libraries(myApp Qt6::Widgets Qt6::Core)
-# target_link_libraries(controller Qt6::Core Qt6::Sql)
-# target_link_libraries(gameModel Qt6::Core Qt6::Sql)
-#target_link_libraries(leaderboard Qt6::Core Qt6::Sql)
-target_include_directories(myApp PRIVATE ${CMAKE_SOURCE_DIR}/qt)
+set_target_properties(myApp PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+    OUTPUT_NAME "base_window"
+)
 
+target_include_directories(myApp PRIVATE 
+    ${CMAKE_SOURCE_DIR}/qt 
+    ${CMAKE_SOURCE_DIR}/game_logic
+    ${CMAKE_SOURCE_DIR}/db_code 
+    ${CMAKE_SOURCE_DIR}/controller
+)
+
+target_link_libraries(myApp Qt6::Widgets Qt6::Core Qt6::Sql)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

@@ -6,7 +6,8 @@
 #include <QObject>
 #include <QtGui>
 #include "hoverpushbutton.h"
-#include "../build/myApp_autogen/build/ui_base_window.h"
+#include "../controller/movie_controller.h"
+#include "../build/ui_base_window.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -25,6 +26,7 @@ public:
         connect(ui.main_button, &QPushButton::clicked, this, &MainWindow::MainPage);
         connect(ui.start_button, &QPushButton::clicked, this, &MainWindow::NewGame);
         connect(ui.leaderboard_button, &QPushButton::clicked, this, &MainWindow::Leaderboard);
+        // connect(ui.leaderboard_button, &QPushButton::clicked, this, &MovieController::printHI());
         connect(ui.settings_button, &QPushButton::clicked, this, &MainWindow::Settings);
         
         // Table show buttons
@@ -67,8 +69,8 @@ public slots:
         ui.stackedWidget->setCurrentWidget(ui.Kinojecture);
     }
     void NewGame() {
-        ui.stackedWidget->setCurrentWidget(ui.GameField);
-        //ui.stackedWidget->setCurrentWidget(ui.NewGame);
+        // ui.stackedWidget->setCurrentWidget(ui.GameField);
+        ui.stackedWidget->setCurrentWidget(ui.NewGame);
     }
     void Leaderboard() {
         ui.stackedWidget->setCurrentWidget(ui.Leaderboard);
