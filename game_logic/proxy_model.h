@@ -47,6 +47,6 @@ private:
 
 // private slots:
 //     void handleCellSelected(int row, int column, const QString& cellData);
-}
+};
 
 #endif

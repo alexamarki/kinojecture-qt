@@ -28,6 +28,6 @@ public slots:
 
 private:
     QStringList selectionData;
-}
+};
 
 #endif
