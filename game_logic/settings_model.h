@@ -18,7 +18,7 @@ public:
     void updateJSON(int sfxVolume, int colourScheme, QString username);
     QString getUsername();
     int getSFXVolume(); // pass for now
-    int getColourScheme(); //pass for now
+    int getColourScheme(); // pass for now
 
 signals:
     void updateSettings(); // to update name + the colour scheme

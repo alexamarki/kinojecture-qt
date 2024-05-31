@@ -30,8 +30,9 @@ public:
         connect(selectionModel, &SelectionModel::cellSelected, this, &ProxyModel::handleCellSelected);
     }
 
-    void setFilter(int column, const QString& filterString);
+    void setFilter(int column, const QString& filterString, const int filterType);
     void clearFilter(int column);
+    void clearAllFilters();
     void setSortOrder(int column, Qt::SortOrder order);
     QStringList getSelectionData();
     bool checkCount(QStringList data, int limit);
@@ -42,6 +43,7 @@ protected:
 private:
     SelectionModel* selectionModel;
     QVector<QString> columnFilters;
+    QVector<int> columnFiltersType;
 
 private slots:
     void handleCellSelected(int row, int column, const QString& cellData);
