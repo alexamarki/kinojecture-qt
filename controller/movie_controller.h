@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QSqlTableModel>
 #include <QStringList>
+#include <QSqlDatabase>
 #include "../game_logic/proxy_model.h"
 #include "../db_code/cinema_db.h"
 
@@ -14,8 +15,13 @@ public:
     MovieController(QObject *parent = nullptr)
     {
         CinemaDB *database = new CinemaDB();
-        QSqlTableModel *tableModel = new QSqlTableModel(nullptr, database->getDB());
+        QSqlDatabase db = database->getDB();
+        QSqlTableModel *tableModel = new QSqlTableModel(nullptr, db);
         tableModel->setTable("movies");
+        tableModel->select();
+        while (tableModel->canFetchMore()) {
+            tableModel->fetchMore();
+        }
         ProxyModel *proxyModel = new ProxyModel(tableModel);
         this->model = proxyModel;
     }

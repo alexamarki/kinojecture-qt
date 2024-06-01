@@ -1,29 +1,6 @@
 #include "proxy_model.h"
 
-
-void ProxyModel::setRowLimit(int limit) {
-    if (limit != rowLimit) {
-        rowLimit = limit;
-        invalidateFilter(); // Invalidate the filter to reapply with the new limit
-    }
-}
-
-int ProxyModel::rowCount(const QModelIndex &parent) const {
-    return 100;
-    // if (parent.isValid()) // For tree structures
-    //     return 0;
-
-    // int actualRowCount = QSortFilterProxyModel::rowCount(parent);
-    
-    // // Return the lesser of the actual row count or the row limit
-    // return (rowLimit > 0 && actualRowCount > rowLimit) ? rowLimit : actualRowCount;
-}
-
 bool ProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const {
-    if (sourceRow >= rowLimit) {
-        return false;
-    }
-
     for (int column = 0; column < columnFilters.size(); ++column) {
         if (!columnFilters[column].isEmpty()) {
             if (columnFiltersType[column] == 0) {
@@ -83,4 +60,8 @@ QStringList ProxyModel::getSelectionData() {
 
 bool ProxyModel::checkCount(QStringList data, int limit) {
     return data.size() == limit;
+}
+
+QSqlTableModel* ProxyModel::getSourceModel() {
+    return this->_sourceModel;
 }

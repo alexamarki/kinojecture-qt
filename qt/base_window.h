@@ -99,51 +99,17 @@ public slots:
     }
     void ShowTableMovies() {
         movieTableView = new QTableView(this);
-        // QAbstractItemModel *model = movieController->getModelDirect();
-        CinemaDB *database = new CinemaDB();
-        QSqlTableModel *model = new QSqlTableModel(nullptr, database->getDB());
-        qDebug() << "before";
-        model->setTable("movies");
-        model->select();
-        for (int i = 0; i < model->rowCount(); ++i) {
-            // int startYear = model->record(i).value("startYear").toInt();
-            // QString name = model->record(i).value("genre").toString();
-            qDebug() << i;
-        }
-        qDebug() << model->rowCount();
-        qDebug() << "after";
+        ProxyModel *model = movieController->getModelDirect();
         QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(ui.verticalLayoutWidget->layout());
         if (!layout) {
             layout = new QVBoxLayout(ui.verticalLayoutWidget);
             ui.verticalLayoutWidget->setLayout(layout);
         }
-
-        
         
         movieTableView->setModel(model);
         layout->addWidget(movieTableView);
         movieTableView->show();
         
-
-
-        // table for print
-        
-        int rowCount = model->rowCount();
-        int columnCount = model->columnCount();
-        
-
-        // print
-        for (int row = 0; row < rowCount; ++row) {
-            std::cout << "|";
-            for (int column = 0; column < columnCount; ++column) {
-                QModelIndex index = model->index(row, column);
-                QString data = model->data(index).toString();
-                std::cout << " " << data.toStdString() << " |";
-            }
-            std::cout << "\n";
-        }
-
-        // normal part again
         ui.tableMovies->setCurrentWidget(ui.table_show);
     }
     void ShowTableActors() {

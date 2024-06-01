@@ -24,25 +24,25 @@ class ProxyModel : public QSortFilterProxyModel
 public:
     ProxyModel(QSqlTableModel* sourceModel, QObject* parent = nullptr) : QSortFilterProxyModel(parent)
     {
-        selectionModel = new SelectionModel(this);
-        this->setSourceModel(sourceModel);
+        // selectionModel = new SelectionModel(this);
+        this->_sourceModel = sourceModel;
+        setSourceModel(sourceModel);
         // connect(selectionModel, &SelectionModel::cellSelected, this, &ProxyModel::handleCellSelected);
     }
-    void setRowLimit(int limit);
     void setFilter(int column, const QString& filterString, const int filterType);
     void clearFilter(int column);
     void clearAllFilters();
     void setSortOrder(int column, Qt::SortOrder order);
     QStringList getSelectionData();
     bool checkCount(QStringList data, int limit);
+    QSqlTableModel* getSourceModel();
 
 protected:
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;
 
 private:
     SelectionModel* selectionModel;
+    QSqlTableModel* _sourceModel;
     QVector<QString> columnFilters;
     QVector<int> columnFiltersType;
     int rowLimit = -1;
