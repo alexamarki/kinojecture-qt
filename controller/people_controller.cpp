@@ -22,9 +22,10 @@ void PeopleController::filterByJob(const QString& job)
     model->setFilter(5, job, 0);
 }
 
-void PeopleController::submitFilters(const QString& primaryName, int birthYear, int deathYear, const QString& job)
+void PeopleController::submitFilters(const QString& primary_job_filter, const QString& primaryName, int birthYear, int deathYear, const QString& job)
 {
     model->clearAllFilters();
+    this->filterByJob(primary_job_filter);
     if (!primaryName.isEmpty())
         this->filterByPrimaryName(primaryName);
     if (birthYear!= 0)
@@ -38,7 +39,12 @@ void PeopleController::submitFilters(const QString& primaryName, int birthYear, 
 void PeopleController::checkGameData()
 {
     if (model->checkCount(model->getSelectionData(), 25))
-        emit sufficientGameData();
+        emit sufficientGameData(model->getSelectionData());
     else
         emit insufficientGameData();
+}
+
+ProxyModel* PeopleController::getModelDirect()
+{
+    return this->model;
 }
