@@ -8,6 +8,10 @@
 #include "hoverpushbutton.h"
 #include "../controller/movie_controller.h"
 #include "../build/ui_base_window.h"
+#include <QSqlTableModel>
+#include <QStringList>
+#include "../game_logic/proxy_model.h"
+#include "../db_code/cinema_db.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -94,22 +98,39 @@ public slots:
         ui.stackedWidget->setCurrentWidget(ui.Composers);
     }
     void ShowTableMovies() {
+        movieTableView = new QTableView(this);
+        // QSortFilterProxyModel *model = movieController->getModelDirect();
+        CinemaDB *database = new CinemaDB("../data/game.db");
+        QSqlTableModel *model = new QSqlTableModel(nullptr, database->getDB());
+        qDebug() << "before";
+        model->setTable("movies");
+        model->select();
+        for (int i = 0; i < model->rowCount(); ++i) {
+            // int startYear = model->record(i).value("startYear").toInt();
+            // QString name = model->record(i).value("genre").toString();
+            qDebug() << i;
+        }
+        qDebug() << model->rowCount();
+        qDebug() << "after";
         QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(ui.verticalLayoutWidget->layout());
         if (!layout) {
             layout = new QVBoxLayout(ui.verticalLayoutWidget);
             ui.verticalLayoutWidget->setLayout(layout);
         }
 
-        movieTableView = new QTableView(this);
-        movieTableView->setModel(movieController->getModelDirect());
+        
+        
+        movieTableView->setModel(model);
         layout->addWidget(movieTableView);
         movieTableView->show();
+        
 
 
         // table for print
-        QAbstractItemModel *model = movieController->getModelDirect();
+        
         int rowCount = model->rowCount();
         int columnCount = model->columnCount();
+        
 
         // print
         for (int row = 0; row < rowCount; ++row) {

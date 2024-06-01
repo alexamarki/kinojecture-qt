@@ -13,6 +13,14 @@ set(CMAKE_AUTORCC ON)
 file(GLOB UI_FILES qt/*.ui)
 file(GLOB HEADER_FILES qt/*.h game_logic/*.h db_code/*.h controller/*.h)
 file(GLOB SOURCE_FILES qt/*.cpp game_logic/*.cpp db_code/*.cpp controller/*.cpp)
+set(cinema_db_path "${CMAKE_CURRENT_SOURCE_DIR}/resources/game.db")
+set_source_files_properties(${cinema_db_path} PROPERTIES
+           MACOSX_PACKAGE_LOCATION "Resources")
+
+set(MACOSX_BUNDLE_ICON_FILE kj_icon_test.ico)
+set(app_icon_macos "${CMAKE_CURRENT_SOURCE_DIR}/resources/kj_icon_test.ico")
+set_source_files_properties(${app_icon_macos} PROPERTIES
+            MACOSX_PACKAGE_LOCATION "Resources")
 
 qt6_wrap_ui(UI_HEADERS ${UI_FILES})
 
@@ -20,7 +28,10 @@ add_executable(myApp
     #${HEADER_FILES}
     ${SOURCE_FILES}
     ${UI_HEADERS}
+    ${cinema_db_path}
+    ${app_icon_macos}
 )
+
 
 set_target_properties(myApp PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
@@ -36,6 +47,30 @@ target_include_directories(myApp PRIVATE
 
 target_link_libraries(myApp Qt6::Widgets Qt6::Core Qt6::Sql)
 
+set_target_properties(myApp PROPERTIES
+    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
+    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+    MACOSX_BUNDLE TRUE
+    WIN32_EXECUTABLE TRUE
+)
+
+install(TARGETS myApp
+    BUNDLE DESTINATION .
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+if(QT_VERSION_MAJOR EQUAL 6)
+    qt_finalize_executable(icon)
+endif()
+
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
+find_package(Doxygen)
+if(Doxygen_FOUND)
+    add_subdirectory(docs)
+else()
+    message(STATUS "Doxygen not found")
+endif()

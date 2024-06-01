@@ -1,9 +1,23 @@
 #include "cinema_db.h"
+#include <QApplication>
+
+QString getResourcesPath()
+{
+#if defined(Q_OS_WIN)
+    return QApplication::applicationDirPath() + "/";
+#elif defined(Q_OS_OSX)
+    return QApplication::applicationDirPath() + "/../Resources/";
+#elif defined(Q_OS_LINUX)
+    return QApplication::applicationDirPath() + "/../share/yourapplication/";
+#else
+    return QApplication::applicationDirPath() + "/";
+#endif
+}
 
 CinemaDB::CinemaDB(const QString& db_path) 
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("cinema_db");
+    db.setDatabaseName(getResourcesPath() + "game.db");
     if (!db.open()) {
         std::cerr << "Cannot open database: " << db.lastError().text().toStdString() << std::endl;
     }

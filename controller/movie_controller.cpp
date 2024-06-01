@@ -69,10 +69,7 @@ void MovieController::checkGameData()
 
 ProxyModel* MovieController::getModelDirect()
 {
-    ProxyModel * proxyModel = new ProxyModel(nullptr);
-    proxyModel->setSourceModel(model);
-
-    return proxyModel;
+    return this->model;
 }
 
 void MovieController::printHI()
