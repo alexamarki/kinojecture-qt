@@ -108,6 +108,7 @@ public slots:
         movieController->filterByPrimaryTitle("sta");
         // movieController->filterByAverageRating(7.1, false);
         movieTableView->setModel(model);
+        movieTableView->setSortingEnabled(true);
         layout->addWidget(movieTableView);
         movieTableView->show();
         ui.tableMovies->setCurrentWidget(ui.table_show);
