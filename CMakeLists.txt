@@ -17,7 +17,7 @@ file(GLOB SOURCE_FILES qt/*.cpp game_logic/*.cpp db_code/*.cpp controller/*.cpp)
 qt6_wrap_ui(UI_HEADERS ${UI_FILES})
 
 add_executable(myApp
-    ${HEADER_FILES}
+    #${HEADER_FILES}
     ${SOURCE_FILES}
     ${UI_HEADERS}
 )

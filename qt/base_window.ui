@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="Kinojecture">
     <widget class="QPushButton" name="start_button">
@@ -677,176 +677,6 @@ p, li { white-space: pre-wrap; }
       </widget>
      </widget>
      <widget class="QWidget" name="table_show">
-      <widget class="QTableWidget" name="movies_table">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>50</y>
-         <width>781</width>
-         <height>411</height>
-        </rect>
-       </property>
-       <row>
-        <property name="text">
-         <string>New Row</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>1</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>2</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>3</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>4</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>5</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>6</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>7</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>8</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>9</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>10</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>12</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>13</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>12</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>15</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>New Row</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>16</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>18</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>18</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>19</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>21</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>New Row</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>22</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>23</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>25</string>
-        </property>
-       </row>
-       <column>
-        <property name="text">
-         <string>1</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>2</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>3</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>4</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>5</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>6</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>7</string>
-        </property>
-       </column>
-      </widget>
       <widget class="QPushButton" name="update_movies_button">
        <property name="geometry">
         <rect>
@@ -859,6 +689,30 @@ p, li { white-space: pre-wrap; }
        <property name="text">
         <string>Update the table</string>
        </property>
+      </widget>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>761</width>
+         <height>411</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>GroupBox</string>
+       </property>
+       <widget class="QWidget" name="verticalLayoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>10</y>
+          <width>761</width>
+          <height>401</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout"/>
+       </widget>
       </widget>
      </widget>
     </widget>
@@ -1817,7 +1671,7 @@ p, li { white-space: pre-wrap; }
   <customwidget>
    <class>HoverPushButton</class>
    <extends>QPushButton</extends>
-   <header location="global">../qt/hoverpushbutton.h</header>
+   <header location="global">C:\Users\sotov\kinojecture-qt\qt\hoverpushbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

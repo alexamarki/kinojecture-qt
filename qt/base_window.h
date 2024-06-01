@@ -64,6 +64,7 @@ public:
 private:
     Ui::Form ui;
     MovieController *movieController;
+    QTableView* movieTableView;
     std::vector<bool> selectedCards;
 
 public slots:
@@ -93,6 +94,35 @@ public slots:
         ui.stackedWidget->setCurrentWidget(ui.Composers);
     }
     void ShowTableMovies() {
+        QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(ui.verticalLayoutWidget->layout());
+        if (!layout) {
+            layout = new QVBoxLayout(ui.verticalLayoutWidget);
+            ui.verticalLayoutWidget->setLayout(layout);
+        }
+
+        movieTableView = new QTableView(this);
+        movieTableView->setModel(movieController->getModelDirect());
+        layout->addWidget(movieTableView);
+        movieTableView->show();
+
+
+        // table for print
+        QAbstractItemModel *model = movieController->getModelDirect();
+        int rowCount = model->rowCount();
+        int columnCount = model->columnCount();
+
+        // print
+        for (int row = 0; row < rowCount; ++row) {
+            std::cout << "|";
+            for (int column = 0; column < columnCount; ++column) {
+                QModelIndex index = model->index(row, column);
+                QString data = model->data(index).toString();
+                std::cout << " " << data.toStdString() << " |";
+            }
+            std::cout << "\n";
+        }
+
+        // normal part again
         ui.tableMovies->setCurrentWidget(ui.table_show);
     }
     void ShowTableActors() {

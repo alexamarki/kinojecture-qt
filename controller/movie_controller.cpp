@@ -1,4 +1,6 @@
 #include "movie_controller.h"
+#include <QObject>
+#include "proxy_model.h"
 
 void MovieController::filterByTitleType(const QString& titleType)
 {
@@ -67,7 +69,10 @@ void MovieController::checkGameData()
 
 ProxyModel* MovieController::getModelDirect()
 {
-    return this->model;
+    ProxyModel * proxyModel = new ProxyModel(nullptr);
+    proxyModel->setSourceModel(model);
+
+    return proxyModel;
 }
 
 void MovieController::printHI()

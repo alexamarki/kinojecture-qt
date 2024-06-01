@@ -28,7 +28,7 @@ public:
         this->setSourceModel(sourceModel);
         // connect(selectionModel, &SelectionModel::cellSelected, this, &ProxyModel::handleCellSelected);
     }
-
+    void setRowLimit(int limit);
     void setFilter(int column, const QString& filterString, const int filterType);
     void clearFilter(int column);
     void clearAllFilters();
@@ -37,12 +37,15 @@ public:
     bool checkCount(QStringList data, int limit);
 
 protected:
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;
 
 private:
     SelectionModel* selectionModel;
     QVector<QString> columnFilters;
     QVector<int> columnFiltersType;
+    int rowLimit = -1;
 
 // private slots:
 //     void handleCellSelected(int row, int column, const QString& cellData);
