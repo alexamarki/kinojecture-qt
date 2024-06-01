@@ -1671,7 +1671,7 @@ p, li { white-space: pre-wrap; }
   <customwidget>
    <class>HoverPushButton</class>
    <extends>QPushButton</extends>
-   <header location="global">C:\Users\sotov\kinojecture-qt\qt\hoverpushbutton.h</header>
+   <header location="global">../qt/hoverpushbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
