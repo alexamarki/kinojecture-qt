@@ -40,6 +40,36 @@ public:
         connect(ui.show_table_directors_button, &QPushButton::clicked, this, &MainWindow::ShowTableDirectors);
         connect(ui.show_table_composers_button, &QPushButton::clicked, this, &MainWindow::ShowTableComposers);
 
+        // Filter buttons
+        connect(ui.choose_media_type, &QLineEdit::textChanged, [this]() {
+            movieController->filterByTitleType(ui.choose_media_type->text());
+        });
+        connect(ui.choose_genre, &QLineEdit::textChanged, [this]() {
+            movieController->filterByGenres(ui.choose_genre->text());
+        });
+        connect(ui.choose_title, &QLineEdit::textChanged, [this]() {
+            movieController->filterByPrimaryTitle(ui.choose_title->text());
+        });
+        connect(ui.choose_runtime, &QSpinBox::valueChanged, [this]() {
+            movieController->filterByRuntime(ui.choose_runtime->value(), true);
+        });
+        connect(ui.choose_year_before, &QSpinBox::valueChanged, [this]() {
+            movieController->filterByYearRange(ui.choose_year_before->value(), false);
+        });
+        connect(ui.choose_year_after, &QSpinBox::valueChanged, [this]() {
+            movieController->filterByYearRange(ui.choose_year_after->value(), true);
+        });
+        connect(ui.choose_rating_below, &QDoubleSpinBox::valueChanged, [this]() {
+            movieController->filterByAverageRating(ui.choose_rating_below->value(), false);
+        });
+        connect(ui.choose_rating_above, &QDoubleSpinBox::valueChanged, [this]() {
+            movieController->filterByAverageRating(ui.choose_rating_above->value(), true);
+        });
+
+
+        // Submit to game engine buttons
+        connect(ui.submit_movies_button, &QPushButton::clicked, this, &MainWindow::SubmitMovies);
+
         // New game buttons
         connect(ui.movie_mode_button, &QPushButton::clicked, this, &MainWindow::Movies);
         connect(ui.actors_mode_button, &QPushButton::clicked, this, &MainWindow::Actors);
@@ -105,8 +135,7 @@ public slots:
             layout = new QVBoxLayout(ui.verticalLayoutWidget);
             ui.verticalLayoutWidget->setLayout(layout);
         }
-        movieController->filterByPrimaryTitle("sta");
-        // movieController->filterByAverageRating(7.1, false);
+        movieTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
         movieTableView->setModel(model);
         movieTableView->setSortingEnabled(true);
         layout->addWidget(movieTableView);
@@ -121,6 +150,9 @@ public slots:
     }
     void ShowTableComposers() {
         ui.tableComposers->setCurrentWidget(ui.table_show_c);
+    }
+    void SubmitMovies() {
+        
     }
     void CardSelection() {
         HoverPushButton *button = qobject_cast<HoverPushButton *>(sender());

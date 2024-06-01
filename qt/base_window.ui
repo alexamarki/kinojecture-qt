@@ -620,7 +620,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <layout class="QVBoxLayout" name="verticalLayout"/>
        </widget>
       </widget>
-      <widget class="QPushButton" name="submit_data_button">
+      <widget class="QPushButton" name="submit_movies_button">
        <property name="geometry">
         <rect>
          <x>420</x>
