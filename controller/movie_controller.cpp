@@ -31,7 +31,7 @@ void MovieController::filterByRuntime(int runtime, bool exceeding)
 
 void MovieController::filterByAverageRating(double averageRating, bool exceeding)
 {
-    QString filterString = QString("%.2f").arg(averageRating);
+    QString filterString = QString("%1").arg(averageRating);
     model->setFilter(7, filterString, exceeding ? 1 : -1);
 }
 

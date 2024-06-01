@@ -105,11 +105,11 @@ public slots:
             layout = new QVBoxLayout(ui.verticalLayoutWidget);
             ui.verticalLayoutWidget->setLayout(layout);
         }
-        
+        movieController->filterByPrimaryTitle("sta");
+        // movieController->filterByAverageRating(7.1, false);
         movieTableView->setModel(model);
         layout->addWidget(movieTableView);
         movieTableView->show();
-        
         ui.tableMovies->setCurrentWidget(ui.table_show);
     }
     void ShowTableActors() {

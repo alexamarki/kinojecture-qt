@@ -50,8 +50,16 @@ void ProxyModel::clearAllFilters() {
     invalidateFilter();
 }
 
-void ProxyModel::setSortOrder(int column, Qt::SortOrder order) {
+void ProxyModel::setSortOrder(int column, Qt::SortOrder order) 
+{
     sort(column, order);
+}
+
+bool ProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
+{
+    QVariant leftData = sourceModel()->data(left);
+    QVariant rightData = sourceModel()->data(right);
+    return leftData.toString() < rightData.toString();
 }
 
 QStringList ProxyModel::getSelectionData() {
