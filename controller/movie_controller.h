@@ -13,7 +13,7 @@ class MovieController : public QObject {
 public:
     MovieController(QObject *parent = nullptr)
     {
-        CinemaDB *database = new CinemaDB("../data/game.db");
+        CinemaDB *database = new CinemaDB();
         QSqlTableModel *tableModel = new QSqlTableModel(nullptr, database->getDB());
         tableModel->setTable("movies");
         ProxyModel *proxyModel = new ProxyModel(tableModel);

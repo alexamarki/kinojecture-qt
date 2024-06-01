@@ -14,7 +14,7 @@ QString getResourcesPath()
 #endif
 }
 
-CinemaDB::CinemaDB(const QString& db_path) 
+CinemaDB::CinemaDB() 
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(getResourcesPath() + "game.db");

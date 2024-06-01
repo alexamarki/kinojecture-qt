@@ -18,7 +18,7 @@
 class CinemaDB 
 {
 public:
-    CinemaDB(const QString& db_path = "../data/game.db");
+    CinemaDB();
     ~CinemaDB();
     QSqlDatabase getDB();
 

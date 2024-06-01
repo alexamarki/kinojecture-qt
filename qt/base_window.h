@@ -99,8 +99,8 @@ public slots:
     }
     void ShowTableMovies() {
         movieTableView = new QTableView(this);
-        // QSortFilterProxyModel *model = movieController->getModelDirect();
-        CinemaDB *database = new CinemaDB("../data/game.db");
+        // QAbstractItemModel *model = movieController->getModelDirect();
+        CinemaDB *database = new CinemaDB();
         QSqlTableModel *model = new QSqlTableModel(nullptr, database->getDB());
         qDebug() << "before";
         model->setTable("movies");
