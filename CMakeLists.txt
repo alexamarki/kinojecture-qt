@@ -25,7 +25,7 @@ set_source_files_properties(${app_icon_macos} PROPERTIES
 qt6_wrap_ui(UI_HEADERS ${UI_FILES})
 
 add_executable(myApp
-    #${HEADER_FILES}
+    ${HEADER_FILES}
     ${SOURCE_FILES}
     ${UI_HEADERS}
     ${cinema_db_path}
