@@ -64,7 +64,7 @@ void Model::updateTurnNum(bool isPrimaryPlayer)
 
 void Model::awardScores(bool isCorrect, bool isPrimaryPlayer)
 {
-    double maxPointTotal = MAX_GAME_POINTS * ((isPrimaryPlayer ? turns.first : turns.second) / dataList.size());
+    double maxPointTotal = MAX_GAME_POINTS * ((isPrimaryPlayer ? turns.first : turns.second) / (dataList.size()*1.0));
     if (isPrimaryPlayer)
     {
         scores.first = isCorrect ? maxPointTotal : (-maxPointTotal * INCORRECT_PRIMARY_WEIGHT);
@@ -80,6 +80,7 @@ void Model::awardScores(bool isCorrect, bool isPrimaryPlayer)
 QJsonObject Model::readJSON(const QString &filePath) 
 {
     QFile file(filePath);
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
     QByteArray fileData = file.readAll();
     file.close();
     QJsonDocument jsonDoc = QJsonDocument::fromJson(fileData);
@@ -99,8 +100,9 @@ QString Model::updateJSON(const QString &filePath, QString uuid="", QString user
         jsonObj["uuid"] = uuid;
     if (username != "")
         jsonObj["username"] = username;
-    LeaderboardDB leaderDB;
-    leaderDB.rename_player(jsonObj["uuid"].toString(), username);
+    db->rename_player(jsonObj["uuid"].toString(), username);
+    delete db;
+    this->db = new LeaderboardDB();
     QJsonDocument updatedFile(jsonObj);
     return updatedFile.toJson();
 }
@@ -119,20 +121,20 @@ void Model::updateUUID()
 void Model::updateUsername(QString username) 
 {
     QJsonObject jsonObj = readJSON(PATH_JSON_PLAYER);
-    this->writeJSON(PATH_JSON_PLAYER, updateJSON(PATH_JSON_PLAYER, "", username, 0)); // need to make this update the DB as well, also separate into a different file, as this function is practically cloned in settings_model
+    this->writeJSON(PATH_JSON_PLAYER, updateJSON(PATH_JSON_PLAYER, "", username, 0)); 
 }
 
 void Model::saveScores(bool includeSecondPlayer, QString snd_name="")
 {
+    this->updateUUID();
     QString quuid = readJSON(PATH_JSON_PLAYER)["uuid"].toString();
     QString qnick = readJSON(PATH_JSON_PLAYER)["username"].toString(); 
-    LeaderboardDB db;
-    db.createTable();
-    if (db.is_player_in_leaderboard(quuid))
-        db.update_player_rating(quuid, scores.first);
+    db->createTable();
+    if (!db->is_player_in_leaderboard(quuid))
+        db->add_player(quuid, qnick, scores.second);
     else 
-        db.add_player(quuid, qnick, scores.first);
-    QString to_replace = updateJSON(PATH_JSON_PLAYER, "", "", scores.first);
+        db->update_player_rating(quuid, scores.second);
+    QString to_replace = updateJSON(PATH_JSON_PLAYER, "", "", scores.second);
     writeJSON(PATH_JSON_PLAYER, to_replace);
     if (includeSecondPlayer)
     {
@@ -141,13 +143,17 @@ void Model::saveScores(bool includeSecondPlayer, QString snd_name="")
             int postfix = 1;
             while (true) 
             {
-                if (db.is_player_in_leaderboard(quuid + QString::fromStdString(std::to_string(postfix))))
+                if (db->is_player_in_leaderboard(quuid + QString::fromStdString(std::to_string(postfix))))
                     postfix++;
+                else
+                    break;
             }
             QString quuid_secondary = quuid + QString::fromStdString(std::to_string(postfix));
-            db.add_player(quuid_secondary, snd_name, scores.second);
+            db->add_player(quuid_secondary, snd_name, scores.first);
         } 
     }
+    delete db;
+    this->db = new LeaderboardDB();
 }
 
 int Model::getPlayerCardId(bool isPrimaryPlayer)

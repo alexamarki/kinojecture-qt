@@ -16,13 +16,10 @@
 #include <iostream>
 
 /**
- * A brief history of JavaDoc-style (C-style) comments.
+ * Leaderboard table implementation class
  *
- * This is the typical JavaDoc-style C-style comment. It starts with two
- * asterisks.
+ * Used for ranking
  *
- * @param theory Even if there is only one possible unified theory. it is just a
- *               set of rules and equations.
  */
 
 class LeaderboardDB 
@@ -36,7 +33,6 @@ public:
     ~LeaderboardDB();
 
     void createTable();
-    void sql_exec(const QString& query);
     void replace_player_data(const QString& filepath);
     void merge_player_data(const QString& filepath);
     bool is_player_in_leaderboard(const QString& uuid);
@@ -49,7 +45,8 @@ public:
 
 private:
     QSqlDatabase db;
-    static std::vector<QString> query_to_vector(QSqlQuery& query);
 };
+
+QString getResourcesPath();
 
 #endif
