@@ -1,6 +1,6 @@
 #include "movie_controller.h"
 #include <QObject>
-#include "proxy_model.h"
+#include "../game_logic/proxy_model.h"
 
 void MovieController::filterByTitleType(const QString& titleType)
 {

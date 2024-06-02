@@ -1,6 +1,6 @@
 #include "people_controller.h"
 #include <QObject>
-#include "proxy_model.h"
+#include "../game_logic/proxy_model.h"
 
 void PeopleController::filterByPrimaryName(const QString& primaryName)
 {
