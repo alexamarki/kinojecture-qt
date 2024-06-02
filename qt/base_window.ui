@@ -1861,6 +1861,34 @@ li.checked::marker { content: &quot;\2612&quot;; }
        </property>
       </widget>
      </widget>
+     <widget class="QWidget" name="turnover">
+      <widget class="QPushButton" name="ready_button">
+       <property name="geometry">
+        <rect>
+         <x>250</x>
+         <y>150</y>
+         <width>211</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Next turn?</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>270</x>
+         <y>90</y>
+         <width>181</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Waiting for the other player...</string>
+       </property>
+      </widget>
+     </widget>
     </widget>
    </widget>
   </widget>

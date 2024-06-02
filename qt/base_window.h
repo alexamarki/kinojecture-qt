@@ -49,6 +49,8 @@ public:
         connect(ui.show_table_composers_button, &QPushButton::clicked, this, &MainWindow::ShowTableComposers);
         
         connect(ui.card_num_button_2, &QPushButton::clicked, this, &MainWindow::GameFieldLoad);
+        connect(ui.ready_button, &QPushButton::clicked, controller, &Controller::onTurnOverEnd); 
+        connect(controller, &Controller::showGameScreen, this, &MainWindow::GameFieldLoad);
 
         // Filter buttons
         connect(ui.choose_media_type, &QLineEdit::textChanged, [this]() {
@@ -268,6 +270,8 @@ public slots:
         //this->GameFieldLoad(); // actually we have to switch to the turnover screen prior to calling this fyi
     }
     void callTurnOverScreen() {
+        ui.main_widget->setCurrentWidget(ui.game_mode);
+        ui.game_pages->setCurrentWidget(ui.turnover);
         qDebug() << "turn over screen";
     }
     void callFailPopup() {

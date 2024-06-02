@@ -27,7 +27,6 @@ public:
     void addToLeaderboard(bool includeSecondaryPlayer, QString sndUsername);
     bool getPlayerTurn();
     void invertPlayerTurn();
-    void onTurnOverEnd();
     Model *model;
 
 public slots:
@@ -35,6 +34,7 @@ public slots:
     void onTurnOver(); // link to Model::turnOverEvent()
     void onGameOver(); // link to Model::endEvent()
     void onLowerFail(); // link to Model::lowerFail() - you chose to many cards (pop up)
+    void onTurnOverEnd();
 
 signals: // to connect to View SLOTS, which are yet to be implemented
     // gameloop controller signals
