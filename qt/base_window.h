@@ -273,8 +273,10 @@ public slots:
         ui.main_widget->setCurrentWidget(ui.game_mode);
         ui.game_pages->setCurrentWidget(ui.turnover);
         qDebug() << "turn over screen";
+        qDebug() << controller->get
     }
     void callFailPopup() {
+        this->GameFieldLoad();
         qDebug() << "fail popup";
     }
     void clearGameFieldSelection() {
