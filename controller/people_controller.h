@@ -13,8 +13,13 @@ public:
     PeopleController(QObject *parent = nullptr)
     {
         CinemaDB *database = new CinemaDB();
-        QSqlTableModel *tableModel = new QSqlTableModel(nullptr, database->getDB());
+        QSqlDatabase db = database->getDB();
+        QSqlTableModel *tableModel = new QSqlTableModel(nullptr, db);
         tableModel->setTable("people");
+        tableModel->select();
+        while (tableModel->canFetchMore()) {
+            tableModel->fetchMore();
+        }
         ProxyModel *proxyModel = new ProxyModel(tableModel);
         this->model = proxyModel;
     }

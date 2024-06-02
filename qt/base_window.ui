@@ -33,7 +33,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="Kinojecture">
       <widget class="QPushButton" name="start_button">
@@ -777,18 +777,18 @@ li.checked::marker { content: &quot;\2612&quot;; }
        </property>
       </widget>
      </widget>
-     <widget class="QWidget" name="Directors">
-      <widget class="QStackedWidget" name="tableDirectors">
+     <widget class="QWidget" name="People">
+      <widget class="QStackedWidget" name="tablePeople">
        <property name="geometry">
         <rect>
-         <x>0</x>
-         <y>80</y>
+         <x>-1</x>
+         <y>79</y>
          <width>781</width>
          <height>471</height>
         </rect>
        </property>
-       <widget class="QWidget" name="no_table_d">
-        <widget class="QPushButton" name="show_table_directors_button">
+       <widget class="QWidget" name="no_table">
+        <widget class="QPushButton" name="show_table_people_button">
          <property name="geometry">
           <rect>
            <x>330</x>
@@ -802,181 +802,11 @@ li.checked::marker { content: &quot;\2612&quot;; }
          </property>
         </widget>
        </widget>
-       <widget class="QWidget" name="table_show_d">
-        <widget class="QTableWidget" name="directors_table">
+       <widget class="QWidget" name="table_show_p">
+        <widget class="QPushButton" name="update_people_button">
          <property name="geometry">
           <rect>
-           <x>0</x>
-           <y>50</y>
-           <width>781</width>
-           <height>411</height>
-          </rect>
-         </property>
-         <row>
-          <property name="text">
-           <string>New Row</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>3</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>4</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>5</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>6</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>7</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>8</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>9</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>10</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>12</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>13</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>12</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>15</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>New Row</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>16</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>18</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>18</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>19</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>21</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>New Row</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>22</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>23</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>25</string>
-          </property>
-         </row>
-         <column>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>3</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>4</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>5</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>6</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>7</string>
-          </property>
-         </column>
-        </widget>
-        <widget class="QPushButton" name="update_directors_button">
-         <property name="geometry">
-          <rect>
-           <x>330</x>
+           <x>270</x>
            <y>10</y>
            <width>121</width>
            <height>23</height>
@@ -986,671 +816,124 @@ li.checked::marker { content: &quot;\2612&quot;; }
           <string>Update the table</string>
          </property>
         </widget>
-       </widget>
-      </widget>
-      <widget class="QComboBox" name="choose_byear_d">
-       <property name="geometry">
-        <rect>
-         <x>151</x>
-         <y>41</y>
-         <width>121</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <item>
-        <property name="text">
-         <string>Year of birth (from)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Year1</string>
-        </property>
-       </item>
-      </widget>
-      <widget class="QComboBox" name="choose_movies_d">
-       <property name="geometry">
-        <rect>
-         <x>311</x>
-         <y>11</y>
-         <width>121</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <item>
-        <property name="text">
-         <string>Choose movies</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>actor1</string>
-        </property>
-       </item>
-      </widget>
-      <widget class="QComboBox" name="choose_genre_d">
-       <property name="geometry">
-        <rect>
-         <x>151</x>
-         <y>11</y>
-         <width>121</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <item>
-        <property name="text">
-         <string>Some genre</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Other genre</string>
-        </property>
-       </item>
-      </widget>
-      <widget class="QComboBox" name="choose_dyear_d">
-       <property name="geometry">
-        <rect>
-         <x>310</x>
-         <y>40</y>
-         <width>121</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <item>
-        <property name="text">
-         <string>Year of death (to)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Year1</string>
-        </property>
-       </item>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="Composers">
-      <widget class="QComboBox" name="choose_byear_c">
-       <property name="geometry">
-        <rect>
-         <x>151</x>
-         <y>41</y>
-         <width>121</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <item>
-        <property name="text">
-         <string>Year of birth (from)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Year1</string>
-        </property>
-       </item>
-      </widget>
-      <widget class="QStackedWidget" name="tableComposers">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>80</y>
-         <width>781</width>
-         <height>471</height>
-        </rect>
-       </property>
-       <widget class="QWidget" name="no_table_c">
-        <widget class="QPushButton" name="show_table_composers_button">
+        <widget class="QGroupBox" name="groupBox_p">
          <property name="geometry">
           <rect>
-           <x>330</x>
-           <y>10</y>
-           <width>121</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Show the table</string>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="table_show_c">
-        <widget class="QTableWidget" name="composers_table">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
+           <x>10</x>
            <y>50</y>
-           <width>781</width>
+           <width>761</width>
            <height>411</height>
           </rect>
          </property>
-         <row>
-          <property name="text">
-           <string>New Row</string>
+         <property name="title">
+          <string/>
+         </property>
+         <widget class="QWidget" name="verticalLayoutWidget_4">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>761</width>
+            <height>401</height>
+           </rect>
           </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>3</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>4</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>5</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>6</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>7</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>8</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>9</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>10</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>12</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>13</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>12</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>15</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>New Row</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>16</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>18</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>18</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>19</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>21</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>New Row</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>22</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>23</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>25</string>
-          </property>
-         </row>
-         <column>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>3</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>4</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>5</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>6</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>7</string>
-          </property>
-         </column>
+          <layout class="QVBoxLayout" name="verticalLayoutWidget_p"/>
+         </widget>
         </widget>
-        <widget class="QPushButton" name="update_composers_button">
+        <widget class="QPushButton" name="submit_people_button">
          <property name="geometry">
           <rect>
-           <x>330</x>
+           <x>420</x>
            <y>10</y>
            <width>121</width>
            <height>23</height>
           </rect>
          </property>
          <property name="text">
-          <string>Update the table</string>
+          <string>Submit data</string>
          </property>
         </widget>
        </widget>
       </widget>
-      <widget class="QComboBox" name="choose_movies_c">
+      <widget class="QLineEdit" name="choose_name">
        <property name="geometry">
         <rect>
-         <x>311</x>
-         <y>11</y>
+         <x>100</x>
+         <y>50</y>
          <width>121</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="inputMask">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string>Name / Pseudonym</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="choose_job">
+       <property name="geometry">
+        <rect>
+         <x>230</x>
+         <y>50</y>
+         <width>121</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="placeholderText">
+        <string>Occupation</string>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="choose_year_after">
+       <property name="geometry">
+        <rect>
+         <x>490</x>
+         <y>50</y>
+         <width>91</width>
          <height>22</height>
         </rect>
        </property>
-       <item>
-        <property name="text">
-         <string>Choose movies</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>actor1</string>
-        </property>
-       </item>
+       <property name="minimum">
+        <number>1850</number>
+       </property>
+       <property name="maximum">
+        <number>2100</number>
+       </property>
+       <property name="value">
+        <number>1850</number>
+       </property>
       </widget>
-      <widget class="QComboBox" name="choose_genre_c">
+      <widget class="QSpinBox" name="choose_year_before">
        <property name="geometry">
         <rect>
-         <x>151</x>
-         <y>11</y>
-         <width>121</width>
+         <x>590</x>
+         <y>50</y>
+         <width>91</width>
          <height>22</height>
         </rect>
        </property>
-       <item>
-        <property name="text">
-         <string>Some genre</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Other genre</string>
-        </property>
-       </item>
+       <property name="minimum">
+        <number>1850</number>
+       </property>
+       <property name="maximum">
+        <number>2100</number>
+       </property>
+       <property name="value">
+        <number>2100</number>
+       </property>
       </widget>
-      <widget class="QComboBox" name="choose_dyear_c">
+      <widget class="QLabel" name="label_18">
        <property name="geometry">
         <rect>
-         <x>310</x>
-         <y>40</y>
+         <x>360</x>
+         <y>50</y>
          <width>121</width>
-         <height>22</height>
+         <height>20</height>
         </rect>
        </property>
-       <item>
-        <property name="text">
-         <string>Year of death (to)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Year1</string>
-        </property>
-       </item>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="Actors">
-      <widget class="QComboBox" name="choose_movies_a">
-       <property name="geometry">
-        <rect>
-         <x>311</x>
-         <y>11</y>
-         <width>121</width>
-         <height>22</height>
-        </rect>
+       <property name="text">
+        <string>Year (After/Before):</string>
        </property>
-       <item>
-        <property name="text">
-         <string>Choose movies</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>actor1</string>
-        </property>
-       </item>
-      </widget>
-      <widget class="QStackedWidget" name="tableActors">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>80</y>
-         <width>781</width>
-         <height>471</height>
-        </rect>
-       </property>
-       <widget class="QWidget" name="no_table_a">
-        <widget class="QPushButton" name="show_table_actors_button">
-         <property name="geometry">
-          <rect>
-           <x>330</x>
-           <y>10</y>
-           <width>121</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Show the table</string>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="table_show_a">
-        <widget class="QTableWidget" name="actors_table">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>50</y>
-           <width>781</width>
-           <height>411</height>
-          </rect>
-         </property>
-         <row>
-          <property name="text">
-           <string>New Row</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>3</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>4</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>5</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>6</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>7</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>8</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>9</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>10</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>12</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>13</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>12</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>15</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>New Row</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>16</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>18</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>18</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>19</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>21</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>New Row</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>22</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>23</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>25</string>
-          </property>
-         </row>
-         <column>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>3</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>4</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>5</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>6</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>7</string>
-          </property>
-         </column>
-        </widget>
-        <widget class="QPushButton" name="update_actors_button">
-         <property name="geometry">
-          <rect>
-           <x>330</x>
-           <y>10</y>
-           <width>121</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Update the table</string>
-         </property>
-        </widget>
-       </widget>
-      </widget>
-      <widget class="QComboBox" name="choose_byear_a">
-       <property name="geometry">
-        <rect>
-         <x>151</x>
-         <y>41</y>
-         <width>121</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <item>
-        <property name="text">
-         <string>Year of birth (from)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Year1</string>
-        </property>
-       </item>
-      </widget>
-      <widget class="QComboBox" name="choose_genre_a">
-       <property name="geometry">
-        <rect>
-         <x>151</x>
-         <y>11</y>
-         <width>121</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <item>
-        <property name="text">
-         <string>Some genre</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Other genre</string>
-        </property>
-       </item>
-      </widget>
-      <widget class="QComboBox" name="choose_dyear_a">
-       <property name="geometry">
-        <rect>
-         <x>310</x>
-         <y>40</y>
-         <width>121</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <item>
-        <property name="text">
-         <string>Year of death (to)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Year1</string>
-        </property>
-       </item>
       </widget>
      </widget>
      <widget class="QWidget" name="Leaderboard">
