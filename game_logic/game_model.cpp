@@ -34,20 +34,24 @@ void Model::lowerCards(bool isPrimaryPlayer)
     {
         (isPrimaryPlayer ? loweredPrimary : loweredSecondary).insert(_tempSelectedCards.begin(), _tempSelectedCards.end());
         _tempSelectedCards.clear();
+        this->updateTurnNum(isPrimaryPlayer);
         emit turnOverEvent();
     }
     else if (cardsLeft == 1)
     {
         for (int num = 0; num < dataList.size(); num++) {
             if ((isPrimaryPlayer ? loweredPrimary : loweredSecondary).find(num) == (isPrimaryPlayer ? loweredPrimary : loweredSecondary).end()) {
+                this->updateTurnNum(isPrimaryPlayer);
                 this->checkGuess(num, isPrimaryPlayer);
                 _tempSelectedCards.clear();
                 break;
             }
         }
     }
-    else
+    else {
+        _tempSelectedCards.clear();
         emit lowerFail();
+    }
 }
 
 void Model::updateTurnNum(bool isPrimaryPlayer) 

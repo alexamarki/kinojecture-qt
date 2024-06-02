@@ -10,8 +10,10 @@ class Controller : public QObject {
 public:
     Controller(QObject *parent = nullptr) : QObject(parent) {
         this->model = new Model(this);
+        connect(model, &Model::turnOverEvent, this, &Controller::onTurnOver);
+        connect(model, &Model::endEvent, this, &Controller::onGameOver);
+        connect(model, &Model::lowerFail, this, &Controller::onLowerFail);
     }
-
     // gameloop controllers
     void startGame(const std::vector<std::pair<std::string, std::string>>& data);
     void onCardSelected(int cardIndex); //when card is selected BBBBBBBBBBBBBBBBBB

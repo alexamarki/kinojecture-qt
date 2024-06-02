@@ -52,7 +52,6 @@ void Controller::onTurnOverEnd()
 
 void Controller::onCardsLowered() 
 {
-    model->updateTurnNum(isPrimaryPlayer);
     model->lowerCards(isPrimaryPlayer);
 }
 

@@ -31,7 +31,7 @@ public:
         this->movieController = new MovieController(this);
         this->controller = new Controller(this);
         // this->peopleController = new PeopleController(this);
-        
+        connect(ui.main_button, &QPushButton::clicked, this, &MainWindow::MainPage);
         // Main buttons
         connect(ui.main_button, &QPushButton::clicked, this, &MainWindow::MainPage);
         connect(ui.start_button, &QPushButton::clicked, this, &MainWindow::NewGame);
@@ -39,11 +39,16 @@ public:
         connect(ui.leaderboard_button, &QPushButton::clicked, movieController, &MovieController::printHI);
         connect(ui.settings_button, &QPushButton::clicked, this, &MainWindow::Settings);
         
+        connect(controller, &Controller::showTurnOverScreen, this, &MainWindow::callTurnOverScreen);
+        connect(controller, &Controller::promptLowerFailPopup, this, &MainWindow::callFailPopup);
+
         // Table show buttons
         connect(ui.show_table_movies_button, &QPushButton::clicked, this, &MainWindow::ShowTableMovies);
         connect(ui.show_table_actors_button, &QPushButton::clicked, this, &MainWindow::ShowTableActors);
         connect(ui.show_table_directors_button, &QPushButton::clicked, this, &MainWindow::ShowTableDirectors);
         connect(ui.show_table_composers_button, &QPushButton::clicked, this, &MainWindow::ShowTableComposers);
+        
+        connect(ui.card_num_button_2, &QPushButton::clicked, this, &MainWindow::GameFieldLoad);
 
         // Filter buttons
         connect(ui.choose_media_type, &QLineEdit::textChanged, [this]() {
@@ -223,6 +228,13 @@ public slots:
     void ShowTableComposers() {
         ui.tableComposers->setCurrentWidget(ui.table_show_c);
     }
+    void GameFieldLoad() {
+        ui.main_widget->setCurrentWidget(ui.not_game);
+        ui.stackedWidget->setCurrentWidget(ui.GameField);
+        bool primaryPlayer = controller->getPlayerTurn();
+        std::unordered_set<int> loweredCards = controller->getLowered(primaryPlayer);
+        this->loadCards(loweredCards);
+    }
     void CardSelection() {
         HoverPushButton *button = qobject_cast<HoverPushButton *>(sender());
         if (button) {
@@ -231,8 +243,10 @@ public slots:
 
             if (selectedCards[index]) {
                 button->setStyleSheet("background-color: blue;");
+                controller->onCardSelected(index);
             } else {
                 button->setStyleSheet("background-color: lightgrey;");
+                controller->onCardDeselected(index);
             }
         }
     }
@@ -249,8 +263,30 @@ public slots:
         }
     }
     void processGuess() {
+        this->clearGameFieldSelection();
+        controller->onCardsLowered();
+        //this->GameFieldLoad(); // actually we have to switch to the turnover screen prior to calling this fyi
+    }
+    void callTurnOverScreen() {
+        qDebug() << "turn over screen";
+    }
+    void callFailPopup() {
+        qDebug() << "fail popup";
+    }
+    void clearGameFieldSelection() {
         for (int i = 0; i < 25; ++i) {
-            if (selectedCards[i]) {
+            QString buttonName = QString("cardButton%1").arg(i + 1);
+            HoverPushButton *button = this->findChild<HoverPushButton *>(buttonName);
+            if (button) {
+                button->setStyleSheet("background-color: lightgrey;");
+                button->setEnabled(true);
+            }
+        }
+        selectedCards.assign(25, false);
+    }
+    void loadCards(std::unordered_set<int> loweredCards) {
+        for (int i = 0; i < 25; ++i) {
+            if (loweredCards.contains(i)) {
                 QString buttonName = QString("cardButton%1").arg(i + 1);
                 HoverPushButton *button = this->findChild<HoverPushButton *>(buttonName);
                 if (button) {
