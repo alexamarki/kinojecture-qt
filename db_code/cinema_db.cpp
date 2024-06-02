@@ -17,7 +17,7 @@ QString getResourcesPath()
 CinemaDB::CinemaDB() 
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(getResourcesPath() + "game.db");
+    db.setDatabaseName("C:/Users/sotov/kinojecture-qt/data/game.db");
     if (!db.open()) {
         std::cerr << "Cannot open database: " << db.lastError().text().toStdString() << std::endl;
     }

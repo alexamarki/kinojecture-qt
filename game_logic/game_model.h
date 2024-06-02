@@ -44,6 +44,7 @@ public:
     QJsonObject readJSON(const QString& filePath);
     QString updateJSON(const QString &filePath, QString uuid, QString username, int points);
     void writeJSON(const QString &filePath, const QString &jsonData);
+    std::vector<std::pair<std::string, std::string>> dataList;
     
 
 signals:
@@ -52,11 +53,10 @@ signals:
     void lowerFail();
 
 private:
-    std::vector<std::pair<std::string, std::string>> dataList;
     std::pair<int, int> ids;
     std::pair<int, int> turns = {0, 0};
     std::pair<int, int> scores;
-    std::unordered_set<int> _tempSelectedCards;
+    std::unordered_set<int> _tempSelectedCards; //selected cards BBBBBBBBBBBBBBBBBBBBBB
     std::unordered_set<int> loweredPrimary;
     std::unordered_set<int> loweredSecondary;
     bool localGame = true;

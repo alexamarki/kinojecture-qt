@@ -7,10 +7,12 @@
 #include <QtGui>
 #include "hoverpushbutton.h"
 #include "../controller/movie_controller.h"
+#include "../controller/game_controller.h"
 #include "../build/ui_base_window.h"
 #include <QSqlTableModel>
 #include <QStringList>
 #include "../game_logic/proxy_model.h"
+#include "../game_logic/game_model.h"
 #include "../db_code/cinema_db.h"
 
 QT_BEGIN_NAMESPACE
@@ -26,6 +28,7 @@ public:
         ui.setupUi(this);
         selectedCards.resize(25, false);
         this->movieController = new MovieController(this);
+        this->controller = new Controller(this);
         
         // Main buttons
         connect(ui.main_button, &QPushButton::clicked, this, &MainWindow::MainPage);
@@ -91,6 +94,12 @@ public:
 
         // Guess button
         connect(ui.guessButton, &QPushButton::clicked, this, &MainWindow::processGuess);
+
+        //before game a lot of buttons
+        connect(ui.from_rules_button, &QPushButton::clicked, this, &MainWindow::PrePlayer1);
+        connect(ui.show_fpc, &QPushButton::clicked, this, &MainWindow::showPlayerCard);
+        connect(ui.card_num_button, &QPushButton::clicked, this, &MainWindow::PrePlayer2);
+        connect(ui.show_spc, &QPushButton::clicked, this, &MainWindow::showSecondPlayerCard);
     }
 
     ~MainWindow() = default;
@@ -98,6 +107,7 @@ public:
 private:
     Ui::Form ui;
     MovieController *movieController;
+    Controller *controller;
     QTableView* movieTableView;
     std::vector<bool> selectedCards;
 
@@ -131,10 +141,10 @@ public slots:
         movieTableView = new QTableView(this);
         ProxyModel *model = movieController->getModelDirect();
         QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(ui.verticalLayoutWidget->layout());
-        if (!layout) {
-            layout = new QVBoxLayout(ui.verticalLayoutWidget);
-            ui.verticalLayoutWidget->setLayout(layout);
-        }
+        // if (!layout) {
+        //     layout = new QVBoxLayout(ui.verticalLayoutWidget);
+        //     ui.verticalLayoutWidget->setLayout(layout);
+        // }
         movieTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
         movieTableView->setModel(model);
         movieTableView->setSortingEnabled(true);
@@ -150,9 +160,6 @@ public slots:
     }
     void ShowTableComposers() {
         ui.tableComposers->setCurrentWidget(ui.table_show_c);
-    }
-    void SubmitMovies() {
-        
     }
     void CardSelection() {
         HoverPushButton *button = qobject_cast<HoverPushButton *>(sender());
@@ -190,6 +197,27 @@ public slots:
                 }
             }
         }
+    }
+    void SubmitMovies() {
+        ui.main_widget->setCurrentWidget(ui.game_mode);
+        ui.game_pages->setCurrentWidget(ui.rules_page);
+        std::pair<std::string, std::string> pair1("0", "0");
+        std::vector<std::pair<std::string, std::string>> data (25, pair1);
+        controller->startGame(data);
+    }
+    void showPlayerCard() {
+        ui.game_pages->setCurrentWidget(ui.player_card1);
+        ui.card_number->setText(QString::fromStdString(controller->model->dataList[controller->getRandomisedCards().first].first));
+    }
+    void showSecondPlayerCard() {
+        ui.game_pages->setCurrentWidget(ui.player_card2);
+        ui.card_number_2->setText(QString::fromStdString(controller->model->dataList[controller->getRandomisedCards().second].first));
+    }
+    void PrePlayer1() {
+        ui.game_pages->setCurrentWidget(ui.pre_player_card1);
+    }
+    void PrePlayer2() {
+        ui.game_pages->setCurrentWidget(ui.pre_player_card2);
     }
 };
 }
