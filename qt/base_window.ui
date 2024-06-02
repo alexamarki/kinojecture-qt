@@ -1861,6 +1861,73 @@ li.checked::marker { content: &quot;\2612&quot;; }
        </property>
       </widget>
      </widget>
+     <widget class="QWidget" name="gameover">
+      <widget class="QPushButton" name="exit_to_main_menu_button">
+       <property name="geometry">
+        <rect>
+         <x>240</x>
+         <y>510</y>
+         <width>211</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Exit to main menu</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="winner_text">
+       <property name="geometry">
+        <rect>
+         <x>260</x>
+         <y>90</y>
+         <width>191</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>PLACEHOLDER WINNER TEXT</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="second_username_field">
+       <property name="geometry">
+        <rect>
+         <x>180</x>
+         <y>380</y>
+         <width>113</width>
+         <height>21</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="snd_label">
+       <property name="geometry">
+        <rect>
+         <x>160</x>
+         <y>350</y>
+         <width>161</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Second player's username</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="snd_checkBox">
+       <property name="geometry">
+        <rect>
+         <x>350</x>
+         <y>360</y>
+         <width>251</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Include 2nd player in the leaderboard</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </widget>
      <widget class="QWidget" name="turnover">
       <widget class="QPushButton" name="ready_button">
        <property name="geometry">

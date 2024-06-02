@@ -41,7 +41,7 @@ signals: // to connect to View SLOTS, which are yet to be implemented
     void showRulesScreen(); //empty screen (only label + next button) -> next -> cards display (4) AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     void introduceRandomisedCards(); // called in a View function, not here 
     void showGameScreen(); //show game screen AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-    void promptLowerFailPopup();
+    void promptLowerFailPopup(); // connected
     void showTurnOverScreen(); //players turn -> next (onTurnOverEnd()) AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     void showGameOverScreen();
     void exitToMainMenu(); 

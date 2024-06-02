@@ -92,6 +92,15 @@ public:
         //     movieController->filterByBirthYear(ui.choose_year_after->value(), true);
         // });
 
+        connect(ui.choose_rating_above, &QDoubleSpinBox::valueChanged, [this]() {
+            movieController->filterByAverageRating(ui.choose_rating_above->value(), true);
+        });
+        connect(ui.exit_to_main_menu_button, &QPushButton::clicked, [this]() {
+            QString sndUsername = ui.second_username_field->text();
+            bool isChecked = ui.snd_checkBox->isChecked();
+            onMainMenuClicked(sndUsername, isChecked);
+        });
+
         // Submit to game engine buttons
         connect(ui.submit_movies_button, &QPushButton::clicked, this, &MainWindow::SubmitMovies);
         //connect(ui.submit_people_button, &QPushButton::clicked, this, &MainWindow::SubmitPeople);
@@ -114,6 +123,8 @@ public:
                 connect(button, &HoverPushButton::unhovered, this, &MainWindow::resetCardInfo);
             }
         }
+
+        connect(controller, &Controller::showGameOverScreen, this, &MainWindow::GameOverScreen);
 
         // Guess button
         connect(ui.guessButton, &QPushButton::clicked, this, &MainWindow::processGuess);
@@ -288,6 +299,17 @@ public slots:
     void callFailPopup() {
         this->GameFieldLoad();
         qDebug() << "fail popup";
+    }
+    void onMainMenuClicked(QString text, bool isChecked)
+    {
+        controller->onExitToMainMenu(isChecked, text);
+        ui.main_widget->setCurrentWidget(ui.not_game);
+        ui.stackedWidget->setCurrentWidget(ui.Kinojecture);
+    }
+    void GameOverScreen() {
+        ui.main_widget->setCurrentWidget(ui.game_mode);
+        ui.game_pages->setCurrentWidget(ui.gameover);
+        qDebug() << "game over screen";
     }
     void clearGameFieldSelection() {
         for (int i = 0; i < 25; ++i) {

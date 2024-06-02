@@ -37,7 +37,6 @@ void Controller::onMakeGuess(int cardIndex)
 void Controller::onExitToMainMenu(bool includeSecondaryPlayer=false, QString sndUsername="")
 {   
     addToLeaderboard(includeSecondaryPlayer, sndUsername);
-    emit exitToMainMenu();
 }
 
 void Controller::addToLeaderboard(bool includeSecondaryPlayer, QString sndUsername)
