@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(kinojecture VERSION 0.1.0 LANGUAGES C CXX)
+project(kinojecture VERSION 0.5.0 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -14,11 +14,15 @@ file(GLOB UI_FILES qt/*.ui)
 file(GLOB HEADER_FILES qt/*.h game_logic/*.h db_code/*.h controller/*.h)
 file(GLOB SOURCE_FILES qt/*.cpp game_logic/*.cpp db_code/*.cpp controller/*.cpp)
 set(cinema_db_path "${CMAKE_CURRENT_SOURCE_DIR}/resources/game.db")
-set_source_files_properties(${cinema_db_path} PROPERTIES
-           MACOSX_PACKAGE_LOCATION "Resources")
 set(lead_db_path "${CMAKE_CURRENT_SOURCE_DIR}/resources/leaderboard.db")
-set_source_files_properties(${lead_db_path} PROPERTIES
-            MACOSX_PACKAGE_LOCATION "Resources")
+set(player_data_path "${CMAKE_CURRENT_SOURCE_DIR}/resources/player_data.json")
+
+list(APPEND SOURCE_FILES ${cinema_db_path} ${lead_db_path} ${player_data_path})
+
+set_source_files_properties(${cinema_db_path} ${lead_db_path} ${player_data_path}
+    PROPERTIES
+    MACOSX_PACKAGE_LOCATION "Resources"
+)
 
 set(MACOSX_BUNDLE_ICON_FILE kj_icon_test.ico)
 set(IDI_ICON1 ICON kj_icon_test.ico)
@@ -38,8 +42,6 @@ add_executable(myApp
     ${HEADER_FILES}
     ${SOURCE_FILES}
     ${UI_HEADERS}
-    ${cinema_db_path}
-    ${lead_db_path}
     ${app_icon_macos}
 )
 
