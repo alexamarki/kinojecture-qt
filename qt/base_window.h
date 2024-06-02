@@ -281,6 +281,7 @@ public slots:
         for (int i = 0; i < 25; ++i) {
             QString buttonName = QString("cardButton%1").arg(i + 1);
             HoverPushButton *button = this->findChild<HoverPushButton *>(buttonName);
+            button->setText(QString::fromStdString(controller->model->dataList[i].first));
             if (button) {
                 button->setStyleSheet("background-color: lightgrey;");
                 button->setEnabled(true);
@@ -293,6 +294,7 @@ public slots:
             if (loweredCards.contains(i)) {
                 QString buttonName = QString("cardButton%1").arg(i + 1);
                 HoverPushButton *button = this->findChild<HoverPushButton *>(buttonName);
+                button->setText(QString::fromStdString(controller->model->dataList[i].first));
                 if (button) {
                     button->setStyleSheet("background-color: black;");
                     button->setEnabled(false);
