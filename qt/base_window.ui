@@ -1982,7 +1982,7 @@ border-radius: 50px;</string>
         </rect>
        </property>
        <property name="text">
-        <string>Include 2nd player in the leaderboard</string>
+        <string>Include second player in the leaderboard</string>
        </property>
        <property name="checked">
         <bool>true</bool>
