@@ -28,7 +28,7 @@
 class LeaderboardDB 
 {
 public:
-    LeaderboardDB(const QString& db_path = "../data/leaderboard.db");
+    LeaderboardDB();
     /**
      * hello
      * bye

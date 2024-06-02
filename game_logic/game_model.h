@@ -64,7 +64,7 @@ private:
     const float CORRECT_OTHER_WEIGHT = 0.4; // the fraction of points deducted from the score of a player who loses because of the other player's correct guess
     const float INCORRECT_OTHER_WEIGHT = 0.6; // the fraction of points awarded to the player who wins because of the otehr player's incorrect guess
     const int MAX_GAME_POINTS = 5000;
-    const QString PATH_JSON_PLAYER = "../data/parameters/player_data.json";
+    const QString PATH_JSON_PLAYER = "/Users/alexamarki/Desktop/kinojecture-qt-local/data/parameters/player_data.json";
 };
 
 #endif

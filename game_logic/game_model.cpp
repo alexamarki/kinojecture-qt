@@ -80,9 +80,10 @@ void Model::awardScores(bool isCorrect, bool isPrimaryPlayer)
 QJsonObject Model::readJSON(const QString &filePath) 
 {
     QFile file(filePath);
-    QTextStream stream(&file);
-    QJsonDocument doc = QJsonDocument::fromJson(stream.readAll().toUtf8());
-    QJsonObject jsonObj = doc.object();
+    QByteArray fileData = file.readAll();
+    file.close();
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(fileData);
+    QJsonObject jsonObj = jsonDoc.object();
     return jsonObj;
 }
 

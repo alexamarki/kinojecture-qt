@@ -16,6 +16,9 @@ file(GLOB SOURCE_FILES qt/*.cpp game_logic/*.cpp db_code/*.cpp controller/*.cpp)
 set(cinema_db_path "${CMAKE_CURRENT_SOURCE_DIR}/resources/game.db")
 set_source_files_properties(${cinema_db_path} PROPERTIES
            MACOSX_PACKAGE_LOCATION "Resources")
+set(lead_db_path "${CMAKE_CURRENT_SOURCE_DIR}/resources/leaderboard.db")
+set_source_files_properties(${lead_db_path} PROPERTIES
+            MACOSX_PACKAGE_LOCATION "Resources")
 
 set(MACOSX_BUNDLE_ICON_FILE kj_icon_test.ico)
 set(IDI_ICON1 ICON kj_icon_test.ico)
@@ -36,6 +39,7 @@ add_executable(myApp
     ${SOURCE_FILES}
     ${UI_HEADERS}
     ${cinema_db_path}
+    ${lead_db_path}
     ${app_icon_macos}
 )
 

@@ -43,8 +43,8 @@ signals: // to connect to View SLOTS, which are yet to be implemented
     void showGameScreen(); //show game screen AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     void promptLowerFailPopup(); // connected
     void showTurnOverScreen(); //players turn -> next (onTurnOverEnd()) AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-    void showGameOverScreen();
-    void exitToMainMenu(); 
+    void showGameOverScreen(); //
+    void exitToMainMenu(); //
 
 private:
     bool isPrimaryPlayer = true;
