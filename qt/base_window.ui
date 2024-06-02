@@ -54,7 +54,7 @@ justify-container: center;
 align-item: center;</string>
      </property>
      <property name="currentIndex">
-      <number>7</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="Kinojecture">
       <property name="styleSheet">
@@ -65,9 +65,9 @@ align-item: center;</string>
       <widget class="QWidget" name="verticalLayoutWidget_2">
        <property name="geometry">
         <rect>
-         <x>299</x>
+         <x>240</x>
          <y>40</y>
-         <width>201</width>
+         <width>303</width>
          <height>171</height>
         </rect>
        </property>
@@ -116,11 +116,11 @@ border-radius: 50px;</string>
          <widget class="QPushButton" name="credits_button">
           <property name="styleSheet">
            <string notr="true">background-color: transparent;
-font: 20pt &quot;Niagara Solid&quot;;
+font: italic 10pt &quot;Arial&quot;;
 border-radius: 50px;</string>
           </property>
           <property name="text">
-           <string>Credits</string>
+           <string>Made by alexamarki, vvv-hikka and IcySergio</string>
           </property>
          </widget>
         </item>
