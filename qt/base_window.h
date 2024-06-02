@@ -255,13 +255,25 @@ public slots:
     void changeCardInfoOnHover() {
         HoverPushButton *button = qobject_cast<HoverPushButton *>(sender());
         if (button) {
-            button->setText("Hovered!");
+            QString buttonName = button->objectName();
+            bool ok;
+            int index = buttonName.remove("cardButton").toInt(&ok);
+            if (ok && index >= 1 && index <= 25) {
+                index -= 1;
+                button->setText(QString::fromStdString(controller->model->dataList[index].second));
+            }
         }
     }
     void resetCardInfo() {
         HoverPushButton *button = qobject_cast<HoverPushButton *>(sender());
         if (button) {
-            button->setText("");
+            QString buttonName = button->objectName();
+            bool ok;
+            int index = buttonName.remove("cardButton").toInt(&ok);
+            if (ok && index >= 1 && index <= 25) {
+                index -= 1;
+                button->setText(QString::fromStdString(controller->model->dataList[index].first));
+            }
         }
     }
     void processGuess() {
