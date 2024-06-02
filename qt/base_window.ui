@@ -1204,7 +1204,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         </rect>
        </property>
        <property name="text">
-        <string>Include 2nd player in the leaderboard</string>
+        <string>Include second player in the leaderboard</string>
        </property>
        <property name="checked">
         <bool>true</bool>
