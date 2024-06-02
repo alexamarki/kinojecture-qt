@@ -54,6 +54,7 @@ justify-container: center;
 align-item: center;</string>
      </property>
      <property name="currentIndex">
+      <number>4</number>
       <number>2</number>
      </property>
      <widget class="QWidget" name="Kinojecture">
@@ -431,18 +432,18 @@ border-radius: 50px;
        </property>
       </widget>
      </widget>
-     <widget class="QWidget" name="Directors">
-      <widget class="QStackedWidget" name="tableDirectors">
+     <widget class="QWidget" name="People">
+      <widget class="QStackedWidget" name="tablePeople">
        <property name="geometry">
         <rect>
-         <x>0</x>
-         <y>80</y>
+         <x>-1</x>
+         <y>79</y>
          <width>781</width>
          <height>471</height>
         </rect>
        </property>
-       <widget class="QWidget" name="no_table_d">
-        <widget class="QPushButton" name="show_table_directors_button">
+       <widget class="QWidget" name="no_table">
+        <widget class="QPushButton" name="show_table_people_button">
          <property name="geometry">
           <rect>
            <x>360</x>
@@ -456,181 +457,11 @@ border-radius: 50px;
          </property>
         </widget>
        </widget>
-       <widget class="QWidget" name="table_show_d">
-        <widget class="QTableWidget" name="directors_table">
+       <widget class="QWidget" name="table_show_p">
+        <widget class="QPushButton" name="update_people_button">
          <property name="geometry">
           <rect>
-           <x>0</x>
-           <y>50</y>
-           <width>781</width>
-           <height>411</height>
-          </rect>
-         </property>
-         <row>
-          <property name="text">
-           <string>New Row</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>3</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>4</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>5</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>6</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>7</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>8</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>9</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>10</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>12</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>13</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>12</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>15</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>New Row</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>16</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>18</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>18</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>19</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>21</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>New Row</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>22</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>23</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>25</string>
-          </property>
-         </row>
-         <column>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>3</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>4</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>5</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>6</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>7</string>
-          </property>
-         </column>
-        </widget>
-        <widget class="QPushButton" name="update_directors_button">
-         <property name="geometry">
-          <rect>
-           <x>330</x>
+           <x>270</x>
            <y>10</y>
            <width>121</width>
            <height>23</height>
@@ -1411,7 +1242,7 @@ background-color:transparent;
 border-radius: 50px;</string>
        </property>
        <property name="text">
-        <string>Next</string>
+        <string>Guess</string>
        </property>
       </widget>
      </widget>

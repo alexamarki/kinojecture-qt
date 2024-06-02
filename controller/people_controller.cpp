@@ -1,25 +1,27 @@
 #include "people_controller.h"
+#include <QObject>
+#include "../game_logic/proxy_model.h"
 
 void PeopleController::filterByPrimaryName(const QString& primaryName)
 {
-    model->setFilter(2, primaryName, 0);
+    model->setFilter(1, primaryName, 0);
 }
 
 void PeopleController::filterByBirthYear(int birthYear, bool exceeding)
 {
     QString filterString = QString("%1").arg(birthYear);
-    model->setFilter(3, filterString, exceeding? 1 : -1);
+    model->setFilter(2, filterString, exceeding? 1 : -1);
 }
 
 void PeopleController::filterByDeathYear(int deathYear, bool exceeding)
 {
     QString filterString = QString("%1").arg(deathYear);
-    model->setFilter(4, filterString, exceeding? 1 : -1);
+    model->setFilter(3, filterString, exceeding? 1 : -1);
 }
 
 void PeopleController::filterByJob(const QString& job)
 {
-    model->setFilter(5, job, 0);
+    model->setFilter(4, job, 0);
 }
 
 void PeopleController::submitFilters(const QString& primary_job_filter, const QString& primaryName, int birthYear, int deathYear, const QString& job)

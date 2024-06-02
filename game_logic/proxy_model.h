@@ -36,6 +36,7 @@ public:
     QStringList getSelectionData();
     bool checkCount(QStringList data, int limit);
     QSqlTableModel* getSourceModel();
+    SelectionModel* selectionModel;
 
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;
@@ -43,7 +44,6 @@ protected:
 
 
 private:
-    SelectionModel* selectionModel;
     QSqlTableModel* _sourceModel;
     QVector<QString> columnFilters;
     QVector<int> columnFiltersType;

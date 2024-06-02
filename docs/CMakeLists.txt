@@ -1,5 +1,6 @@
 set(DOXYGEN_EXTRACT_ALL YES)
 set(DOXYGEN_BUILTIN_STL_SUPPORT YES)
+set(USE_MDFILE_AS_MAINPAGE ./README.md)
 
-doxygen_add_docs(docs ALL
+doxygen_add_docs(docs ALL 
                  WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")

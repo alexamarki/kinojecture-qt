@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(kinojecture VERSION 0.1.0 LANGUAGES C CXX)
+project(kinojecture VERSION 0.5.0 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -13,12 +13,28 @@ set(CMAKE_AUTORCC ON)
 file(GLOB UI_FILES qt/*.ui)
 file(GLOB HEADER_FILES qt/*.h game_logic/*.h db_code/*.h controller/*.h)
 file(GLOB SOURCE_FILES qt/*.cpp game_logic/*.cpp db_code/*.cpp controller/*.cpp)
+file(GLOB_RECURSE TEST_FILES *_test.cpp)
+file(GLOB_RECURSE TEST_CPP_ADD game_logic/*.cpp db_code/*.cpp controller/*.cpp qt/hoverpushbutton.cpp)
+list(REMOVE_ITEM SOURCE_FILES ${TEST_FILES})
+
+# include(FetchContent)
+# set(GTEST_URL "https://github.com/google/googletest/archive/refs/tags/release-1.11.0.tar.gz")
+# FetchContent_Declare(
+#   googletest
+#   URL ${GTEST_URL}
+# )
+# FetchContent_MakeAvailable(googletest)
+
 set(cinema_db_path "${CMAKE_CURRENT_SOURCE_DIR}/resources/game.db")
-set_source_files_properties(${cinema_db_path} PROPERTIES
-           MACOSX_PACKAGE_LOCATION "Resources")
 set(lead_db_path "${CMAKE_CURRENT_SOURCE_DIR}/resources/leaderboard.db")
-set_source_files_properties(${lead_db_path} PROPERTIES
-            MACOSX_PACKAGE_LOCATION "Resources")
+set(player_data_path "${CMAKE_CURRENT_SOURCE_DIR}/resources/player_data.json")
+
+list(APPEND SOURCE_FILES ${cinema_db_path} ${lead_db_path} ${player_data_path})
+
+set_source_files_properties(${cinema_db_path} ${lead_db_path} ${player_data_path}
+    PROPERTIES
+    MACOSX_PACKAGE_LOCATION "Resources"
+)
 
 set(MACOSX_BUNDLE_ICON_FILE kj_icon_test.ico)
 set(IDI_ICON1 ICON kj_icon_test.ico)
@@ -38,11 +54,13 @@ add_executable(myApp
     ${HEADER_FILES}
     ${SOURCE_FILES}
     ${UI_HEADERS}
-    ${cinema_db_path}
-    ${lead_db_path}
     ${app_icon_macos}
 )
 
+# enable_testing()
+# add_executable(myAppTests ${TEST_FILES} ${HEADER_FILES} ${TEST_CPP_ADD})
+# target_link_libraries(myAppTests gtest_main)
+# add_test(NAME myAppTests COMMAND myAppTests)
 
 set_target_properties(myApp PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
@@ -57,6 +75,8 @@ target_include_directories(myApp PRIVATE
 )
 
 target_link_libraries(myApp Qt6::Widgets Qt6::Core Qt6::Sql)
+# target_link_libraries(myAppTests gtest gtest_main)
+# target_link_libraries(myAppTests Qt6::Widgets Qt6::Core Qt6::Sql)
 
 set_target_properties(myApp PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
