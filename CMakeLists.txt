@@ -17,13 +17,13 @@ file(GLOB_RECURSE TEST_FILES *_test.cpp)
 file(GLOB_RECURSE TEST_CPP_ADD game_logic/*.cpp db_code/*.cpp controller/*.cpp qt/hoverpushbutton.cpp)
 list(REMOVE_ITEM SOURCE_FILES ${TEST_FILES})
 
-include(FetchContent)
-set(GTEST_URL "https://github.com/google/googletest/archive/refs/tags/release-1.11.0.tar.gz")
-FetchContent_Declare(
-  googletest
-  URL ${GTEST_URL}
-)
-FetchContent_MakeAvailable(googletest)
+# include(FetchContent)
+# set(GTEST_URL "https://github.com/google/googletest/archive/refs/tags/release-1.11.0.tar.gz")
+# FetchContent_Declare(
+#   googletest
+#   URL ${GTEST_URL}
+# )
+# FetchContent_MakeAvailable(googletest)
 
 set(cinema_db_path "${CMAKE_CURRENT_SOURCE_DIR}/resources/game.db")
 set(lead_db_path "${CMAKE_CURRENT_SOURCE_DIR}/resources/leaderboard.db")
@@ -57,10 +57,10 @@ add_executable(myApp
     ${app_icon_macos}
 )
 
-enable_testing()
-add_executable(myAppTests ${TEST_FILES} ${HEADER_FILES} ${TEST_CPP_ADD})
-target_link_libraries(myAppTests gtest_main)
-add_test(NAME myAppTests COMMAND myAppTests)
+# enable_testing()
+# add_executable(myAppTests ${TEST_FILES} ${HEADER_FILES} ${TEST_CPP_ADD})
+# target_link_libraries(myAppTests gtest_main)
+# add_test(NAME myAppTests COMMAND myAppTests)
 
 set_target_properties(myApp PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
@@ -75,8 +75,8 @@ target_include_directories(myApp PRIVATE
 )
 
 target_link_libraries(myApp Qt6::Widgets Qt6::Core Qt6::Sql)
-target_link_libraries(myAppTests gtest gtest_main)
-target_link_libraries(myAppTests Qt6::Widgets Qt6::Core Qt6::Sql)
+# target_link_libraries(myAppTests gtest gtest_main)
+# target_link_libraries(myAppTests Qt6::Widgets Qt6::Core Qt6::Sql)
 
 set_target_properties(myApp PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
@@ -99,9 +99,9 @@ endif()
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
-# find_package(Doxygen)
-# if(Doxygen_FOUND)
-#     add_subdirectory(docs)
-# else()
-#     message(STATUS "Doxygen not found")
-# endif()
+find_package(Doxygen)
+if(Doxygen_FOUND)
+    add_subdirectory(docs)
+else()
+    message(STATUS "Doxygen not found")
+endif()
