@@ -267,13 +267,11 @@ public slots:
     void processGuess() {
         this->clearGameFieldSelection();
         controller->onCardsLowered();
-        //this->GameFieldLoad(); // actually we have to switch to the turnover screen prior to calling this fyi
     }
     void callTurnOverScreen() {
         ui.main_widget->setCurrentWidget(ui.game_mode);
         ui.game_pages->setCurrentWidget(ui.turnover);
         qDebug() << "turn over screen";
-        qDebug() << controller->get
     }
     void callFailPopup() {
         this->GameFieldLoad();
