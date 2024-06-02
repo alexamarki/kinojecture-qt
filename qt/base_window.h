@@ -15,6 +15,7 @@
 #include "../game_logic/proxy_model.h"
 #include "../game_logic/game_model.h"
 #include "../db_code/cinema_db.h"
+#include <qlabel.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -107,9 +108,9 @@ public:
 
         // New game buttons
         connect(ui.movie_mode_button, &QPushButton::clicked, this, &MainWindow::Movies);
-        connect(ui.actors_mode_button, &QPushButton::clicked, this, &MainWindow::Actors);
+        // connect(ui.actors_mode_button, &QPushButton::clicked, this, &MainWindow::Actors);
         connect(ui.directors_mode_button, &QPushButton::clicked, this, &MainWindow::Directors);
-        connect(ui.composers_mode_button, &QPushButton::clicked, this, &MainWindow::Composers);
+        // connect(ui.composers_mode_button, &QPushButton::clicked, this, &MainWindow::Composers);
 
         // Card buttons
         for (int i = 0; i < 25; ++i) {
@@ -242,8 +243,8 @@ public slots:
         ui.tableComposers->setCurrentWidget(ui.table_show_c);
     }
     void GameFieldLoad() {
-        ui.main_widget->setCurrentWidget(ui.not_game);
-        ui.stackedWidget->setCurrentWidget(ui.GameField);
+        ui.main_widget->setCurrentWidget(ui.game_mode);
+        ui.game_pages->setCurrentWidget(ui.GameField);
         bool primaryPlayer = controller->getPlayerTurn();
         std::unordered_set<int> loweredCards = controller->getLowered(primaryPlayer);
         this->loadCards(loweredCards);
@@ -325,10 +326,10 @@ public slots:
     }
     void loadCards(std::unordered_set<int> loweredCards) {
         for (int i = 0; i < 25; ++i) {
+            QString buttonName = QString("cardButton%1").arg(i + 1);
+            HoverPushButton *button = this->findChild<HoverPushButton *>(buttonName);
+            button->setText(QString::fromStdString(controller->model->dataList[i].first));
             if (loweredCards.contains(i)) {
-                QString buttonName = QString("cardButton%1").arg(i + 1);
-                HoverPushButton *button = this->findChild<HoverPushButton *>(buttonName);
-                button->setText(QString::fromStdString(controller->model->dataList[i].first));
                 if (button) {
                     button->setStyleSheet("background-color: black;");
                     button->setEnabled(false);
@@ -338,11 +339,11 @@ public slots:
     }
     void showPlayerCard() {
         ui.game_pages->setCurrentWidget(ui.player_card1);
-        ui.card_number->setText(QString::fromStdString(controller->model->dataList[controller->getRandomisedCards().first].first));
+        ui.card_number->setText("\n  " + QString::fromStdString(controller->model->dataList[controller->getRandomisedCards().first].first));
     }
     void showSecondPlayerCard() {
         ui.game_pages->setCurrentWidget(ui.player_card2);
-        ui.card_number_2->setText(QString::fromStdString(controller->model->dataList[controller->getRandomisedCards().second].first));
+        ui.card_number_2->setText("  \n" + QString::fromStdString(controller->model->dataList[controller->getRandomisedCards().second].first));
     }
     void PrePlayer1() {
         ui.game_pages->setCurrentWidget(ui.pre_player_card1);
