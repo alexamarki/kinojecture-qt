@@ -84,11 +84,11 @@ public:
         connect(ui.choose_job, &QLineEdit::textChanged, [this]() {
             peopleController->filterByJob(ui.choose_job->text());
         });
-        connect(ui.choose_year_before, &QSpinBox::valueChanged, [this]() {
-            peopleController->filterByBirthYear(ui.choose_year_before->value(), false);
+        connect(ui.choose_year_before_2, &QSpinBox::valueChanged, [this]() {
+            peopleController->filterByBirthYear(ui.choose_year_before_2->value(), false);
         });
-        connect(ui.choose_year_after, &QSpinBox::valueChanged, [this]() {
-            peopleController->filterByBirthYear(ui.choose_year_after->value(), true);
+        connect(ui.choose_year_after_3, &QSpinBox::valueChanged, [this]() {
+            peopleController->filterByBirthYear(ui.choose_year_after_3->value(), true);
         });
 
         connect(ui.exit_to_main_menu_button, &QPushButton::clicked, [this]() {
@@ -241,7 +241,7 @@ public slots:
         peopleTableView = new QTableView(this);
         ProxyModel *model = peopleController->getModelDirect();
         peopleController->filterByJob(people_option);
-        QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(ui.verticalLayoutWidget_p->layout());
+        QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(ui.verticalLayoutWidget->layout());
         
         // if (!layout) {
         //     layout = new QVBoxLayout(ui.verticalLayoutWidget);
