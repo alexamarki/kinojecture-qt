@@ -2,12 +2,14 @@
 #define MAINWINDOW_H
 
 #include <QStackedWidget>
+#include <QMessageBox>
 #include <QMainWindow>
 #include <QObject>
 #include <QtGui>
 #include "hoverpushbutton.h"
 #include "../controller/movie_controller.h"
 #include "../controller/people_controller.h"
+#include "../controller/leaderboard_controller.h"
 #include "../controller/game_controller.h"
 #include "../build/ui_base_window.h"
 #include <QSqlTableModel>
@@ -33,12 +35,12 @@ public:
         this->movieController = new MovieController(this);
         this->controller = new Controller(this);
         this->peopleController = new PeopleController(this);
+        this->leaderboardController = new LeaderboardController(this);
         connect(ui.main_button, &QPushButton::clicked, this, &MainWindow::MainPage);
         // Main buttons
         connect(ui.main_button, &QPushButton::clicked, this, &MainWindow::MainPage);
         connect(ui.start_button, &QPushButton::clicked, this, &MainWindow::NewGame);
-        // connect(ui.leaderboard_button, &QPushButton::clicked, this, &MainWindow::Leaderboard);
-        connect(ui.leaderboard_button, &QPushButton::clicked, movieController, &MovieController::printHI);
+        connect(ui.leaderboard_button, &QPushButton::clicked, this, &MainWindow::Leaderboard);
         connect(ui.settings_button, &QPushButton::clicked, this, &MainWindow::Settings);
         
         connect(controller, &Controller::showTurnOverScreen, this, &MainWindow::callTurnOverScreen);
@@ -138,9 +140,11 @@ private:
     Ui::Form ui;
     MovieController *movieController;
     PeopleController *peopleController;
+    LeaderboardController *leaderboardController;
     Controller *controller;
     QTableView* movieTableView;
     QTableView* peopleTableView;
+    QTableView* leadTableView;
     QString people_option;
     std::vector<std::pair<std::string, std::string>> selectedMovies;
     std::vector<bool> selectedCards;
@@ -155,6 +159,14 @@ public slots:
     }
     void Leaderboard() {
         ui.stackedWidget->setCurrentWidget(ui.Leaderboard);
+        leadTableView = new QTableView(this);
+        ProxyModel *model = leaderboardController->getModelDirect();
+        QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(ui.verticalLayoutWidget_8->layout());
+        leadTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        leadTableView->setModel(model);
+        leadTableView->setSortingEnabled(true);
+        layout->addWidget(leadTableView);
+        leadTableView->show();        
     }
     void Settings() {
         ui.stackedWidget->setCurrentWidget(ui.Settings);
@@ -240,9 +252,7 @@ public slots:
     void ShowTablePeople() {
         peopleTableView = new QTableView(this);
         ProxyModel *model = peopleController->getModelDirect();
-        peopleController->filterByJob(people_option);
-        QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(ui.verticalLayoutWidget->layout());
-        
+        QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(ui.verticalLayoutWidget_6->layout());
         // if (!layout) {
         //     layout = new QVBoxLayout(ui.verticalLayoutWidget);
         //     ui.verticalLayoutWidget->setLayout(layout);
@@ -314,6 +324,9 @@ public slots:
     }
     void callFailPopup() {
         this->GameFieldLoad();
+        QMessageBox::information(this, 
+        tr("Kinojecture"), 
+        tr("Please select less than all cards.") );
         qDebug() << "fail popup";
     }
     void onMainMenuClicked(QString text, bool isChecked)
@@ -325,6 +338,7 @@ public slots:
     void GameOverScreen() {
         ui.main_widget->setCurrentWidget(ui.game_mode);
         ui.game_pages->setCurrentWidget(ui.gameover);
+        ui.winner_text->setText(QString::fromStdString("Player 1: " + std::to_string(controller->model->scores.first) + " points, Player 2: " + std::to_string(controller->model->scores.second) + " points"));
         qDebug() << "game over screen";
     }
     void clearGameFieldSelection() {
