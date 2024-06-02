@@ -18,9 +18,16 @@ set_source_files_properties(${cinema_db_path} PROPERTIES
            MACOSX_PACKAGE_LOCATION "Resources")
 
 set(MACOSX_BUNDLE_ICON_FILE kj_icon_test.ico)
+set(IDI_ICON1 ICON kj_icon_test.ico)
+
 set(app_icon_macos "${CMAKE_CURRENT_SOURCE_DIR}/resources/kj_icon_test.ico")
 set_source_files_properties(${app_icon_macos} PROPERTIES
             MACOSX_PACKAGE_LOCATION "Resources")
+
+if(WIN32)
+    set(app_icon_windows "${CMAKE_CURRENT_SOURCE_DIR}/resources/kj_icon_test.rc")
+    list(APPEND SOURCE_FILES ${app_icon_windows})
+endif()
 
 qt6_wrap_ui(UI_HEADERS ${UI_FILES})
 

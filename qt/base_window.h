@@ -7,6 +7,7 @@
 #include <QtGui>
 #include "hoverpushbutton.h"
 #include "../controller/movie_controller.h"
+#include "../controller/people_controller.h"
 #include "../controller/game_controller.h"
 #include "../build/ui_base_window.h"
 #include <QSqlTableModel>
@@ -29,6 +30,7 @@ public:
         selectedCards.resize(25, false);
         this->movieController = new MovieController(this);
         this->controller = new Controller(this);
+        // this->peopleController = new PeopleController(this);
         
         // Main buttons
         connect(ui.main_button, &QPushButton::clicked, this, &MainWindow::MainPage);
@@ -69,9 +71,23 @@ public:
             movieController->filterByAverageRating(ui.choose_rating_above->value(), true);
         });
 
+        // for people; have to generalise the ppl functions so that we use the same ui but with a different additional filter each time
+        // connect(ui.choose_name, &QLineEdit::textChanged, [this]() {
+        //     peopleController->filterByPrimaryName(ui.choose_name->text());
+        // });
+        // connect(ui.choose_job, &QLineEdit::textChanged, [this]() {
+        //     peopleController->filterByJob(ui.choose_job->text());
+        // });
+        // connect(ui.choose_born_before, &QSpinBox::valueChanged, [this]() {
+        //     movieController->filterByBirthYear(ui.choose_year_before->value(), false);
+        // });
+        // connect(ui.choose_born_after, &QSpinBox::valueChanged, [this]() {
+        //     movieController->filterByBirthYear(ui.choose_year_after->value(), true);
+        // });
 
         // Submit to game engine buttons
         connect(ui.submit_movies_button, &QPushButton::clicked, this, &MainWindow::SubmitMovies);
+        //connect(ui.submit_people_button, &QPushButton::clicked, this, &MainWindow::SubmitPeople);
 
         // New game buttons
         connect(ui.movie_mode_button, &QPushButton::clicked, this, &MainWindow::Movies);
@@ -107,8 +123,10 @@ public:
 private:
     Ui::Form ui;
     MovieController *movieController;
+    //PeopleController *peopleController;
     Controller *controller;
     QTableView* movieTableView;
+    std::vector<std::pair<std::string, std::string>> selectedMovies;
     std::vector<bool> selectedCards;
 
 public slots:
@@ -137,6 +155,32 @@ public slots:
     void Composers() {
         ui.stackedWidget->setCurrentWidget(ui.Composers);
     }
+    void onCellClicked(const QModelIndex &index) {
+        if (!index.isValid()) return;
+
+        QItemSelectionModel *selectionModel = movieTableView->selectionModel();
+        QString cellValue = index.sibling(index.row(), 2).data().toString();
+        //1, 3, 4, 5, 6, 7
+        QString cellValue_data = index.sibling(index.row(), 1).data().toString() + " " + index.sibling(index.row(), 3).data().toString() + " " +
+                            index.sibling(index.row(), 4).data().toString() + " " + index.sibling(index.row(), 5).data().toString() + " " +
+                            index.sibling(index.row(), 6).data().toString() + " " + index.sibling(index.row(), 7).data().toString();
+        std::pair<std::string, std::string> pair_cell = {cellValue.toStdString(), cellValue_data.toStdString()};
+        auto it = std::find(selectedMovies.begin(), selectedMovies.end(), pair_cell);
+        if (it != selectedMovies.end()) {
+            selectedMovies.erase(it);
+            selectionModel->select(index, QItemSelectionModel::Deselect | QItemSelectionModel::Rows);
+        } else {
+            selectedMovies.push_back(pair_cell);
+            selectionModel->select(index, QItemSelectionModel::Select | QItemSelectionModel::Rows);
+        }
+    }
+    void SubmitMovies() {
+        if (selectedMovies.size() != 25)
+            return;
+        ui.main_widget->setCurrentWidget(ui.game_mode);
+        ui.game_pages->setCurrentWidget(ui.rules_page);
+        controller->startGame(selectedMovies);
+    }
     void ShowTableMovies() {
         movieTableView = new QTableView(this);
         ProxyModel *model = movieController->getModelDirect();
@@ -148,10 +192,28 @@ public slots:
         movieTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
         movieTableView->setModel(model);
         movieTableView->setSortingEnabled(true);
+        // movieTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+        movieTableView->setSelectionMode(QAbstractItemView::MultiSelection);
+        connect(movieTableView, &QTableView::clicked, this, &MainWindow::onCellClicked);
         layout->addWidget(movieTableView);
         movieTableView->show();
         ui.tableMovies->setCurrentWidget(ui.table_show);
     }
+    // void ShowTablePeople(QString argument) {
+    //     peopleTableView = new QTableView(this);
+    //     ProxyModel *model = peopleController->getModelDirect();
+    //     QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(ui.verticalLayoutWidget->layout());
+    //     if (!layout) {
+    //         layout = new QVBoxLayout(ui.verticalLayoutWidget);
+    //         ui.verticalLayoutWidget->setLayout(layout);
+    //     }
+    //     peopleTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    //     peopleTableView->setModel(model);
+    //     peopleTableView->setSortingEnabled(true);
+    //     layout->addWidget(peopleTableView);
+    //     peopleTableView->show();
+    //     ui.tablePeople->setCurrentWidget(ui.table_show_p);
+    // }
     void ShowTableActors() {
         ui.tableActors->setCurrentWidget(ui.table_show_a);
     }
@@ -197,13 +259,6 @@ public slots:
                 }
             }
         }
-    }
-    void SubmitMovies() {
-        ui.main_widget->setCurrentWidget(ui.game_mode);
-        ui.game_pages->setCurrentWidget(ui.rules_page);
-        std::pair<std::string, std::string> pair1("0", "0");
-        std::vector<std::pair<std::string, std::string>> data (25, pair1);
-        controller->startGame(data);
     }
     void showPlayerCard() {
         ui.game_pages->setCurrentWidget(ui.player_card1);

@@ -4,7 +4,7 @@
 QString getResourcesPath()
 {
 #if defined(Q_OS_WIN)
-    return QApplication::applicationDirPath() + "/";
+    return QApplication::applicationDirPath() + "/resources/";
 #elif defined(Q_OS_OSX)
     return QApplication::applicationDirPath() + "/../Resources/";
 #elif defined(Q_OS_LINUX)
@@ -17,7 +17,7 @@ QString getResourcesPath()
 CinemaDB::CinemaDB() 
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("C:/Users/sotov/kinojecture-qt/data/game.db");
+    db.setDatabaseName(getResourcesPath() + "game.db");
     if (!db.open()) {
         std::cerr << "Cannot open database: " << db.lastError().text().toStdString() << std::endl;
     }
