@@ -31,6 +31,7 @@ public:
     : QMainWindow(parent)
     {
         ui.setupUi(this);
+        ui.stackedWidget->setCurrentWidget(ui.Kinojecture);
         selectedCards.resize(25, false);
         this->movieController = new MovieController(this);
         this->controller = new Controller(this);
